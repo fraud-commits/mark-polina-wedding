@@ -108,3 +108,5 @@ body.env-locked{overflow:hidden}
 
 /* Reduced motion: keep the opening, skip only the camera zoom. */
 @media (prefers-reduced-motion:reduce){.envelope:hover{transform:none}.envelope.open .env-card{animation-name:card-out-soft!important}}
+
+.envelope-screen.open .env-hint{opacity:0;transition:opacity .35s ease}
