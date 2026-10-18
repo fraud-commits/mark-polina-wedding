@@ -72,8 +72,49 @@ if (envelope) {
 const picker = document.querySelector('#demo');
 picker.addEventListener('change',()=>render(picker.value));
 document.querySelector('#response').addEventListener('change',sync);
-document.querySelector('#response').addEventListener('submit',event=>{
- event.preventDefault();
- document.querySelector('#status').textContent = 'Анкета заполнена корректно. Это макет: ответ не отправлен. После подключения хранилища здесь появится подтверждение сохранения.';
+// Paste the Google Apps Script web app URL here to start saving responses.
+const RSVP_ENDPOINT = '';
+function collect(form) {
+  const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
+  const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.parentElement.textContent.trim());
+  const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food') });
+  const guests = [];
+  document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
+    const data = guestData('g'+i);
+    const legend = fs.querySelector('legend').textContent;
+    data.name = val('guest-name') || (legend === 'Ваш ответ' ? '' : legend);
+    guests.push(data);
+  });
+  let companion = null;
+  const plus = document.querySelector('[data-plus]');
+  if (plus && !plus.hidden) {
+    const will = val('companion');
+    if (will === 'yes' || will === 'maybe') {
+      companion = { will, name: val('companion-name'), ...guestData('plus') };
+      delete companion.attending;
+    }
+  }
+  return { guests, companion, comment: val('comment') };
+}
+document.querySelector('#response').addEventListener('submit', async event => {
+  event.preventDefault();
+  const form = event.target;
+  const status = document.querySelector('#status');
+  if (!RSVP_ENDPOINT) {
+    status.textContent = 'Анкета заполнена корректно. Это макет: ответ не отправлен. После подключения хранилища здесь появится подтверждение сохранения.';
+    return;
+  }
+  const button = form.querySelector('button[type="submit"]');
+  button.disabled = true;
+  status.textContent = 'Отправляем...';
+  try {
+    await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(collect(form)) });
+    status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
+    form.reset();
+    render(picker.value);
+  } catch (e) {
+    status.textContent = 'Не получилось отправить. Попробуйте ещё раз или напишите нам.';
+  }
+  button.disabled = false;
 });
 render('general');
