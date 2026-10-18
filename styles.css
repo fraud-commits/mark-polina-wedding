@@ -115,3 +115,8 @@ body.env-locked{overflow:hidden}
 .hero .arch{display:block}
 .hero:before,.hero:after{top:auto;bottom:5px;margin-top:0}
 @media(max-width:700px){.hero:before{left:calc(50% - 550px);top:auto;bottom:5px}.hero:after{left:auto;right:calc(50% - 550px);top:auto;bottom:5px}}
+
+/* Card comes in front of the envelope during zoom; envelope leaves earlier. */
+@keyframes card-out{0%{transform:translateY(0) rotate(0) scale(1);opacity:1;z-index:2;box-shadow:0 2px 14px rgba(70,80,60,.16)}28%{transform:translateY(-97%) rotate(-2deg) scale(1);opacity:1;z-index:2;box-shadow:0 14px 34px rgba(70,80,60,.25)}42%{transform:translateY(-97%) rotate(0) scale(1.04);opacity:1;z-index:6;box-shadow:0 18px 44px rgba(70,80,60,.28)}78%{opacity:1;z-index:6}100%{transform:translateY(-20%) rotate(0) scale(3.4);opacity:0;z-index:6;box-shadow:0 18px 44px rgba(70,80,60,.28)}}
+@keyframes card-out-soft{0%{transform:translateY(0);opacity:1;z-index:2}40%{transform:translateY(-97%);opacity:1;z-index:2}55%{transform:translateY(-97%);opacity:1;z-index:6}100%{transform:translateY(-97%);opacity:0;z-index:6}}
+.envelope.open{animation:env-drop .7s cubic-bezier(.5,0,.8,.4) 1.7s forwards}
