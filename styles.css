@@ -65,3 +65,22 @@ body.env-locked{overflow:hidden}
 .envelope.open .env-seal{transform:translate(-50%,-50%)!important;transition:opacity .3s ease!important}
 .envelope-screen.open{transition-delay:.15s!important}
 }
+
+/* Big hero photo with names on the sky. */
+.hero .arch{display:none}
+.hero-photo{position:relative;width:min(560px,88vw);margin:18px 0 36px;padding:10px;border:1px solid #c8cbb8a0;border-radius:290px 290px 16px 16px}
+.hero-photo img{width:100%;aspect-ratio:3/4;border-radius:280px 280px 10px 10px}
+.hero-photo figcaption{position:absolute;top:0;left:0;right:0;padding-top:9%;text-align:center;pointer-events:none}
+.hero-photo h1{margin:0;color:#f7f4ea;font-size:clamp(52px,7vw,88px);text-shadow:0 2px 24px rgba(46,42,66,.5)}
+.hero-photo h1 em{color:#eae6d5}
+.hero-photo .date{margin-top:6px;color:#f2efe3;font-size:13px;text-shadow:0 1px 14px rgba(46,42,66,.45)}
+.hero-photo.broken{padding:0;border:0}
+.hero-photo.broken img{display:none}
+.hero-photo.broken figcaption{position:static;padding-top:0}
+.hero-photo.broken h1{color:var(--olive);text-shadow:none;font-size:clamp(70px,8.5vw,118px)}
+.hero-photo.broken .date{color:var(--olive);text-shadow:none}
+
+/* Hero photo fine-tuning: keep names and date on the sky. */
+.hero-photo figcaption{padding-top:6%}
+.hero-photo h1{font-size:clamp(48px,6.4vw,78px)}
+.hero-photo .date{font-size:14px;letter-spacing:.32em;text-shadow:0 1px 6px rgba(30,26,50,.75),0 0 18px rgba(30,26,50,.5)}
