@@ -43,3 +43,16 @@ body.env-locked{overflow:hidden}
 .wishes{text-align:center}
 .wishes p:not(.eyebrow):not(.small){font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;font-weight:300;line-height:1.65}
 .wishes .small{color:#81876f}
+
+/* Couple photo in arch frame. */
+.hero-photo{margin:6px 0 34px;padding:9px;border:1px solid #c8cbb8a0;border-radius:190px 190px 12px 12px}
+.hero-photo img{display:block;width:min(300px,70vw);aspect-ratio:3/4;object-fit:cover;border-radius:180px 180px 6px 6px}
+@media(max-width:700px){.hero-photo img{width:min(240px,72vw)}}
+
+/* Envelope opening: card zooms out to reveal the invitation. */
+.envelope.open{animation:env-drop .8s ease 1.35s forwards}
+.envelope.open .env-flap{filter:brightness(.96)}
+.envelope.open .env-card{transition:none;animation:card-out 1.9s cubic-bezier(.3,.7,.35,1) .55s forwards}
+.envelope-screen.open{transition-delay:2.05s}
+@keyframes card-out{0%{transform:translateY(0) scale(1)}32%{transform:translateY(-92%) scale(1)}52%{transform:translateY(-92%) scale(1.05);opacity:1}100%{transform:translateY(-24%) scale(3.4);opacity:0}}
+@keyframes env-drop{to{transform:translateY(36px);opacity:0}}

@@ -60,8 +60,8 @@ if (envelope) {
       if (envelope.classList.contains('open')) return;
       envelope.classList.add('open');
       try { sessionStorage.setItem('invitation-opened', '1'); } catch (e) {}
-      setTimeout(() => document.body.classList.remove('env-locked'), reduced ? 0 : 1450);
-      setTimeout(() => envelope.remove(), reduced ? 60 : 2400);
+      setTimeout(() => document.body.classList.remove('env-locked'), reduced ? 0 : 2050);
+      setTimeout(() => envelope.remove(), reduced ? 60 : 3100);
     };
     envelope.addEventListener('click', open);
     envelope.addEventListener('keydown', event => {
