@@ -49,7 +49,7 @@ function render(mode) {
 // Envelope opening screen. Shown once per browser session.
 const envelope = document.querySelector('#envelope');
 if (envelope) {
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = false; // opening animation is gentle; reduced mode only skips the camera zoom (CSS)
   let seen = false;
   try { seen = sessionStorage.getItem('invitation-opened') === '1'; } catch (e) {}
   if (seen) {
@@ -60,8 +60,8 @@ if (envelope) {
       if (envelope.classList.contains('open')) return;
       envelope.classList.add('open');
       try { sessionStorage.setItem('invitation-opened', '1'); } catch (e) {}
-      setTimeout(() => document.body.classList.remove('env-locked'), reduced ? 0 : 2450);
-      setTimeout(() => envelope.remove(), reduced ? 900 : 3600);
+      setTimeout(() => document.body.classList.remove('env-locked'), 2400);
+      setTimeout(() => envelope.remove(), 3500);
     };
     envelope.addEventListener('click', open);
     envelope.addEventListener('keydown', event => {

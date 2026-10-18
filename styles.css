@@ -58,13 +58,7 @@ body.env-locked{overflow:hidden}
 @keyframes env-drop{to{transform:translateY(36px);opacity:0}}
 
 /* Reduced motion: gentle fade instead of the opening animation. */
-@media (prefers-reduced-motion:reduce){
-.envelope.open{animation:none!important}
-.envelope.open .env-card{animation:none!important;transform:none!important;opacity:0;transition:opacity .3s ease!important}
-.envelope.open .env-flap{transition:none!important;transform:none!important;filter:none}
-.envelope.open .env-seal{transform:translate(-50%,-50%)!important;transition:opacity .3s ease!important}
-.envelope-screen.open{transition-delay:.15s!important}
-}
+@keyframes card-out-soft{0%{transform:translateY(0);opacity:1}45%{transform:translateY(-97%);opacity:1}100%{transform:translateY(-97%);opacity:0}}
 
 /* Big hero photo with names on the sky. */
 .hero .arch{display:none}
@@ -99,7 +93,7 @@ body.env-locked{overflow:hidden}
 @keyframes flap-open{0%{transform:rotateX(0)}55%{transform:rotateX(-150deg)}100%{transform:rotateX(-178deg)}}
 @keyframes card-out{0%{transform:translateY(0) rotate(0) scale(1);opacity:1;box-shadow:0 2px 14px rgba(70,80,60,.16)}28%{transform:translateY(-97%) rotate(-2deg) scale(1);opacity:1;box-shadow:0 14px 34px rgba(70,80,60,.25)}42%{transform:translateY(-97%) rotate(0) scale(1.04);opacity:1;box-shadow:0 18px 44px rgba(70,80,60,.28)}78%{opacity:1}100%{transform:translateY(-20%) rotate(0) scale(3.6);opacity:0;box-shadow:0 18px 44px rgba(70,80,60,.28)}}
 @keyframes env-drop{to{transform:translateY(60px) scale(.96);opacity:0}}
-@media (prefers-reduced-motion:reduce){.envelope.open .env-flap,.envelope.open .env-seal{animation:none!important}.envelope.open .env-seal{opacity:0}}
+
 
 /* Raise botanicals to flank the hero photo. */
 .hero:before,.hero:after{bottom:auto;top:50%;margin-top:-240px}
@@ -111,3 +105,6 @@ body.env-locked{overflow:hidden}
 .hero:before{left:calc(50% - 58vw);top:100px;margin-top:0;opacity:.5}
 .hero:after{left:auto;right:calc(50% - 58vw);top:100px;margin-top:0;opacity:.5}
 }
+
+/* Reduced motion: keep the opening, skip only the camera zoom. */
+@media (prefers-reduced-motion:reduce){.envelope:hover{transform:none}.envelope.open .env-card{animation-name:card-out-soft!important}}
