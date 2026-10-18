@@ -100,3 +100,6 @@ body.env-locked{overflow:hidden}
 @keyframes card-out{0%{transform:translateY(0) rotate(0) scale(1);opacity:1;box-shadow:0 2px 14px rgba(70,80,60,.16)}28%{transform:translateY(-97%) rotate(-2deg) scale(1);opacity:1;box-shadow:0 14px 34px rgba(70,80,60,.25)}42%{transform:translateY(-97%) rotate(0) scale(1.04);opacity:1;box-shadow:0 18px 44px rgba(70,80,60,.28)}78%{opacity:1}100%{transform:translateY(-20%) rotate(0) scale(3.6);opacity:0;box-shadow:0 18px 44px rgba(70,80,60,.28)}}
 @keyframes env-drop{to{transform:translateY(60px) scale(.96);opacity:0}}
 @media (prefers-reduced-motion:reduce){.envelope.open .env-flap,.envelope.open .env-seal{animation:none!important}.envelope.open .env-seal{opacity:0}}
+
+/* Raise botanicals to flank the hero photo. */
+.hero:before,.hero:after{bottom:auto;top:50%;margin-top:-240px}
