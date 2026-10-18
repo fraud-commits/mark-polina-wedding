@@ -134,3 +134,8 @@ body.env-locked{overflow:hidden}
 .sprig{position:absolute;z-index:-1;width:150px;opacity:.6;pointer-events:none;top:70px;left:calc(50% - 335px);transform:rotate(24deg)}
 .sprig.right{left:auto;right:calc(50% - 335px);transform:scaleX(-1) rotate(24deg)}
 @media(max-width:700px){.sprig{width:105px;top:110px;left:calc(50% - 47vw)}.sprig.right{left:auto;right:calc(50% - 47vw)}}
+
+/* Sprigs join the calla bouquets at the base instead. */
+.sprig{top:auto;bottom:25px;left:calc(50% - 515px);width:130px;transform:rotate(-16deg);opacity:.55}
+.sprig.right{left:auto;right:calc(50% - 515px);transform:scaleX(-1) rotate(-16deg)}
+@media(max-width:700px){.sprig{display:none}}
