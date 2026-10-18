@@ -30,3 +30,16 @@ body.env-locked{overflow:hidden}
 .env-hint{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a8f79;animation:hint-pulse 2.4s ease-in-out infinite}
 @keyframes hint-pulse{0%,100%{opacity:.55}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.envelope-screen,.envelope-screen *,.env-hint{transition:none!important;animation:none!important}}
+
+/* Calendar, dress code, wishes. */
+.calendar{text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 8px;max-width:400px;margin:45px auto 0;font-size:13px;color:var(--olive)}
+.cal-grid span{font-size:9px;letter-spacing:.15em;color:#a0a58f;padding:4px 0}
+.cal-grid b{font-weight:400;padding:7px 0;font-family:'Cormorant Garamond',Georgia,serif;font-size:17px}
+.cal-grid i{padding:7px 0}
+.cal-grid .today{position:relative;color:#f8f6ec;background:#46503c;border-radius:50%;box-shadow:0 0 0 5px var(--paper),0 0 0 6px #c6cab3}
+.cal-note{margin-top:34px;font-size:10px;letter-spacing:.28em;color:#81876f}
+.details .swatches span{border-radius:50%;height:52px;width:52px}
+.wishes{text-align:center}
+.wishes p:not(.eyebrow):not(.small){font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;font-weight:300;line-height:1.65}
+.wishes .small{color:#81876f}
