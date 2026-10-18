@@ -124,3 +124,8 @@ body.env-locked{overflow:hidden}
 /* Stacked names on the envelope card, matching the hero. */
 .env-card strong{font-size:clamp(26px,8vw,36px);line-height:1.02;font-weight:300}
 .env-card strong em{display:block;font-size:.5em;margin:6px 0;font-style:italic;font-weight:300}
+
+/* One continuous reveal: card stays visible and the overlay fade carries it into the page. */
+@keyframes card-out{0%{transform:translateY(0) rotate(0) scale(1);opacity:1;z-index:2;box-shadow:0 2px 14px rgba(70,80,60,.16)}28%{transform:translateY(-97%) rotate(-2deg) scale(1);opacity:1;z-index:2;box-shadow:0 14px 34px rgba(70,80,60,.25)}42%{transform:translateY(-97%) rotate(0) scale(1.04);opacity:1;z-index:6;box-shadow:0 18px 44px rgba(70,80,60,.28)}100%{transform:translateY(-20%) rotate(0) scale(3.4);opacity:1;z-index:6;box-shadow:0 18px 44px rgba(70,80,60,.28)}}
+@keyframes card-out-soft{0%{transform:translateY(0);opacity:1;z-index:2}40%{transform:translateY(-97%);opacity:1;z-index:2}55%{transform:translateY(-97%);opacity:1;z-index:6}100%{transform:translateY(-97%);opacity:1;z-index:6}}
+.envelope-screen.open{transition-delay:2.3s;transition-duration:.9s}
