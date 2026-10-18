@@ -17,11 +17,11 @@ body.env-locked{overflow:hidden}
 .envelope{position:relative;width:min(340px,86vw);aspect-ratio:34/23;cursor:pointer;perspective:1000px;outline-offset:10px}
 .env-back{position:absolute;inset:0;border-radius:10px;background:#c4c9b0;box-shadow:0 26px 60px -18px rgba(70,80,60,.38)}
 .env-card{position:absolute;left:5%;right:5%;top:6%;bottom:6%;z-index:2;background:#fcfbf5;border-radius:6px;box-shadow:0 2px 14px rgba(70,80,60,.16);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:14px;transition:transform .75s cubic-bezier(.25,.8,.3,1) .55s}
-.env-card strong{font-family:'"'"'Cormorant Garamond'"'"',Georgia,serif;font-weight:400;font-size:clamp(22px,7vw,28px);letter-spacing:-.01em;color:#46503c}
+.env-card strong{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:clamp(22px,7vw,28px);letter-spacing:-.01em;color:#46503c}
 .env-card em{font-style:italic;color:#8b9278}
 .env-card span{font-size:9px;letter-spacing:.3em;color:#81876f}
 .env-front{position:absolute;inset:0;z-index:3;border-radius:10px;background:#dde0cb;clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%)}
-.env-flap{position:absolute;left:0;right:0;top:0;height:56%;z-index:4;background:#ccd1b9;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:10px 10px 0 0;transform-origin:top center;transition:transform .6s ease,z-index 0s .3s}
+.env-flap{position:absolute;left:0;right:0;top:0;height:56%;z-index:4;background:#c6cbb2;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:10px 10px 0 0;transform-origin:top center;transition:transform .6s ease,z-index 0s .3s}
 .env-seal{position:absolute;left:50%;top:54%;z-index:5;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:#46503c;color:#f4f2e8;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:15px;font-style:italic;box-shadow:0 4px 14px rgba(70,80,60,.4),inset 0 0 0 3px rgba(244,242,232,.25);transition:transform .35s ease,opacity .35s ease}
 .envelope.open{cursor:default}
 .envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
@@ -29,7 +29,7 @@ body.env-locked{overflow:hidden}
 .envelope.open .env-card{transform:translateY(-92%)}
 .env-hint{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8a8f79;animation:hint-pulse 2.4s ease-in-out infinite}
 @keyframes hint-pulse{0%,100%{opacity:.55}50%{opacity:1}}
-@media (prefers-reduced-motion:reduce){.envelope-screen,.envelope-screen *,.env-hint{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){.env-hint{animation:none!important}}
 
 /* Calendar, dress code, wishes. */
 .calendar{text-align:center}
@@ -52,7 +52,16 @@ body.env-locked{overflow:hidden}
 /* Envelope opening: card zooms out to reveal the invitation. */
 .envelope.open{animation:env-drop .8s ease 1.35s forwards}
 .envelope.open .env-flap{filter:brightness(.96)}
-.envelope.open .env-card{transition:none;animation:card-out 1.9s cubic-bezier(.3,.7,.35,1) .55s forwards}
+.envelope.open .env-card{transform:none;transition:none;animation:card-out 1.9s cubic-bezier(.3,.7,.35,1) .55s backwards}
 .envelope-screen.open{transition-delay:2.05s}
 @keyframes card-out{0%{transform:translateY(0) scale(1)}32%{transform:translateY(-92%) scale(1)}52%{transform:translateY(-92%) scale(1.05);opacity:1}100%{transform:translateY(-24%) scale(3.4);opacity:0}}
 @keyframes env-drop{to{transform:translateY(36px);opacity:0}}
+
+/* Reduced motion: gentle fade instead of the opening animation. */
+@media (prefers-reduced-motion:reduce){
+.envelope.open{animation:none!important}
+.envelope.open .env-card{animation:none!important;transform:none!important;opacity:0;transition:opacity .3s ease!important}
+.envelope.open .env-flap{transition:none!important;transform:none!important;filter:none}
+.envelope.open .env-seal{transform:translate(-50%,-50%)!important;transition:opacity .3s ease!important}
+.envelope-screen.open{transition-delay:.15s!important}
+}
