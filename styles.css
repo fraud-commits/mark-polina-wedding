@@ -139,3 +139,6 @@ body.env-locked{overflow:hidden}
 .sprig{top:auto;bottom:25px;left:calc(50% - 515px);width:130px;transform:rotate(-16deg);opacity:.55}
 .sprig.right{left:auto;right:calc(50% - 515px);transform:scaleX(-1) rotate(-16deg)}
 @media(max-width:700px){.sprig{display:none}}
+
+/* Tighter hero on phones: less empty space on top. */
+@media(max-width:700px){.hero{min-height:0;justify-content:flex-start;padding:56px 20px 70px}.hero .eyebrow{margin-bottom:18px}}
