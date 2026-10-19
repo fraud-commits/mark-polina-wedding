@@ -132,26 +132,25 @@ if (countdown) {
 }
 render('general');
 
-// Timeline heart is driven by page scroll (like the reference invite), not by a timer.
+// Timeline heart rides the winding path with the page scroll (like the reference invite).
 (function () {
   const tl = document.querySelector('.timeline');
   const heart = tl && tl.querySelector('.tl-heart');
-  if (!tl || !heart) return;
+  const svg = tl && tl.querySelector('.tl-path');
+  const path = svg && svg.querySelector('path');
+  if (!tl || !heart || !path) return;
+  const len = path.getTotalLength();
+  const vb = svg.viewBox.baseVal;
   const move = () => {
     const r = tl.getBoundingClientRect();
     const vh = window.innerHeight;
-    let p = (vh - r.top) / (vh + r.height);
+    let p = (vh * 0.9 - r.top) / (r.height + vh * 0.75);
     p = Math.max(0, Math.min(1, p));
-    if (window.matchMedia('(max-width:700px)').matches) {
-      heart.style.left = '';
-      heart.style.top = (p * Math.max(0, r.height - 27)) + 'px';
-    } else {
-      heart.style.top = '';
-      heart.style.left = (p * Math.max(0, r.width - 27)) + 'px';
-    }
+    const pt = path.getPointAtLength(p * len);
+    heart.style.left = (pt.x * (r.width / vb.width)) + 'px';
+    heart.style.top = (pt.y * (r.height / vb.height)) + 'px';
   };
-  const onScroll = () => move();
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
+  addEventListener('scroll', move, { passive: true });
+  addEventListener('resize', move);
   move();
 })();

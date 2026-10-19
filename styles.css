@@ -255,3 +255,36 @@ body.env-locked{overflow:hidden}
 /* Heart follows the scroll: no autonomous run or pulse. */
 .timeline .tl-heart{animation:none}
 .tl-heart svg{animation:none}
+
+/* Vertical timeline: the track runs downward, the heart rides it with the scroll. */
+.timeline{grid-template-columns:1fr;max-width:560px;margin:65px auto 0;gap:0}
+.timeline:before{display:none}
+.timeline article.tl-item{display:grid;grid-template-columns:64px 1fr;grid-template-rows:none;justify-items:start;align-items:start;text-align:left;padding:0 0 50px;min-height:0;border:0}
+.tl-item:before{display:none}
+.tl-item:after{content:'';position:absolute;left:31px;top:23px;height:100%;border-left:2px dashed #cdd2c0}
+.tl-item:last-of-type:after{display:none}
+.timeline .tl-node{grid-row:1;grid-column:1}
+.tl-card{max-width:340px;padding-top:7px}
+.tl-card h3{font-size:27px}
+.tl-card p{font-size:13px}
+.timeline .tl-heart{left:18.5px;top:9.5px}
+
+/* Winding timeline path (reference-style): heart rides the curve with the scroll. */
+.timeline{display:block;position:relative;height:1500px;max-width:640px;margin:60px auto 0}
+.timeline .tl-path{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible}
+.tl-path path{fill:none;stroke:#a97947;stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.timeline article.tl-item{position:absolute;display:block;padding:0;border:0;margin:0;z-index:2;text-align:left}
+.tl-item:before,.tl-item:after{display:none}
+.timeline article.tl-item:nth-of-type(1){left:0;top:11%;width:75%;text-align:right}
+.timeline article.tl-item:nth-of-type(2){left:30%;top:34%;width:70%;text-align:left}
+.timeline article.tl-item:nth-of-type(3){left:0;top:55%;width:66%;text-align:right}
+.timeline article.tl-item:nth-of-type(4){left:35%;top:78%;width:65%;text-align:left}
+.tl-card{max-width:none;padding:0}
+.tl-card h3{font-size:31px;font-style:italic;margin:0 0 4px}
+.tl-card p{font-size:12.5px}
+.timeline .tl-heart{left:50%;top:0;transform:translate(-50%,-50%);animation:none}
+.tl-heart svg{width:30px;height:30px;animation:none}
+@media(max-width:700px){
+  .timeline{height:1250px;max-width:none;margin:55px 3% 0}
+  .tl-card h3{font-size:27px}
+}
