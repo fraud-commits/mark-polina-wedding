@@ -347,7 +347,7 @@ body.env-locked{overflow:hidden}
 .swatches span:nth-child(6){background:#9aa87e}
 .swatches span:nth-child(7){background:#6d7f5d}
 
-.swatches span:nth-child(5){background:#b58a4b}
+.swatches span:nth-child(5){background:#a17c5e}
 
 /* Phone: hero hugs its content — no empty field before the letter. */
 @media(max-width:600px){
