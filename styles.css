@@ -334,3 +334,10 @@ body.env-locked{overflow:hidden}
 /* Draft schedule times above each timeline title. */
 .timeline .tl-time{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;letter-spacing:.16em;color:#8b9278;margin-bottom:2px}
 .tl-time + h3{margin-top:4px}
+
+/* Dress-code palette beyond greens: cream, sand, dusty rose, terracotta, sage. */
+.swatches span:nth-child(1){background:#f4eee1}
+.swatches span:nth-child(2){background:#e3d0ae}
+.swatches span:nth-child(3){background:#d9b7ac}
+.swatches span:nth-child(4){background:#bd7a5e}
+.swatches span:nth-child(5){background:#a6b394}
