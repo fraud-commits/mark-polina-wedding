@@ -376,3 +376,9 @@ body.env-locked{overflow:hidden}
 .cal-heart path{fill:#bd7a5e}
 @keyframes heart-beat{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.18);opacity:1}}
 @media (prefers-reduced-motion:reduce){.cal-heart{animation:heart-beat-soft 2.6s ease-in-out infinite}@keyframes heart-beat-soft{0%,100%{opacity:.6}50%{opacity:1}}}
+
+/* The date is circled by a beating hand-drawn heart (no badge). */
+.cal-grid .today{background:none;box-shadow:none;color:#46503c;width:42px;height:42px;line-height:42px}
+.cal-heart{left:50%;top:50%;right:auto;width:52px;height:47px;transform:translate(-50%,-52%) rotate(-4deg);animation:heart-enclose 1.3s ease-in-out infinite;filter:none}
+.cal-heart path{fill:none;stroke:#bd7a5e;stroke-width:2.4;stroke-linecap:round}
+@keyframes heart-enclose{0%,100%{transform:translate(-50%,-52%) rotate(-4deg) scale(1);opacity:.92}50%{transform:translate(-50%,-52%) rotate(-4deg) scale(1.07);opacity:1}}
