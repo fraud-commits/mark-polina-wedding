@@ -317,3 +317,5 @@ body.env-locked{overflow:hidden}
  .editorial-hero .intro{max-width:100%;font-size:21px;margin-bottom:28px}
 }
 @media(max-width:360px){.hero-calla{width:145px;height:330px;right:-25px;top:100px}.editorial-hero h1{font-size:67px}.hero-meta{font-size:8px;gap:9px}}
+@media(max-width:600px){.hero-calla{height:280px;width:155px;top:92px;right:-25px}}
+@media(max-width:360px){.hero-calla{height:270px;width:140px;top:92px;right:-24px}}
