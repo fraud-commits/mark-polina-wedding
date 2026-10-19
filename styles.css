@@ -367,20 +367,13 @@ body.env-locked{overflow:hidden}
 .faq details[open] summary::after{content:'\2013'}
 .faq details p{margin:0 4px 20px;font-size:15px;line-height:1.65;color:var(--muted)}
 
-/* Calendar card rises out of the envelope after the seal is clicked. */
-.env-card{position:absolute;left:50%;top:50%;z-index:1;width:min(300px,78vw);transform:translate(-50%,calc(-50% + 70px)) scale(.96);opacity:0;background:#fcfbf6;border-radius:8px;padding:22px 18px 14px;text-align:center;box-shadow:0 30px 60px -15px rgba(20,26,14,.5);transition:transform .95s cubic-bezier(.2,.75,.3,1) .85s,opacity .5s ease .85s}
-.envelope-screen.open .env-card{z-index:7;opacity:1;transform:translate(-50%,calc(-50% - 28px)) scale(1)}
-.ec-title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:400;font-size:30px;color:#46503c;margin:0 0 14px}
-.ec-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:12px;color:#46503c}
-.ec-grid span{font-size:8px;letter-spacing:.08em;color:#a0a58f;text-transform:uppercase}
-.ec-grid i{font-style:normal;padding:4px 0}
-.ec-grid .ec-gray{color:#c3c7b4}
-.ec-grid b{position:relative;font-weight:400;padding:4px 0}
-.ec-heart{position:absolute;left:50%;top:50%;width:34px;height:31px;transform:translate(-50%,-52%) rotate(-6deg);pointer-events:none}
-.ec-heart path{fill:none;stroke:#bd7a5e;stroke-width:2.6;stroke-linecap:round}
-.ec-names{margin:12px 0 0;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:#81876f}
-@media (prefers-reduced-motion:reduce){.envelope-screen.open .env-card{transition:opacity .6s ease .3s;transform:translate(-50%,-50%)}}
 
-/* Gentle fade of the envelope screen after the card settles. */
-@keyframes env-fade{to{opacity:0}}
-.envelope-screen.open{animation:env-fade .5s ease 2.1s forwards}
+/* Save-the-date calendar in the airy editorial style. */
+.calendar h2{font-size:clamp(46px,8vw,64px);line-height:1.05;margin:14px 0 0}
+.cal-grid{max-width:480px;gap:12px 8px;font-size:14px;margin-top:52px}
+.cal-grid span{font-size:9px;letter-spacing:.2em;padding:4px 0}
+.cal-grid b{font-size:21px;padding:6px 0;color:#5f674f;font-variant-numeric:oldstyle-nums}
+.cal-grid .today{width:42px;height:42px;line-height:42px;text-align:center;margin:-4px auto;border-radius:50%;color:#f8f6ec;background:#46503c;box-shadow:0 0 0 5px var(--paper),0 0 0 6px #c9cdb6}
+.cal-note{margin-top:40px;font-size:10px;letter-spacing:.3em;color:#8d9179}
+.countdown{margin-top:64px}
+.cd-grid b{font-size:clamp(40px,7vw,56px)}

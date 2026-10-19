@@ -93,7 +93,7 @@ if (envelope) {
     if (envelope.classList.contains('open')) return;
     envelope.classList.add('open');
     setTimeout(() => document.body.classList.remove('env-locked'), 1100);
-    setTimeout(() => envelope.remove(), 2700);
+    setTimeout(() => envelope.remove(), 1700);
   };
   envelope.addEventListener('click', open);
   envelope.addEventListener('keydown', event => {
