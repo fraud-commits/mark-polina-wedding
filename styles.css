@@ -348,3 +348,11 @@ body.env-locked{overflow:hidden}
 .swatches span:nth-child(7){background:#6d7f5d}
 
 .swatches span:nth-child(5){background:#b58a4b}
+
+/* Phone: hero hugs its content — no empty field before the letter. */
+@media(max-width:600px){
+  .hero.editorial-hero{min-height:0;padding:46px 22px 34px}
+  .editorial-hero .eyebrow{margin-bottom:30px}
+  .editorial-hero h1{margin-bottom:36px}
+  section.letter{padding-top:60px}
+}
