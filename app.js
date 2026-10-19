@@ -46,27 +46,20 @@ function render(mode) {
  document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>Ваш +1</legend>${select('companion','Будете со спутником или спутницей?', [['no','Приду одна'],['yes','Буду с +1'],['maybe','Пока не знаю']])}<div data-companion hidden><label>Имя спутника или спутницы — если уже известно<input name="companion-name" maxlength="120" placeholder="Можно указать позже"></label><p class="small">Имя необязательно. Ниже — пожелания вашего +1.</p>${details('plus')}</div></fieldset>` : '');
  sync();
 }
-// Envelope opening screen. Shown once per browser session.
+// Envelope opening screen. Shown on every visit — it's part of the ritual.
 const envelope = document.querySelector('#envelope');
 if (envelope) {
-  let seen = false;
-  try { seen = sessionStorage.getItem('invitation-opened') === '1'; } catch (e) {}
-  if (seen) {
-    envelope.remove();
-  } else {
-    document.body.classList.add('env-locked');
-    const open = () => {
-      if (envelope.classList.contains('open')) return;
-      envelope.classList.add('open');
-      try { sessionStorage.setItem('invitation-opened', '1'); } catch (e) {}
-      setTimeout(() => document.body.classList.remove('env-locked'), 1100);
-      setTimeout(() => envelope.remove(), 1700);
-    };
-    envelope.addEventListener('click', open);
-    envelope.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
-    });
-  }
+  document.body.classList.add('env-locked');
+  const open = () => {
+    if (envelope.classList.contains('open')) return;
+    envelope.classList.add('open');
+    setTimeout(() => document.body.classList.remove('env-locked'), 1100);
+    setTimeout(() => envelope.remove(), 1700);
+  };
+  envelope.addEventListener('click', open);
+  envelope.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+  });
 }
 const picker = document.querySelector('#demo');
 picker.addEventListener('change',()=>render(picker.value));
