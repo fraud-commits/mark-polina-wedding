@@ -193,3 +193,11 @@ body.env-locked{overflow:hidden}
 .flap-title{font-family:'Marck Script',Georgia,serif;font-size:clamp(38px,5.6vw,64px);line-height:1.15}
 .wax{width:210px;height:210px}
 @media(max-width:700px){.wax{width:150px;height:150px}.flap-title{font-size:clamp(34px,9vw,48px)}}
+
+/* Paper-like envelope: dark seam grooves, grain texture, deeper shadows. */
+.envelope-screen{background:#262d1b}
+.flap{inset:-12px;background-blend-mode:overlay}
+.flap-left{transform:translateX(-10px);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E"),linear-gradient(150deg,#5f6749,#4a5339)}
+.flap-right{transform:translateX(10px);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E"),linear-gradient(210deg,#5f6749,#4a5339)}
+.flap-bottom{transform:translateY(10px);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E"),linear-gradient(200deg,#5a6247,#454e37)}
+.flap-top{transform:translateY(-10px);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E"),linear-gradient(180deg,#697150,#545c41);filter:drop-shadow(0 20px 30px rgba(12,16,9,.6))}
