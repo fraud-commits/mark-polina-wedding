@@ -142,3 +142,10 @@ body.env-locked{overflow:hidden}
 
 /* Tighter hero on phones: less empty space on top. */
 @media(max-width:700px){.hero{min-height:0;justify-content:flex-start;padding:56px 20px 70px}.hero .eyebrow{margin-bottom:18px}}
+
+/* Countdown and closing line. */
+.countdown{margin-top:55px}
+.cd-grid{display:flex;gap:clamp(24px,6vw,48px);justify-content:center;margin-top:22px}
+.cd-grid b{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(34px,6vw,46px);line-height:1;font-variant-numeric:tabular-nums}
+.cd-grid span{display:block;margin-top:8px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#a0a58f}
+.see-you{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:19px;color:#80886c;margin-top:18px}
