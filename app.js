@@ -65,7 +65,7 @@ const picker = document.querySelector('#demo');
 picker.addEventListener('change',()=>render(picker.value));
 document.querySelector('#response').addEventListener('change',sync);
 // Paste the Google Apps Script web app URL here to start saving responses.
-const RSVP_ENDPOINT = '';
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJxggv3SwYO9BNySjITeN1jpRghemR-Nsg4r2yFIR1emaxTdOcH_IvkpqwgipiEIfckg/exec';
 function collect(form) {
   const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
   const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.parentElement.textContent.trim());
@@ -101,9 +101,9 @@ document.querySelector('#response').addEventListener('submit', async event => {
   status.textContent = 'Отправляем...';
   try {
     await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(collect(form)) });
-    status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
     form.reset();
     render(picker.value);
+    status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
   } catch (e) {
     status.textContent = 'Не получилось отправить. Попробуйте ещё раз или напишите нам.';
   }
