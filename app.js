@@ -1,7 +1,8 @@
 // Only fictional examples belong in client code. Real invitations require a server.
 const examples = {
   general: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
-  plusone: { greeting: 'Дорогая Анна!', note: 'Будем рады видеть тебя вместе со спутником или спутницей.', guests: ['Анна'], plusOne: true },
+  plusone: { greeting: 'Дорогая Анна!', note: 'Будем рады видеть тебя вместе со спутником.', guests: ['Анна'], plusOne: true,
+    partner: { legend: 'Ваш спутник', q: 'Придёте одна или со спутником?', alone: 'Приду одна', with: 'Буду со спутником', nameLabel: 'Имя спутника — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего спутника.' } },
   couple: { greeting: 'Дорогие Анна и Максим!', note: 'Приглашаем вас разделить с нами этот день.', guests: ['Анна', 'Максим'], plusOne: false }
 };
 const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">Выберите ответ</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
@@ -43,7 +44,8 @@ function render(mode) {
  const invitation = examples[mode] || examples.general;
  document.querySelector('#greeting').textContent = invitation.greeting;
  document.querySelector('#invitation-note').textContent = invitation.note;
- document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>Ваш +1</legend>${select('companion','Будете со спутником или спутницей?', [['no','Приду одна'],['yes','Буду с +1'],['maybe','Пока не знаю']])}<div data-companion hidden><label>Имя спутника или спутницы — если уже известно<input name="companion-name" maxlength="120" placeholder="Можно указать позже"></label><p class="small">Имя необязательно. Ниже — пожелания вашего +1.</p>${details('plus')}</div></fieldset>` : '');
+ const p = invitation.partner || { legend: 'Ваш +1', q: 'Придёте один/одна или с парой?', alone: 'Приду один/одна', with: 'Буду с парой', nameLabel: 'Имя вашего +1 — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
+ document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>${p.legend}</legend>${select('companion', p.q, [['no',p.alone],['yes',p.with],['maybe','Пока не знаю']])}<div data-companion hidden><label>${p.nameLabel}<input name="companion-name" maxlength="120" placeholder="Можно указать позже"></label><p class="small">${p.note}</p>${details('plus')}</div></fieldset>` : '');
  sync();
 }
 // Envelope opening screen. Shown on every visit — it's part of the ritual.
