@@ -5,38 +5,44 @@ const noteTwo = 'Приглашаем вас разделить с нами эт
 const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей', nameLabel: 'Имя спутницы — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
 const invitations = {
   default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
-  // Гости Полины
-  polina: { greeting: 'Дорогая Полина!', note: noteOne, guests: ['Полина'], plusOne: false },
-  elena: { greeting: 'Дорогие Елена и Юрий!', note: noteTwo, guests: ['Елена', 'Юрий'], plusOne: false },
+  // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
+  'elena-yuriy': { greeting: 'Дорогие Елена и Юрий!', note: noteTwo, guests: ['Елена', 'Юрий'], plusOne: false },
   maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
-  yuliya: { greeting: 'Дорогие Юлия, Андрей и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Юлия', 'Андрей', 'Даня'], plusOne: false },
+  'yuliya-andrey': { greeting: 'Дорогие Юлия, Андрей и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Юлия', 'Андрей', 'Даня'], plusOne: false },
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
   valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
-  natasha: { greeting: 'Дорогие Наташа и Томс!', note: noteTwo, guests: ['Наташа', 'Томс'], plusOne: false },
-  dasha: { greeting: 'Дорогие Даша и Князь Милош!', note: noteTwo, guests: ['Даша', 'Князь Милош'], plusOne: false },
-  yakov: { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
-  ernest: { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
+  'natasha-toms': { greeting: 'Дорогие Наташа и Томс!', note: noteTwo, guests: ['Наташа', 'Томс'], plusOne: false },
+  'dasha-milos': { greeting: 'Дорогие Даша и Князь Милош!', note: noteTwo, guests: ['Даша', 'Князь Милош'], plusOne: false },
+  'yakov-elvira': { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
+  'ernest-kseniya': { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
   kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe },
-  rey: { greeting: 'Дорогие Рей и Анастасия!', note: noteTwo, guests: ['Рей', 'Анастасия'], plusOne: false },
+  'rey-anastasiya': { greeting: 'Дорогие Рей и Анастасия!', note: noteTwo, guests: ['Рей', 'Анастасия'], plusOne: false },
   cheslav: { greeting: 'Дорогой Чеслав!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Чеслав'], plusOne: true, partner: plusHe },
   // Гости Марика
-  marik: { greeting: 'Дорогой Марик!', note: noteOne, guests: ['Марик'], plusOne: false },
-  roy: { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
-  alina: { greeting: 'Дорогие Алина и Кирилл!', note: noteTwo, guests: ['Алина', 'Кирилл'], plusOne: false },
+  'roy-kseniya': { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
+  'alina-kirill': { greeting: 'Дорогие Алина и Кирилл!', note: noteTwo, guests: ['Алина', 'Кирилл'], plusOne: false },
   svetlana: { greeting: 'Дорогая Светлана!', note: noteOne, guests: ['Светлана'], plusOne: false },
-  victoria: { greeting: 'Дорогие Виктория, Николай, Аким и Алиса!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', 'Аким', 'Алиса'], plusOne: false },
+  'victoria-nikolay': { greeting: 'Дорогие Виктория, Николай, Аким и Алиса!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', 'Аким', 'Алиса'], plusOne: false },
   'vitaliy-santa': { greeting: 'Дорогие Виталий и Санта!', note: noteTwo, guests: ['Виталий', 'Санта'], plusOne: false },
-  denis: { greeting: 'Дорогие Денис и Марина!', note: noteTwo, guests: ['Денис', 'Марина'], plusOne: false },
+  'denis-marina': { greeting: 'Дорогие Денис и Марина!', note: noteTwo, guests: ['Денис', 'Марина'], plusOne: false },
   'vitaliy-basha': { greeting: 'Дорогие Виталий и Баша!', note: noteTwo, guests: ['Виталий', 'Баша'], plusOne: false },
-  yupik: { greeting: 'Дорогой Юпик!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Юпик'], plusOne: true, partner: plusHe },
-  zhan: { greeting: 'Дорогие Жан и Марина!', note: noteTwo, guests: ['Жан', 'Марина'], plusOne: false },
+  evgeniy: { greeting: 'Дорогой Евгений!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Евгений'], plusOne: true, partner: plusHe },
+  'zhan-marina': { greeting: 'Дорогие Жан и Марина!', note: noteTwo, guests: ['Жан', 'Марина'], plusOne: false },
   oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe },
-  janis: { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
-  zbignev: { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
+  'janis-valeriya': { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
+  'zbignev-marina': { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
   andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe }
 };
+// Old single-name links keep working after the rename.
+const legacy = {
+  elena: 'elena-yuriy', yuliya: 'yuliya-andrey', natasha: 'natasha-toms',
+  dasha: 'dasha-milos', yakov: 'yakov-elvira', ernest: 'ernest-kseniya',
+  rey: 'rey-anastasiya', roy: 'roy-kseniya', alina: 'alina-kirill',
+  victoria: 'victoria-nikolay', denis: 'denis-marina', zhan: 'zhan-marina',
+  janis: 'janis-valeriya', zbignev: 'zbignev-marina', yupik: 'evgeniy'
+};
 const token = new URLSearchParams(location.search).get('g') || '';
-const invitation = invitations[token] || invitations.default;
+const invitation = invitations[legacy[token] || token] || invitations.default;
 const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">Выберите ответ</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
 function details(id) {
   return `${select(id+'-night','Останетесь на ночь?', [['yes','Да, хочу остаться'],['no','Нет'],['maybe','Пока не знаю']])}
