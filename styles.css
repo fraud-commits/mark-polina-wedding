@@ -304,3 +304,16 @@ body.env-locked{overflow:hidden}
 @media(min-width:1450px){.hero-calla{right:30px;width:500px;height:920px;top:-25px}}
 @media(max-width:900px){.hero.editorial-hero{padding:65px 7% 55px;min-height:730px}.hero-copy{max-width:77%}.editorial-hero h1{font-size:108px}.name-polina{margin-left:55px}.hero-calla{right:-145px;width:390px;opacity:.8}.hero-meta{gap:12px;font-size:9px}.hero-side-note{display:none}}
 @media(max-width:600px){.hero.editorial-hero{padding:48px 25px 55px;min-height:670px}.hero-copy{width:100%;max-width:100%}.editorial-hero .eyebrow{font-size:8px;letter-spacing:.15em;margin-bottom:48px}.editorial-hero h1{font-size:clamp(78px,20vw,110px);margin-bottom:38px;width:85%}.name-polina{margin-left:30px}.editorial-hero h1 em{font-size:34px;margin-left:25px;line-height:1.2}.hero-meta{gap:10px;font-size:8px;letter-spacing:.09em;flex-wrap:wrap;max-width:85%}.editorial-hero .intro{font-size:21px;max-width:82%;margin-bottom:30px}.hero-calla{width:240px;height:520px;right:-137px;top:125px;opacity:.6;transform:rotate(5deg)}.hero-details{font-size:10px;gap:25px}}
+/* Phone-first hero: reserve a visible floral column beside the names. */
+@media(max-width:600px){
+ .hero.editorial-hero{min-height:700px;padding:42px 22px 45px}
+ .editorial-hero .eyebrow{max-width:100%;font-size:8px;margin-bottom:46px}
+ .editorial-hero h1{font-size:clamp(70px,18vw,100px);width:78%;margin-bottom:43px}
+ .name-polina{margin-left:14px}
+ .editorial-hero h1 em{margin-left:22px}
+ .hero-calla{width:170px;height:360px;right:-26px;top:102px;opacity:.9;transform:rotate(6deg);object-fit:contain;z-index:1}
+ .hero-copy{z-index:2}
+ .hero-meta{max-width:100%;font-size:9px;gap:12px}
+ .editorial-hero .intro{max-width:100%;font-size:21px;margin-bottom:28px}
+}
+@media(max-width:360px){.hero-calla{width:145px;height:330px;right:-25px;top:100px}.editorial-hero h1{font-size:67px}.hero-meta{font-size:8px;gap:9px}}
