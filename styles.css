@@ -251,3 +251,7 @@ body.env-locked{overflow:hidden}
   .timeline .tl-heart{animation-duration:55s}
   .tl-heart svg{animation-duration:7s}
 }
+
+/* Heart follows the scroll: no autonomous run or pulse. */
+.timeline .tl-heart{animation:none}
+.tl-heart svg{animation:none}

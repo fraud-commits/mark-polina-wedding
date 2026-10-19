@@ -131,3 +131,27 @@ if (countdown) {
   setInterval(tick, 1000);
 }
 render('general');
+
+// Timeline heart is driven by page scroll (like the reference invite), not by a timer.
+(function () {
+  const tl = document.querySelector('.timeline');
+  const heart = tl && tl.querySelector('.tl-heart');
+  if (!tl || !heart) return;
+  const move = () => {
+    const r = tl.getBoundingClientRect();
+    const vh = window.innerHeight;
+    let p = (vh - r.top) / (vh + r.height);
+    p = Math.max(0, Math.min(1, p));
+    if (window.matchMedia('(max-width:700px)').matches) {
+      heart.style.left = '';
+      heart.style.top = (p * Math.max(0, r.height - 27)) + 'px';
+    } else {
+      heart.style.top = '';
+      heart.style.left = (p * Math.max(0, r.width - 27)) + 'px';
+    }
+  };
+  const onScroll = () => move();
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  move();
+})();
