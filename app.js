@@ -1,10 +1,42 @@
-// Only fictional examples belong in client code. Real invitations require a server.
-const examples = {
-  general: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
-  plusone: { greeting: 'Дорогая Анна!', note: 'Будем рады видеть тебя вместе со спутником.', guests: ['Анна'], plusOne: true,
-    partner: { legend: 'Ваш спутник', q: 'Придёте одна или со спутником?', alone: 'Приду одна', with: 'Буду со спутником', nameLabel: 'Имя спутника — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего спутника.' } },
-  couple: { greeting: 'Дорогие Анна и Максим!', note: 'Приглашаем вас разделить с нами этот день.', guests: ['Анна', 'Максим'], plusOne: false }
+// Personal invitations keyed by the ?g= token in the link. Each guest sees
+// only their own greeting and composition; no token → generic form.
+const noteOne = 'Будем рады видеть вас в этот день.';
+const noteTwo = 'Приглашаем вас разделить с нами этот день.';
+const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей', nameLabel: 'Имя спутницы — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
+const invitations = {
+  default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
+  // Гости Полины
+  polina: { greeting: 'Дорогая Полина!', note: noteOne, guests: ['Полина'], plusOne: false },
+  elena: { greeting: 'Дорогие Елена и Юрий!', note: noteTwo, guests: ['Елена', 'Юрий'], plusOne: false },
+  maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
+  yuliya: { greeting: 'Дорогие Юлия, Андрей и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Юлия', 'Андрей', 'Даня'], plusOne: false },
+  nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
+  valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
+  natasha: { greeting: 'Дорогие Наташа и Томс!', note: noteTwo, guests: ['Наташа', 'Томс'], plusOne: false },
+  dasha: { greeting: 'Дорогие Даша и Князь Милош!', note: noteTwo, guests: ['Даша', 'Князь Милош'], plusOne: false },
+  yakov: { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
+  ernest: { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
+  kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe },
+  rey: { greeting: 'Дорогие Рей и Анастасия!', note: noteTwo, guests: ['Рей', 'Анастасия'], plusOne: false },
+  cheslav: { greeting: 'Дорогой Чеслав!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Чеслав'], plusOne: true, partner: plusHe },
+  // Гости Марика
+  marik: { greeting: 'Дорогой Марик!', note: noteOne, guests: ['Марик'], plusOne: false },
+  roy: { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
+  alina: { greeting: 'Дорогие Алина и Кирилл!', note: noteTwo, guests: ['Алина', 'Кирилл'], plusOne: false },
+  svetlana: { greeting: 'Дорогая Светлана!', note: noteOne, guests: ['Светлана'], plusOne: false },
+  victoria: { greeting: 'Дорогие Виктория, Николай, Аким и Алиса!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', 'Аким', 'Алиса'], plusOne: false },
+  'vitaliy-santa': { greeting: 'Дорогие Виталий и Санта!', note: noteTwo, guests: ['Виталий', 'Санта'], plusOne: false },
+  denis: { greeting: 'Дорогие Денис и Марина!', note: noteTwo, guests: ['Денис', 'Марина'], plusOne: false },
+  'vitaliy-basha': { greeting: 'Дорогие Виталий и Баша!', note: noteTwo, guests: ['Виталий', 'Баша'], plusOne: false },
+  yupik: { greeting: 'Дорогой Юпик!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Юпик'], plusOne: true, partner: plusHe },
+  zhan: { greeting: 'Дорогие Жан и Марина!', note: noteTwo, guests: ['Жан', 'Марина'], plusOne: false },
+  oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe },
+  janis: { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
+  zbignev: { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
+  andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe }
 };
+const token = new URLSearchParams(location.search).get('g') || '';
+const invitation = invitations[token] || invitations.default;
 const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">Выберите ответ</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
 function details(id) {
   return `${select(id+'-night','Останетесь на ночь?', [['yes','Да, хочу остаться'],['no','Нет'],['maybe','Пока не знаю']])}
@@ -40,8 +72,7 @@ function sync() {
  });
  document.querySelector('#status').textContent = '';
 }
-function render(mode) {
- const invitation = examples[mode] || examples.general;
+function render() {
  document.querySelector('#greeting').textContent = invitation.greeting;
  document.querySelector('#invitation-note').textContent = invitation.note;
  const p = invitation.partner || { legend: 'Ваш +1', q: 'Придёте один/одна или с парой?', alone: 'Приду один/одна', with: 'Буду с парой', nameLabel: 'Имя вашего +1 — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
@@ -63,8 +94,6 @@ if (envelope) {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
   });
 }
-const picker = document.querySelector('#demo');
-picker.addEventListener('change',()=>render(picker.value));
 document.querySelector('#response').addEventListener('change',sync);
 // Paste the Google Apps Script web app URL here to start saving responses.
 const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJxggv3SwYO9BNySjITeN1jpRghemR-Nsg4r2yFIR1emaxTdOcH_IvkpqwgipiEIfckg/exec';
@@ -88,7 +117,7 @@ function collect(form) {
       delete companion.attending;
     }
   }
-  return { guests, companion, comment: val('comment') };
+  return { token, guests, companion, comment: val('comment') };
 }
 document.querySelector('#response').addEventListener('submit', async event => {
   event.preventDefault();
@@ -104,7 +133,7 @@ document.querySelector('#response').addEventListener('submit', async event => {
   try {
     await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(collect(form)) });
     form.reset();
-    render(picker.value);
+    render();
     status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
   } catch (e) {
     status.textContent = 'Не получилось отправить. Попробуйте ещё раз или напишите нам.';
@@ -130,7 +159,7 @@ if (countdown) {
   tick();
   setInterval(tick, 1000);
 }
-render('general');
+render();
 
 // Timeline heart rides the winding path with the page scroll (like the reference invite).
 (function () {
