@@ -215,3 +215,39 @@ body.env-locked{overflow:hidden}
 
 /* Flap title in site serif. */
 .flap-title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(36px,4.8vw,56px);top:17%}
+
+/* Day timeline: dotted track, numbered nodes, labels alternating, running heart. */
+.timeline{position:relative;grid-template-columns:repeat(4,1fr);gap:0;margin-top:70px}
+.timeline article.tl-item{display:grid;grid-template-rows:158px 0 158px;justify-items:center;align-items:center;text-align:center;padding:0 16px;border:0;position:relative}
+.tl-item:before{content:'';position:absolute;top:158px;left:0;right:0;border-top:2px dashed #cdd2c0}
+.tl-item:first-child:before{left:12%}
+.tl-item:last-child:before{right:12%}
+.tl-card{max-width:230px}
+.tl-item.up .tl-card{grid-row:1;align-self:end;padding-bottom:26px}
+.tl-item.down .tl-card{grid-row:3;align-self:start;padding-top:26px}
+.timeline .tl-node{grid-row:2;position:relative;z-index:2;width:46px;height:46px;border-radius:50%;border:1px solid #b8beaa;background:var(--paper);display:flex;align-items:center;justify-content:center;font:italic 17px Georgia,serif;color:#8b937c}
+.tl-card h3{font-size:25px;margin:0 0 5px}
+.tl-card p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.timeline .tl-heart{position:absolute;top:145px;left:0;z-index:3;color:#a97947;animation:tl-run 17s ease-in-out infinite alternate}
+.tl-heart svg{display:block;width:27px;height:27px;fill:currentColor;transform-origin:center center;animation:tl-beat 2.3s ease-in-out infinite}
+@keyframes tl-run{from{left:0}to{left:calc(100% - 27px)}}
+@keyframes tl-beat{0%,100%{transform:scale(1)}14%{transform:scale(1.22)}28%{transform:scale(1)}42%{transform:scale(1.13)}56%{transform:scale(1)}}
+
+/* Timeline on phones: vertical dotted track, heart runs downward. */
+@media(max-width:700px){
+  .timeline{grid-template-columns:1fr;margin-top:55px}
+  .timeline article.tl-item{grid-template-rows:none;grid-template-columns:56px 1fr;justify-items:start;align-items:center;text-align:left;padding:10px 0;min-height:110px}
+  .tl-item:before{display:none}
+  .tl-item:first-child:before,.tl-item:last-child:before{display:none}
+  .timeline:before{content:'';position:absolute;left:27px;top:16px;bottom:16px;border-left:2px dashed #cdd2c0}
+  .tl-item.up .tl-card,.tl-item.down .tl-card{grid-row:1;grid-column:2;align-self:center;padding:0 0 0 14px}
+  .timeline .tl-node{grid-row:1;grid-column:1}
+  .timeline .tl-heart{top:0;left:14px;animation:tl-run-v 17s ease-in-out infinite alternate}
+  .tl-card h3{font-size:26px}
+}
+@keyframes tl-run-v{from{top:0}to{top:calc(100% - 27px)}}
+/* Soften the running heart instead of removing it. */
+@media(prefers-reduced-motion:reduce){
+  .timeline .tl-heart{animation-duration:55s}
+  .tl-heart svg{animation-duration:7s}
+}
