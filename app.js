@@ -58,10 +58,9 @@ if (envelope) {
     const open = () => {
       if (envelope.classList.contains('open')) return;
       envelope.classList.add('open');
-      envelope.querySelector('.envelope').classList.add('open');
       try { sessionStorage.setItem('invitation-opened', '1'); } catch (e) {}
-      setTimeout(() => document.body.classList.remove('env-locked'), 2400);
-      setTimeout(() => envelope.remove(), 3500);
+      setTimeout(() => document.body.classList.remove('env-locked'), 1100);
+      setTimeout(() => envelope.remove(), 1700);
     };
     envelope.addEventListener('click', open);
     envelope.addEventListener('keydown', event => {
