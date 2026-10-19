@@ -341,3 +341,10 @@ body.env-locked{overflow:hidden}
 .swatches span:nth-child(3){background:#d9b7ac}
 .swatches span:nth-child(4){background:#bd7a5e}
 .swatches span:nth-child(5){background:#a6b394}
+
+/* Garden-party expansion: ochre + deeper khaki; wrap on narrow screens. */
+.swatches{flex-wrap:wrap}
+.swatches span:nth-child(6){background:#9aa87e}
+.swatches span:nth-child(7){background:#6d7f5d}
+
+.swatches span:nth-child(5){background:#b58a4b}
