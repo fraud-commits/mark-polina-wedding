@@ -288,3 +288,19 @@ body.env-locked{overflow:hidden}
   .timeline{height:1250px;max-width:none;margin:55px 3% 0}
   .tl-card h3{font-size:27px}
 }
+/* Asymmetric editorial invitation, June 2027. */
+.hero.editorial-hero{min-height:790px;max-width:1600px;margin:auto;padding:75px max(7%,calc((100% - 1160px)/2)) 65px;display:block;text-align:left;overflow:hidden;isolation:isolate}
+.editorial-hero:before,.editorial-hero:after{display:none!important}
+.hero-copy{position:relative;z-index:2;width:650px;max-width:68%}
+.editorial-hero .eyebrow{margin:0 0 48px;font-size:9px;letter-spacing:.24em}
+.editorial-hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(100px,10.5vw,150px);line-height:.86;letter-spacing:-.04em;margin:0 0 45px;position:relative;padding-bottom:8px;animation:none}
+.name-mark,.name-polina{display:block}.name-polina{margin-left:105px;margin-top:3px}
+.editorial-hero h1 em{font-size:48px;line-height:1;margin:0 0 0 60px;font-weight:300;color:#8d967c}
+.hero-meta{display:flex;align-items:center;gap:20px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 30px}.hero-meta>span:nth-child(2){color:#9da58c}
+.editorial-hero .intro{font-size:25px;line-height:1.55;margin:0 0 45px;animation:none}
+.hero-details{display:inline-flex;align-items:center;gap:45px;text-decoration:none;border-bottom:1px solid #b8beaa;padding:12px 0;font-size:11px;letter-spacing:.08em}.hero-details span{font-size:22px}.hero-details:hover{border-color:var(--olive)}
+.hero-calla{position:absolute;width:440px;height:845px;object-fit:contain;right:-55px;top:8px;z-index:1;pointer-events:none;transform:rotate(10deg)}
+.hero-side-note{position:absolute;right:30px;top:70px;writing-mode:vertical-rl;font-size:8px;letter-spacing:.25em;color:#818a71}
+@media(min-width:1450px){.hero-calla{right:30px;width:500px;height:920px;top:-25px}}
+@media(max-width:900px){.hero.editorial-hero{padding:65px 7% 55px;min-height:730px}.hero-copy{max-width:77%}.editorial-hero h1{font-size:108px}.name-polina{margin-left:55px}.hero-calla{right:-145px;width:390px;opacity:.8}.hero-meta{gap:12px;font-size:9px}.hero-side-note{display:none}}
+@media(max-width:600px){.hero.editorial-hero{padding:48px 25px 55px;min-height:670px}.hero-copy{width:100%;max-width:100%}.editorial-hero .eyebrow{font-size:8px;letter-spacing:.15em;margin-bottom:48px}.editorial-hero h1{font-size:clamp(78px,20vw,110px);margin-bottom:38px;width:85%}.name-polina{margin-left:30px}.editorial-hero h1 em{font-size:34px;margin-left:25px;line-height:1.2}.hero-meta{gap:10px;font-size:8px;letter-spacing:.09em;flex-wrap:wrap;max-width:85%}.editorial-hero .intro{font-size:21px;max-width:82%;margin-bottom:30px}.hero-calla{width:240px;height:520px;right:-137px;top:125px;opacity:.6;transform:rotate(5deg)}.hero-details{font-size:10px;gap:25px}}
