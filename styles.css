@@ -357,15 +357,7 @@ body.env-locked{overflow:hidden}
   section.letter{padding-top:60px}
 }
 
-/* FAQ accordion and RSVP deadline. */
-.faq{text-align:center}
-.faq-list{max-width:620px;margin:38px auto 0;text-align:left}
-.faq details{border-bottom:1px solid #dcdcc9}
-.faq summary{display:flex;align-items:baseline;justify-content:space-between;gap:20px;cursor:pointer;list-style:none;padding:18px 4px;font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:400;color:var(--olive)}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:'+';font-size:22px;color:#9aa183;font-family:Georgia,serif}
-.faq details[open] summary::after{content:'\2013'}
-.faq details p{margin:0 4px 20px;font-size:15px;line-height:1.65;color:var(--muted)}
+
 
 
 /* Save-the-date calendar in the airy editorial style. */
