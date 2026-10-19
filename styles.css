@@ -172,3 +172,8 @@ body.env-locked{overflow:hidden}
 .envelope-screen.open .wax{opacity:0;transform:translate(-50%,-50%) scale(1.3)}
 .env-hint{position:absolute;bottom:8%;left:0;right:0;margin:0;text-align:center;color:#c9ceba}
 @media (prefers-reduced-motion:reduce){.envelope-screen.open .flap{transition:opacity .6s ease .25s,transform 0s}.envelope-screen.open .flap{opacity:0;transform:none}}
+
+/* Bigger realistic wax heart. */
+.wax{width:128px;height:128px}
+
+.wax{width:150px;height:150px}
