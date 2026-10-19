@@ -181,3 +181,8 @@ body.env-locked{overflow:hidden}
 /* Photoreal wax seal image. */
 .wax{width:170px;height:170px}
 .wax img{display:block;width:100%;height:100%;object-fit:contain}
+
+/* Real flap overlap shadows; flaps slide open for everyone. */
+.flap-top{filter:drop-shadow(0 16px 24px rgba(18,24,14,.5))}
+.flap-bottom{filter:drop-shadow(0 -12px 20px rgba(18,24,14,.35))}
+@media (prefers-reduced-motion:reduce){.envelope-screen.open .flap{opacity:1;transition:transform 1.05s cubic-bezier(.65,0,.25,1) .3s}.envelope-screen.open .flap-top{transform:translateY(-104%)}.envelope-screen.open .flap-bottom{transform:translateY(104%)}.envelope-screen.open .flap-left{transform:translateX(-104%)}.envelope-screen.open .flap-right{transform:translateX(104%)}}
