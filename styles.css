@@ -186,3 +186,10 @@ body.env-locked{overflow:hidden}
 .flap-top{filter:drop-shadow(0 16px 24px rgba(18,24,14,.5))}
 .flap-bottom{filter:drop-shadow(0 -12px 20px rgba(18,24,14,.35))}
 @media (prefers-reduced-motion:reduce){.envelope-screen.open .flap{opacity:1;transition:transform 1.05s cubic-bezier(.65,0,.25,1) .3s}.envelope-screen.open .flap-top{transform:translateY(-104%)}.envelope-screen.open .flap-bottom{transform:translateY(104%)}.envelope-screen.open .flap-left{transform:translateX(-104%)}.envelope-screen.open .flap-right{transform:translateX(104%)}}
+
+/* Match the reference: bigger seal, flap vignette, calligraphy title. */
+.envelope-screen:after{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 32%,rgba(15,20,12,.38) 100%);transition:opacity .5s ease .3s}
+.envelope-screen.open:after{opacity:0}
+.flap-title{font-family:'Marck Script',Georgia,serif;font-size:clamp(38px,5.6vw,64px);line-height:1.15}
+.wax{width:210px;height:210px}
+@media(max-width:700px){.wax{width:150px;height:150px}.flap-title{font-size:clamp(34px,9vw,48px)}}
