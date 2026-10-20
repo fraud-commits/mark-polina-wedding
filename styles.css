@@ -577,6 +577,9 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .rsvp .checks label:has(input:checked){background:#dce3cf;border-color:#7a8966}
 .rsvp input[type=checkbox]{width:18px;height:18px;accent-color:var(--olive);flex-shrink:0}
 .rsvp .button{min-height:54px;justify-content:space-between;font-size:13px}
+/* Переключатель языка в шапке */
+.lang-toggle{border:0;background:none;padding:0 0 2px;margin:0;font:inherit;font-size:10px;letter-spacing:.1em;color:inherit;cursor:pointer;border-bottom:1px solid currentColor;opacity:.55;transition:opacity .2s}
+.lang-toggle:hover{opacity:1}
 .wedding-finale{text-align:center;padding:90px 24px 70px}
 .wedding-finale .finale-title{font:italic 64px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.02em;color:var(--olive);margin:0 0 28px}
 .wedding-finale span{font-size:30px}

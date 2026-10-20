@@ -46,24 +46,86 @@ const legacy = {
   denis: 'denis-marina', zhan: 'zhan-marina',
   janis: 'janis-valeriya', zbignev: 'zbignev-marina', yupik: 'evgeniy'
 };
+// Строки формы на двух языках. Русский вариант совпадает с тем, что было в HTML.
+const STR = {
+  ru: {
+    pick: 'Выберите ответ', name: 'Имя и фамилия', attending: 'Сможете прийти?',
+    yes: 'С радостью!', no: 'К сожалению, нет', maybe: 'Пока не знаю',
+    night: 'Останетесь на ночь?', nightYes: 'Да, хочу остаться', nightNo: 'Нет', nightMaybe: 'Пока не знаю',
+    travel: 'Как планируете добраться?', car: 'На своей машине', ride: 'Хочу присоединиться к кому-то',
+    own: 'Доберусь самостоятельно', travelMaybe: 'Пока не знаю',
+    seats: 'Сможете взять попутчиков?', noSeats: 'Нет свободных мест',
+    seat1: '1 место', seat2: '2 места', seat3: '3 места', seat4: '4 места',
+    from: 'Откуда поедете?', fromPh: 'Город или район',
+    rideNote: 'Пожелание о попутчиках обсудим в группе WhatsApp — поездка ещё не согласована.',
+    drinks: 'Какие напитки предпочитаете?', legend: 'Анкета',
+    plusLegend: 'Ваш +1', plusQ: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей',
+    plusName: 'Имя спутницы — если уже известно', plusNote: 'Имя необязательно. Ниже — пожелания вашего +1.',
+    ok: 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍',
+    fail: 'Не получилось отправить. Попробуйте ещё раз или напишите нам.',
+    demo: 'Анкета заполнена корректно. Это макет: ответ не отправлен. После подключения хранилища здесь появится подтверждение сохранения.',
+    sending: 'Отправляем...'
+  },
+  en: {
+    pick: 'Choose an answer', name: 'Full name', attending: 'Will you be able to come?',
+    yes: 'With pleasure!', no: 'Unfortunately, not', maybe: 'Not sure yet',
+    night: 'Will you stay overnight?', nightYes: 'Yes, we would like to stay', nightNo: 'No', nightMaybe: 'Not sure yet',
+    travel: 'How will you get there?', car: 'By car', ride: 'I would like a ride',
+    own: 'I will get there myself', travelMaybe: 'Not sure yet',
+    seats: 'Could you take any passengers?', noSeats: 'No spare seats',
+    seat1: '1 seat', seat2: '2 seats', seat3: '3 seats', seat4: '4 seats',
+    from: 'Where will you travel from?', fromPh: 'Town or district',
+    rideNote: 'Rides will be sorted out in our WhatsApp group — the plan is not final yet.',
+    drinks: 'What would you like to drink?', legend: 'RSVP',
+    plusLegend: 'Your +1', plusQ: 'Will you come alone or with a partner?', alone: 'I will come alone', with: 'I will come with a partner',
+    plusName: 'Your guest\u2019s name \u2014 if you know it yet', plusNote: 'The name is optional. Below are your guest\u2019s preferences.',
+    ok: 'Thank you! Your reply has been saved. We are looking forward to seeing you 🤍',
+    fail: 'We could not send it. Please try again or write to us.',
+    demo: 'The form is filled in correctly. This is a mock-up: the reply was not sent.',
+    sending: 'Sending...'
+  }
+};
+// Напитки: подпись показывается по-английски, а в таблицу уходит русское название.
+const DRINKS = [
+  { ru: 'Вино красное', en: 'Red wine' },
+  { ru: 'Вино белое', en: 'White wine' },
+  { ru: 'Игристое', en: 'Sparkling' },
+  { ru: 'Крепкий алкоголь', en: 'Spirits' },
+  { ru: 'Безалкогольные', en: 'Soft drinks' }
+];
+// Имена для английской версии: латиница для тех, кто по-русски не читает.
+const EN_NAMES = { 'Баша': 'Basia', 'Милош': 'Milos', 'Даша': 'Dasha', 'Томс': 'Toms', 'Виталий': 'Vitaliy' };
+const TR = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
+const toLatin = s => s.split('').map(ch=>{
+  const low = ch.toLowerCase();
+  if(!(low in TR)) return ch;
+  const tr = TR[low];
+  return ch === low ? tr : tr.charAt(0).toUpperCase() + tr.slice(1);
+}).join('');
+const enName = name => EN_NAMES[name] || (/[a-zA-Z]/.test(name) ? name : toLatin(name));
+const T = () => STR[currentLang];
 const token = new URLSearchParams(location.search).get('g') || '';
-const invitation = invitations[legacy[token] || token] || invitations.default;
-const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">Выберите ответ</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
+const resolvedToken = legacy[token] || token;
+const invitation = invitations[resolvedToken] || invitations.default;
+const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">${T().pick}</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
 const getGuestName = g => typeof g === 'string' ? g : (g.name || '');
 const isChildGuest = g => typeof g === 'object' && !!g.child;
 function details(id, isChild) {
   // Детям вопросы не задаём — только «Сможете прийти?»
   if (isChild) return '';
-  return `${select(id+'-night','Останетесь на ночь?', [['yes','Да, хочу остаться'],['no','Нет'],['maybe','Пока не знаю']])}
-  ${select(id+'-travel','Как планируете добраться?', [['car','На своей машине'],['ride','Хочу присоединиться к кому-то'],['own','Доберусь самостоятельно'],['maybe','Пока не знаю']])}
-  <div data-car hidden>${select(id+'-seats','Сможете взять попутчиков?', [['0','Нет свободных мест'],['1','1 место'],['2','2 места'],['3','3 места'],['4','4 места'],['maybe','Пока не знаю']])}</div>
-  <div data-route hidden><label>Откуда поедете?<input name="${id}-from" maxlength="100" placeholder="Город или район"></label><p class="small">Пожелание о попутчиках обсудим в группе WhatsApp — поездка ещё не согласована.</p></div>
-  <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино красное','Вино белое','Игристое','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>`;
+  const t = T();
+  return `${select(id+'-night',t.night, [['yes',t.nightYes],['no',t.nightNo],['maybe',t.nightMaybe]])}
+  ${select(id+'-travel',t.travel, [['car',t.car],['ride',t.ride],['own',t.own],['maybe',t.travelMaybe]])}
+  <div data-car hidden>${select(id+'-seats',t.seats, [['0',t.noSeats],['1',t.seat1],['2',t.seat2],['3',t.seat3],['4',t.seat4],['maybe',t.maybe]])}</div>
+  <div data-route hidden><label>${t.from}<input name="${id}-from" maxlength="100" placeholder="${t.fromPh}"></label><p class="small">${t.rideNote}</p></div>
+  <p>${t.drinks}</p><div class="checks">${DRINKS.map((d,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}" data-drink="${d.ru}"> ${currentLang==='en'?d.en:d.ru}</label>`).join('')}</div>`;
 }
 function guest(id, entry) {
- const name = getGuestName(entry);
- const child = isChildGuest(entry);
- return `<fieldset><legend>${name || 'Анкета'}</legend>${name ? '' : '<label>Имя и фамилия<input name="guest-name" required maxlength="120" autocomplete="name"></label>'}${select(id+'-attending','Сможете прийти?', [['yes','С радостью!'],['no','К сожалению, нет'],['maybe','Пока не знаю']])}<div data-attending hidden>${details(id, child)}</div></fieldset>`;
+  const rawName = getGuestName(entry);
+  const name = currentLang === 'en' && rawName ? enName(rawName) : rawName;
+  const child = isChildGuest(entry);
+  const t = T();
+  return `<fieldset><legend>${name || t.legend}</legend>${name ? '' : `<label>${t.name}<input name="guest-name" required maxlength="120" autocomplete="name"></label>`}${select(id+'-attending',t.attending, [['yes',t.yes],['no',t.no],['maybe',t.maybe]])}<div data-attending hidden>${details(id, child)}</div></fieldset>`;
 }
 function visibility(element, show) {
  element.hidden = !show;
@@ -90,13 +152,32 @@ function sync() {
  });
  document.querySelector('#status').textContent = '';
 }
-function render() {
- document.querySelector('#greeting').textContent = invitation.greeting;
- document.querySelector('#invitation-note').textContent = invitation.note;
- const p = invitation.partner || { legend: 'Ваш +1', q: 'Придёте один/одна или с парой?', alone: 'Приду один/одна', with: 'Буду с парой', nameLabel: 'Имя вашего +1 — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
- document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>${p.legend}</legend>${select('companion', p.q, [['no',p.alone],['yes',p.with],['maybe','Пока не знаю']])}<div data-companion hidden><label>${p.nameLabel}<input name="companion-name" maxlength="120" placeholder="Можно указать позже"></label><p class="small">${p.note}</p>${details('plus')}</div></fieldset>` : '');
- sync();
+function enGreeting(){
+  if(resolvedToken === 'yuriy-elena') return 'Dear Mum and Dad!';
+  if(resolvedToken === 'svetlana') return 'Dear Mum!';
+  const names = invitation.guests.map(g => enName(getGuestName(g)));
+  if(!names.length || !names[0]) return 'Dear friends!';
+  if(names.length === 1) return `Dear ${names[0]}!`;
+  if(names.length === 2) return `Dear ${names[0]} and ${names[1]}!`;
+  return `Dear ${names.slice(0,-1).join(', ')} and ${names[names.length-1]}!`;
 }
+function enNote(){
+  if(resolvedToken === 'nikolay-victoria') return 'We invite you all — together with the children.';
+  if(resolvedToken === 'andrey-yuliya') return 'We invite you all — together with Danya.';
+  if(invitation.plusOne) return 'We would love to see you together with your guest.';
+  if(invitation.guests.length === 1) return 'We would love to see you on this day.';
+  return 'We would love you to share this day with us.';
+}
+function render() {
+  const t = T();
+  const en = currentLang === 'en';
+  document.querySelector('#greeting').textContent = en ? enGreeting() : invitation.greeting;
+  document.querySelector('#invitation-note').textContent = en ? enNote() : invitation.note;
+  const p = (currentLang === 'en') ? { legend: t.plusLegend, q: t.plusQ, alone: t.alone, with: t.with, nameLabel: t.plusName, note: t.plusNote } : (invitation.partner || { legend: t.plusLegend, q: t.plusQ, alone: t.alone, with: t.with, nameLabel: t.plusName, note: t.plusNote });
+  document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>${p.legend}</legend>${select('companion', p.q, [['no',p.alone],['yes',p.with],['maybe',t.maybe]])}<div data-companion hidden><label>${p.nameLabel}<input name="companion-name" maxlength="120" placeholder="${en ? 'You can add it later' : 'Можно указать позже'}"></label><p class="small">${p.note}</p>${details('plus')}</div></fieldset>` : '');
+  sync();
+}
+window.addEventListener('langchange', () => { render(); applyLang(currentLang); });
 // Envelope opening screen. Shown on every visit — it's part of the ritual.
 const envelope = document.querySelector('#envelope');
 if (envelope) {
@@ -117,7 +198,7 @@ document.querySelector('#response').addEventListener('change',sync);
 const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJxggv3SwYO9BNySjITeN1jpRghemR-Nsg4r2yFIR1emaxTdOcH_IvkpqwgipiEIfckg/exec';
 function collect(form) {
  const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
- const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.parentElement.textContent.trim());
+ const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.dataset.drink || c.parentElement.textContent.trim());
  const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food') });
  const guests = [];
  document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
@@ -142,19 +223,19 @@ document.querySelector('#response').addEventListener('submit', async event => {
  const form = event.target;
  const status = document.querySelector('#status');
  if (!RSVP_ENDPOINT) {
-   status.textContent = 'Анкета заполнена корректно. Это макет: ответ не отправлен. После подключения хранилища здесь появится подтверждение сохранения.';
+   status.textContent = T().demo;
    return;
  }
  const button = form.querySelector('button[type="submit"]');
  button.disabled = true;
- status.textContent = 'Отправляем...';
+ status.textContent = T().sending;
  try {
    await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(collect(form)) });
    form.reset();
    render();
-   status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
+   status.textContent = T().ok;
  } catch (e) {
-   status.textContent = 'Не получилось отправить. Попробуйте ещё раз или напишите нам.';
+   status.textContent = T().fail;
  }
  button.disabled = false;
 });
@@ -186,9 +267,9 @@ render();
 (function(){
   const g=document.querySelector('.place-gallery'); if(!g) return;
   const track=g.querySelector('.pg-track'); const slides=[...track.children]; const dots=g.querySelector('.pg-dots');
-  const counter=document.createElement("p"); counter.className="pg-counter"; counter.setAttribute("aria-label","Номер фотографии"); g.appendChild(counter);
+  const counter=document.createElement("p"); counter.className="pg-counter"; counter.setAttribute("aria-label", currentLang==='en' ? 'Photo number' : 'Номер фотографии'); g.appendChild(counter);
   let idx=0; let timer=null;
-  slides.forEach((_,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Фото '+(i+1)); b.addEventListener('click',()=>{go(i); restart();}); dots.appendChild(b);});
+  slides.forEach((_,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label',(currentLang==='en' ? 'Photo ' : 'Фото ')+(i+1)); b.addEventListener('click',()=>{go(i); restart();}); dots.appendChild(b);});
   const btns=[...dots.children];
   function go(n){idx=(n+slides.length)%slides.length; counter.textContent=String(idx+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0"); track.style.transform='translateX('+(-idx*100)+'%)'; btns.forEach((b,i)=>b.setAttribute('aria-selected', i===idx?'true':'false')); }
   function restart(){clearInterval(timer); timer=setInterval(()=>go(idx+1), 3800);}
