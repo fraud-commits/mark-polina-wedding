@@ -22,7 +22,7 @@ const invitations = {
   'roy-kseniya': { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
   'alina-kirill': { greeting: 'Дорогие Алина и Кирилл!', note: noteTwo, guests: ['Алина', 'Кирилл'], plusOne: false },
   svetlana: { greeting: 'Дорогая Светлана!', note: noteOne, guests: ['Светлана'], plusOne: false },
-  'victoria-nikolay': { greeting: 'Дорогие Виктория, Николай, Аким и Алиса!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', 'Аким', 'Алиса'], plusOne: false },
+  'victoria-nikolay': { greeting: 'Дорогая семья Коляко!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', {name:'Аким', child:true}, {name:'Алиса', child:true}], plusOne: false },
   'vitaliy-santa': { greeting: 'Дорогие Виталий и Санта!', note: noteTwo, guests: ['Виталий', 'Санта'], plusOne: false },
   'denis-marina': { greeting: 'Дорогие Денис и Марина!', note: noteTwo, guests: ['Денис', 'Марина'], plusOne: false },
   'vitaliy-basha': { greeting: 'Дорогие Виталий и Баша!', note: noteTwo, guests: ['Виталий', 'Баша'], plusOne: false },
@@ -44,7 +44,10 @@ const legacy = {
 const token = new URLSearchParams(location.search).get('g') || '';
 const invitation = invitations[legacy[token] || token] || invitations.default;
 const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">Выберите ответ</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
-function details(id) {
+const getGuestName = g => typeof g === 'string' ? g : (g.name || '');
+const isChildGuest = g => typeof g === 'object' && !!g.child;
+function details(id, isChild) {
+  if (isChild) return select(id+'-night','Останетесь на ночь?', [['yes','Да, останемся'],['no','Нет'],['maybe','Пока не знаю']]);
   return `${select(id+'-night','Останетесь на ночь?', [['yes','Да, хочу остаться'],['no','Нет'],['maybe','Пока не знаю']])}
   ${select(id+'-travel','Как планируете добраться?', [['car','На своей машине'],['ride','Хочу присоединиться к кому-то'],['own','Доберусь самостоятельно'],['maybe','Пока не знаю']])}
   <div data-car hidden>${select(id+'-seats','Сможете взять попутчиков?', [['0','Нет свободных мест'],['1','1 место'],['2','2 места'],['3','3 места'],['4','4 места'],['maybe','Пока не знаю']])}</div>
@@ -52,8 +55,10 @@ function details(id) {
   <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино красное','Вино белое','Игристое','Пиво','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>
   <div data-strong hidden><label>Уточните крепкий алкоголь / коктейли<input name="${id}-strong" maxlength="300" placeholder="Виски, джин, ром, любимые коктейли — Апероль, Мохито и т.д."></label></div>`;
 }
-function guest(id, name) {
- return `<fieldset><legend>${name || 'Ваш ответ'}</legend>${name ? '' : '<label>Имя и фамилия<input name="guest-name" required maxlength="120" autocomplete="name"></label>'}${select(id+'-attending','Сможете прийти?', [['yes','С радостью!'],['no','К сожалению, нет'],['maybe','Пока не знаю']])}<div data-attending hidden>${details(id)}</div></fieldset>`;
+function guest(id, entry) {
+ const name = getGuestName(entry);
+ const child = isChildGuest(entry);
+ return `<fieldset><legend>${name || 'Ваш ответ'}</legend>${name ? '' : '<label>Имя и фамилия<input name="guest-name" required maxlength="120" autocomplete="name"></label>'}${select(id+'-attending','Сможете прийти?', [['yes','С радостью!'],['no','К сожалению, нет'],['maybe','Пока не знаю']])}<div data-attending hidden>${details(id, child)}</div></fieldset>`;
 }
 function visibility(element, show) {
  element.hidden = !show;

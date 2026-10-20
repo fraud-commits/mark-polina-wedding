@@ -15,7 +15,8 @@ function doPost(e){
   const d = JSON.parse(e.postData.contents);
   const g = d.guests||[];
   const mapYN = v=>v==='yes'?'Да':v==='no'?'Нет':v==='maybe'?'Пока не знаю':v||'';
-  const transport = x=>[mapYN(x.travel)||x.travel, x.seats?`мест:${x.seats}`:'', x.from].filter(Boolean).join(' ');
+  const mapTravel = v=>({car:'На машине', ride:'Попутчиком', own:'Самостоятельно', maybe:'Пока не знаю'}[v]||v||'');
+  const transport = x=>[mapTravel(x.travel), x.seats?`мест:${x.seats}`:'', x.from].filter(Boolean).join(' ');
   const ownerName = g[0]?.name || '';
   const pushGuest = (person, isCompanion=false)=>{
     const drinkFlags = DRINKS.map(dt=> {
