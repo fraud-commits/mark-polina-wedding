@@ -577,7 +577,11 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .wedding-finale{text-align:center;padding:90px 24px 70px}
 .wedding-finale .finale-title{font:italic 64px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.02em;color:var(--olive);margin:0 0 28px}
 .wedding-finale span{font-size:30px}
-.wedding-finale>p:last-child{margin-top:18px;font-size:11px;letter-spacing:.2em}
+.wedding-finale .finale-date{margin-top:18px;font-size:11px;letter-spacing:.2em}
+.wedding-finale .countdown{margin-top:54px}
+.wedding-finale .cd-grid{margin-top:20px}
+.wedding-finale .cd-grid span{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#a0a58f}
+.wedding-finale .cd-grid b{font-weight:300}
 @media(max-width:700px){
  .next-day{padding:30px 24px}
  .rsvp .button{width:100%}
