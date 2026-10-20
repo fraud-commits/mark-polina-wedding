@@ -233,6 +233,13 @@ function applyLang(lang){
   translateTree(document.body);
   translateAttrs(document.body);
   document.title = lang === 'en' ? 'Mark & Polina · 26 June 2027' : 'Марк и Полина · 26 июня 2027';
+  // Печать на конверте тоже двуязычная.
+  const ruSeal = document.querySelector('[data-seal-ru]');
+  const enSeal = document.querySelector('[data-seal-en]');
+  if(ruSeal && enSeal){
+    ruSeal.hidden = lang === 'en';
+    enSeal.hidden = lang !== 'en';
+  }
   const btn = document.querySelector('.lang-toggle');
   if(btn){
     btn.textContent = lang === 'en' ? 'RU' : 'EN';
