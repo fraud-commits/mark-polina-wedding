@@ -6,13 +6,13 @@ const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со с
 const invitations = {
   default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
-  'elena-yuriy': { greeting: 'Дорогие Юрий и Елена!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
+  'yuriy-elena': { greeting: 'Дорогие Юрий и Елена!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
   maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
-  'yuliya-andrey': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', 'Даня'], plusOne: false },
+  'andrey-yuliya': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', 'Даня'], plusOne: false },
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
   valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
-  'natasha-toms': { greeting: 'Дорогие Томс и Наташа!', note: noteTwo, guests: ['Томс', 'Наташа'], plusOne: false },
-  'dasha-milos': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Князь Милош', 'Даша'], plusOne: false },
+  'toms-natasha': { greeting: 'Дорогие Томс и Наташа!', note: noteTwo, guests: ['Томс', 'Наташа'], plusOne: false },
+  'milos-dasha': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Князь Милош', 'Даша'], plusOne: false },
   'yakov-elvira': { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
   'ernest-kseniya': { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
   kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe },
@@ -20,9 +20,9 @@ const invitations = {
   cheslav: { greeting: 'Дорогой Чеслав!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Чеслав'], plusOne: true, partner: plusHe },
   // Гости Марика
   'roy-kseniya': { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
-  'alina-kirill': { greeting: 'Дорогие Кирилл и Алина!', note: noteTwo, guests: ['Кирилл', 'Алина'], plusOne: false },
+  'kirill-alina': { greeting: 'Дорогие Кирилл и Алина!', note: noteTwo, guests: ['Кирилл', 'Алина'], plusOne: false },
   svetlana: { greeting: 'Дорогая Светлана!', note: noteOne, guests: ['Светлана'], plusOne: false },
-  'victoria-nikolay': { greeting: 'Дорогая семья Коляко!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', {name:'Аким', child:true}, {name:'Алиса', child:true}], plusOne: false },
+  'nikolay-victoria': { greeting: 'Дорогая семья Коляко!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Николай', 'Виктория', {name:'Аким', child:true}, {name:'Алиса', child:true}], plusOne: false },
   'vitaliy-santa': { greeting: 'Дорогие Виталий и Санта!', note: noteTwo, guests: ['Виталий', 'Санта'], plusOne: false },
   'denis-marina': { greeting: 'Дорогие Денис и Марина!', note: noteTwo, guests: ['Денис', 'Марина'], plusOne: false },
   'vitaliy-basha': { greeting: 'Дорогие Виталий и Баша!', note: noteTwo, guests: ['Виталий', 'Баша'], plusOne: false },
@@ -33,12 +33,17 @@ const invitations = {
   'zbignev-marina': { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
   andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe }
 };
-// Old single-name links keep working after the rename.
+// Old single-name and old couple-token links keep working after the rename.
 const legacy = {
-  elena: 'elena-yuriy', yuliya: 'yuliya-andrey', natasha: 'natasha-toms',
-  dasha: 'dasha-milos', yakov: 'yakov-elvira', ernest: 'ernest-kseniya',
-  rey: 'rey-anastasiya', roy: 'roy-kseniya', alina: 'alina-kirill',
-  victoria: 'victoria-nikolay', denis: 'denis-marina', zhan: 'zhan-marina',
+  elena: 'yuriy-elena', 'elena-yuriy': 'yuriy-elena',
+  yuliya: 'andrey-yuliya', 'yuliya-andrey': 'andrey-yuliya',
+  natasha: 'toms-natasha', 'natasha-toms': 'toms-natasha',
+  dasha: 'milos-dasha', 'dasha-milos': 'milos-dasha',
+  yakov: 'yakov-elvira', ernest: 'ernest-kseniya',
+  rey: 'rey-anastasiya', roy: 'roy-kseniya',
+  alina: 'kirill-alina', 'alina-kirill': 'kirill-alina',
+  victoria: 'nikolay-victoria', 'victoria-nikolay': 'nikolay-victoria',
+  denis: 'denis-marina', zhan: 'zhan-marina',
   janis: 'janis-valeriya', zbignev: 'zbignev-marina', yupik: 'evgeniy'
 };
 const token = new URLSearchParams(location.search).get('g') || '';
@@ -79,7 +84,9 @@ function sync() {
    const travel = block.parentElement.querySelector('select[name$="-travel"]');
    const active = !travel.disabled;
    visibility(block, active && travel.value === 'car');
-   visibility(block.parentElement.querySelector('[data-route]'), active && ['car','ride'].includes(travel.value));
+   const seats = block.querySelector('select').value;
+   const offersRide = travel.value === 'car' && ['1','2','3','4'].includes(seats);
+   visibility(block.parentElement.querySelector('[data-route]'), active && (travel.value === 'ride' || offersRide));
  });
  document.querySelectorAll('[data-strong]').forEach(block => {
    const box = block.closest('[data-attending], [data-companion]');
@@ -184,10 +191,11 @@ render();
 (function(){
   const g=document.querySelector('.place-gallery'); if(!g) return;
   const track=g.querySelector('.pg-track'); const slides=[...track.children]; const dots=g.querySelector('.pg-dots');
+  const counter=document.createElement("p"); counter.className="pg-counter"; counter.setAttribute("aria-label","Номер фотографии"); g.appendChild(counter);
   let idx=0; let timer=null;
   slides.forEach((_,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Фото '+(i+1)); b.addEventListener('click',()=>{go(i); restart();}); dots.appendChild(b);});
   const btns=[...dots.children];
-  function go(n){idx=(n+slides.length)%slides.length; track.style.transform='translateX('+(-idx*100)+'%)'; btns.forEach((b,i)=>b.setAttribute('aria-selected', i===idx?'true':'false')); }
+  function go(n){idx=(n+slides.length)%slides.length; counter.textContent=String(idx+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0"); track.style.transform='translateX('+(-idx*100)+'%)'; btns.forEach((b,i)=>b.setAttribute('aria-selected', i===idx?'true':'false')); }
   function restart(){clearInterval(timer); timer=setInterval(()=>go(idx+1), 3800);}
   g.querySelector('.pg-prev').addEventListener('click',()=>{go(idx-1); restart();});
   g.querySelector('.pg-next').addEventListener('click',()=>{go(idx+1); restart();});
