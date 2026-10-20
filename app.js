@@ -94,7 +94,7 @@ const DRINKS = [
   { ru: 'Безалкогольные', en: 'Soft drinks' }
 ];
 // Имена для английской версии: латиница для тех, кто по-русски не читает.
-const EN_NAMES = { 'Баша': 'Basia', 'Милош': 'Milos', 'Даша': 'Dasha', 'Томс': 'Toms', 'Виталий': 'Vitaliy' };
+const EN_NAMES = { 'Баша': 'Basia', 'Милош': 'Knjaz Miloš', 'Даша': 'Dasha', 'Томс': 'Toms', 'Виталий': 'Vitaliy', 'Наташа': 'Natalie' };
 const TR = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
 const toLatin = s => s.split('').map(ch=>{
   const low = ch.toLowerCase();
