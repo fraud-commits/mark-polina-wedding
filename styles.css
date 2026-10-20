@@ -449,18 +449,18 @@ body.env-locked{overflow:hidden}
 .pg-arrow:hover{background:transparent;box-shadow:none;transform:translateY(-50%) scale(1.12)}
 
 
-/* Guest palette — 10 tones, ordered light → dark, 5 per row. */
+/* Guest palette — 10 tones, grouped by colour family (light → dark inside each). */
 .swatches{display:grid;grid-template-columns:repeat(5,52px);gap:14px;justify-content:start}
 .swatches span:nth-child(1){background:#f1e7d4}
 .swatches span:nth-child(2){background:#e3d0ae}
-.swatches span:nth-child(3){background:#c9d6c3}
-.swatches span:nth-child(4){background:#d9b7ac}
-.swatches span:nth-child(5){background:#aebdce}
-.swatches span:nth-child(6){background:#9aafc2}
+.swatches span:nth-child(3){background:#d9b7ac}
+.swatches span:nth-child(4){background:#aebdce}
+.swatches span:nth-child(5){background:#9aafc2}
+.swatches span:nth-child(6){background:#c9d6c3}
 .swatches span:nth-child(7){background:#9aa87e}
-.swatches span:nth-child(8){background:#a17c5e}
-.swatches span:nth-child(9){background:#6d7f5d}
-.swatches span:nth-child(10){background:#4e5b3c}
+.swatches span:nth-child(8){background:#6d7f5d}
+.swatches span:nth-child(9){background:#4e5b3c}
+.swatches span:nth-child(10){background:#a17c5e}
 .lookbook{margin-top:22px;border-top:1px solid var(--line);padding-top:14px}
 .lookbook summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.08em}
 .lookbook summary::-webkit-details-marker{display:none}
