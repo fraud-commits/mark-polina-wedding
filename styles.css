@@ -550,3 +550,15 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 /* Keep the tilted stem inside the viewport. */
 @media(max-width:700px){.paper-hero .hero-calla{right:28px;rotate:-3deg;transform-origin:70% 12%}}
 @media(max-width:700px){.paper-hero .intro{max-width:78%}}
+/* Make outfit examples visibly expandable and comfortable to tap. */
+.lookbook{border-top:0;padding-top:0;margin-top:24px}
+.lookbook summary{min-height:54px;padding:14px 18px;border:1px solid #a6ae98;border-radius:3px;background:#e9ebdf80;color:var(--olive);font-size:12px;letter-spacing:.04em;gap:18px;transition:background .2s,border-color .2s}
+.lookbook summary:hover{background:#e2e6d6;border-color:var(--olive)}
+.lookbook summary span{font-size:0;flex:none}
+.lookbook summary span::after{content:'⌄';display:block;font-size:22px;line-height:1;transition:rotate .2s}
+.lookbook[open] summary span::after{rotate:180deg}
+@media(prefers-reduced-motion:reduce){.lookbook summary,.lookbook summary span::after{transition:none}}
+/* Geometric chevron, independent of font baseline. */
+.lookbook summary span{display:flex;align-items:center;justify-content:center;width:18px;height:18px}
+.lookbook summary span::after{content:'';width:7px;height:7px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg);font-size:0;line-height:0;rotate:none;transition:transform .2s}
+.lookbook[open] summary span::after{rotate:none;transform:translateY(2px) rotate(225deg)}
