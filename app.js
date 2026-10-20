@@ -6,13 +6,13 @@ const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со с
 const invitations = {
   default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
-  'elena-yuriy': { greeting: 'Дорогие Елена и Юрий!', note: noteTwo, guests: ['Елена', 'Юрий'], plusOne: false },
+  'elena-yuriy': { greeting: 'Дорогие Юрий и Елена!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
   maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
-  'yuliya-andrey': { greeting: 'Дорогие Юлия, Андрей и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Юлия', 'Андрей', 'Даня'], plusOne: false },
+  'yuliya-andrey': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', 'Даня'], plusOne: false },
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
   valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
-  'natasha-toms': { greeting: 'Дорогие Наташа и Томс!', note: noteTwo, guests: ['Наташа', 'Томс'], plusOne: false },
-  'dasha-milos': { greeting: 'Дорогие Даша и Князь Милош!', note: noteTwo, guests: ['Даша', 'Князь Милош'], plusOne: false },
+  'natasha-toms': { greeting: 'Дорогие Томс и Наташа!', note: noteTwo, guests: ['Томс', 'Наташа'], plusOne: false },
+  'dasha-milos': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Князь Милош', 'Даша'], plusOne: false },
   'yakov-elvira': { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
   'ernest-kseniya': { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
   kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe },
@@ -20,7 +20,7 @@ const invitations = {
   cheslav: { greeting: 'Дорогой Чеслав!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Чеслав'], plusOne: true, partner: plusHe },
   // Гости Марика
   'roy-kseniya': { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
-  'alina-kirill': { greeting: 'Дорогие Алина и Кирилл!', note: noteTwo, guests: ['Алина', 'Кирилл'], plusOne: false },
+  'alina-kirill': { greeting: 'Дорогие Кирилл и Алина!', note: noteTwo, guests: ['Кирилл', 'Алина'], plusOne: false },
   svetlana: { greeting: 'Дорогая Светлана!', note: noteOne, guests: ['Светлана'], plusOne: false },
   'victoria-nikolay': { greeting: 'Дорогая семья Коляко!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Виктория', 'Николай', {name:'Аким', child:true}, {name:'Алиса', child:true}], plusOne: false },
   'vitaliy-santa': { greeting: 'Дорогие Виталий и Санта!', note: noteTwo, guests: ['Виталий', 'Санта'], plusOne: false },
