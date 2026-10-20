@@ -180,6 +180,21 @@ render();
 // Editorial reveal for place block
 (function(){const els=document.querySelectorAll('#place .reveal');if(!els.length)return;const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});els.forEach((el,i)=>{el.style.transitionDelay=(i*70)+'ms';io.observe(el)});if(matchMedia('(prefers-reduced-motion: reduce)').matches)els.forEach(el=>el.classList.add('in'))})();
 
+// place gallery
+(function(){
+  const g=document.querySelector('.place-gallery'); if(!g) return;
+  const track=g.querySelector('.pg-track'); const slides=[...track.children]; const dots=g.querySelector('.pg-dots');
+  let idx=0;
+  slides.forEach((_,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Фото '+(i+1)); b.addEventListener('click',()=>go(i)); dots.appendChild(b);});
+  const btns=[...dots.children];
+  function go(n){idx=(n+slides.length)%slides.length; track.style.transform='translateX('+(-idx*100)+'%)'; btns.forEach((b,i)=>b.setAttribute('aria-selected', i===idx?'true':'false')); }
+  g.querySelector('.pg-prev').addEventListener('click',()=>go(idx-1));
+  g.querySelector('.pg-next').addEventListener('click',()=>go(idx+1));
+  let sx=0,dx=0; track.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true}); track.addEventListener('touchend',e=>{dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) go(idx+(dx<0?1:-1));});
+  go(0);
+})();
+
+
 // Timeline heart rides the winding path with the page scroll (like the reference invite).
 (function () {
  const tl = document.querySelector('.timeline');
