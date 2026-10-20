@@ -468,6 +468,8 @@ body.env-locked{overflow:hidden}
 .lookbook summary::-webkit-details-marker{display:none}
 .lookbook summary span{font-size:16px}
 .lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.lk-hero{margin:16px 0 0;border:1px solid #e8e6db;border-radius:12px;overflow:hidden;background:#fcfbf7}
+.lk-hero img{display:block;width:100%;height:auto}
 .lookbook-card{border:1px solid #e8e6db;border-radius:12px;padding:12px 14px;background:#fcfbf7}
 .lookbook-card.full{grid-column:1/-1}
 .lk-kicker{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#8a8f78}
