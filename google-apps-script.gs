@@ -92,5 +92,9 @@ function doPost(e){
     rows.push({'Время':new Date(),'Гостей':0,'Комментарий':d.comment||'','raw':JSON.stringify(d)});
   }
   rows.forEach(r=>{ sh.appendRow(header.map(h=> r[h]===undefined || r[h]===null ? '' : r[h])); });
+  // Дата и время в привычном виде: 20.10.2026 22:10 (в ячейке остаётся настоящая дата — сортировка работает)
+  if(header.indexOf('Время') >= 0){
+    sh.getRange(2, header.indexOf('Время')+1, Math.max(sh.getLastRow()-1,1), 1).setNumberFormat('DD.MM.YYYY HH:MM');
+  }
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }
