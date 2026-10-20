@@ -8,40 +8,42 @@
 // 6. Нажмите «Развернуть», разрешите доступ, скопируйте URL веб-приложения
 //    (выглядит как https://script.google.com/macros/s/AKfy.../exec) и пришлите мне.
 //
-// Скрипт только дописывает строки в лист «Ответы» — ничего больше.
-// URL не публикуйте: он будет виден в исходниках сайта, это нормально,
-// худшее что может случиться — лишняя строка-спам в таблице.
 
 const SHEET_NAME = 'Ответы';
-const COLUMNS = ['Время', 'Гостей', 'Имена', 'Придут?', 'Ночёвка', 'Транспорт', 'Напитки', 'Питание', '+1', 'Комментарий', 'raw'];
+const COLUMNS = ['Время','Гостей','Имена','Придут?','Ночёвка','Транспорт','Напитки','Спутник/ца','Комментарий','raw'];
 
-function doPost(e) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sh = ss.getSheetByName(SHEET_NAME);
-  if (!sh) {
-    sh = ss.insertSheet(SHEET_NAME);
-    sh.appendRow(COLUMNS);
+function ensureHeader(sh){
+  const row = sh.getRange(1,1,1,COLUMNS.length).getValues()[0];
+  const same = row.length===COLUMNS.length && row.every((v,i)=>v===COLUMNS[i]);
+  if(!same){
+    sh.getRange(1,1,1,COLUMNS.length).setValues([COLUMNS]);
     sh.setFrozenRows(1);
   }
+}
+function doPost(e){
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(SHEET_NAME);
+  if(!sh){ sh = ss.insertSheet(SHEET_NAME); sh.appendRow(COLUMNS); sh.setFrozenRows(1); }
+  else ensureHeader(sh);
   const d = JSON.parse(e.postData.contents);
-  const g = d.guests || [];
-  const join = field => g.map(x => x[field] || '').join(' / ');
-  const plus = d.companion
-    ? [d.companion.will, d.companion.name, d.companion.night, (d.companion.drinks || []).join(', ')].filter(Boolean).join(' | ')
-    : '';
+  const g = d.guests||[];
+  const mapYN = v=>v==='yes'?'Да':v==='no'?'Нет':v==='maybe'?'Пока не знаю':v||'';
+  const join = f=>g.map(x=>mapYN(x[f])||'').join(' / ');
+  const transport = x=>[mapYN(x.travel)||x.travel, x.seats?`мест:${x.seats}`:'', x.from].filter(Boolean).join(' ');
+  const plus = d.companion ? [
+    d.companion.will==='yes'?'Буду с парой':d.companion.will==='maybe'?'Возможно с парой':'',
+    d.companion.name?`Имя: ${d.companion.name}`:'',
+    d.companion.night?`Ночёвка: ${mapYN(d.companion.night)}`:'',
+    d.companion.travel?`Транспорт: ${transport(d.companion)}`:'',
+    (d.companion.drinks||[]).length?`Напитки: ${d.companion.drinks.join(', ')}`:''
+  ].filter(Boolean).join(' | ') : '';
   sh.appendRow([
-    new Date(),
-    g.length,
-    g.map(x => x.name).filter(Boolean).join(', '),
-    join('attending'),
-    join('night'),
-    g.map(x => [x.travel, x.seats, x.from].filter(Boolean).join(' ')).join(' / '),
-    g.map(x => (x.drinks || []).join(', ')).join(' / '),
-    join('food'),
-    plus,
-    d.comment || '',
-    JSON.stringify(d)
+    new Date(), g.length,
+    g.map(x=>x.name).filter(Boolean).join(', '),
+    join('attending'), join('night'),
+    g.map(transport).join(' / '),
+    g.map(x=>(x.drinks||[]).join(', ')).join(' / '),
+    plus, d.comment||'', JSON.stringify(d)
   ]);
-  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
-    .setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }

@@ -118,7 +118,7 @@ function collect(form) {
   if (plus && !plus.hidden) {
     const will = val('companion');
     if (will === 'yes' || will === 'maybe') {
-      companion = { will, name: val('companion-name'), ...guestData('plus') };
+      companion = { ...guestData('plus'), will, name: val('companion-name') };
       delete companion.attending;
     }
   }
