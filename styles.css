@@ -332,6 +332,12 @@ body.env-locked{overflow:hidden}
 
 /* Organic pebble crop instead of the arch (tweak via .landscape border-radius). */
 .landscape{border-radius:47% 53% 42% 58% / 55% 43% 57% 45%}
+@media(max-width:700px){
+  #place .landscape{height:260px;border-radius:24px;aspect-ratio:auto}
+  #place .landscape img{object-position:center 62%}
+  #place h2{white-space:nowrap;font-size:clamp(32px,8vw,40px)}
+  #place h2 br{display:none}
+}
 
 /* Draft schedule times above each timeline title. */
 .timeline .tl-time{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;letter-spacing:.16em;color:#8b9278;margin-bottom:2px}
