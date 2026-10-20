@@ -396,9 +396,9 @@ body.env-locked{overflow:hidden}
 @keyframes heart-enclose{0%,100%{transform:translate(-50%,-45%) rotate(-4deg) scale(1);opacity:.92}50%{transform:translate(-50%,-45%) rotate(-4deg) scale(1.07);opacity:1}}
 
 /* Date digits drawn inside the heart svg for exact optical centering. */
-.cal-heart{width:88px;height:80px}
-.cal-heart text{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:24px;text-anchor:middle;dominant-baseline:central;fill:#46503c;font-variant-numeric:oldstyle-nums}
-.cal-heart path{stroke-width:2.8}
+.cal-heart{width:72px;height:66px}
+.cal-heart text{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:19px;text-anchor:middle;dominant-baseline:central;fill:#46503c;font-variant-numeric:oldstyle-nums}
+.cal-heart path{stroke-width:2.5}
 
 /* Align the heart with the number row. */
 .cal-heart{transform:translate(-50%,calc(-45% + 9px)) rotate(-4deg)}
