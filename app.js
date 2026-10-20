@@ -12,7 +12,7 @@ const invitations = {
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
   valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
   'toms-natasha': { greeting: 'Дорогие Томс и Наташа!', note: noteTwo, guests: ['Томс', 'Наташа'], plusOne: false },
-  'milos-dasha': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Князь Милош', 'Даша'], plusOne: false },
+  'milos-dasha': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Милош', 'Даша'], plusOne: false },
   'yakov-elvira': { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
   'ernest-kseniya': { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
   kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe },
@@ -109,8 +109,8 @@ if (envelope) {
  const open = () => {
    if (envelope.classList.contains('open')) return;
    envelope.classList.add('open');
-   setTimeout(() => document.body.classList.remove('env-locked'), 1100);
-   setTimeout(() => envelope.remove(), 1700);
+   setTimeout(() => document.body.classList.remove('env-locked'), matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 2200);
+   setTimeout(() => envelope.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 2350);
  };
  envelope.addEventListener('click', open);
  envelope.addEventListener('keydown', event => {
