@@ -6,7 +6,7 @@ const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со с
 const invitations = {
   default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
-  'yuriy-elena': { greeting: 'Дорогие Юрий и Елена!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
+  'yuriy-elena': { greeting: 'Дорогие папа и мама!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
   maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
   'andrey-yuliya': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', 'Даня'], plusOne: false },
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
