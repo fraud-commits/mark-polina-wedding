@@ -49,7 +49,8 @@ function details(id) {
   ${select(id+'-travel','Как планируете добраться?', [['car','На своей машине'],['ride','Хочу присоединиться к кому-то'],['own','Доберусь самостоятельно'],['maybe','Пока не знаю']])}
   <div data-car hidden>${select(id+'-seats','Сможете взять попутчиков?', [['0','Нет свободных мест'],['1','1 место'],['2','2 места'],['3','3 места'],['4','4 места'],['maybe','Пока не знаю']])}</div>
   <div data-route hidden><label>Откуда поедете?<input name="${id}-from" maxlength="100" placeholder="Город или район"></label><p class="small">Пожелание о попутчиках передадим организаторам; поездка ещё не согласована.</p></div>
-  <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино','Игристое','Пиво','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>`;
+  <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино красное','Вино белое','Игристое','Пиво','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>
+  <div data-strong hidden><label>Уточните крепкий алкоголь / коктейли<input name="${id}-strong" maxlength="300" placeholder="Виски, джин, ром, любимые коктейли — Апероль, Мохито и т.д."></label></div>`;
 }
 function guest(id, name) {
  return `<fieldset><legend>${name || 'Ваш ответ'}</legend>${name ? '' : '<label>Имя и фамилия<input name="guest-name" required maxlength="120" autocomplete="name"></label>'}${select(id+'-attending','Сможете прийти?', [['yes','С радостью!'],['no','К сожалению, нет'],['maybe','Пока не знаю']])}<div data-attending hidden>${details(id)}</div></fieldset>`;
@@ -75,6 +76,10 @@ function sync() {
    visibility(block, active && travel.value === 'car');
    visibility(block.parentElement.querySelector('[data-route]'), active && ['car','ride'].includes(travel.value));
  });
+ document.querySelectorAll('[data-strong]').forEach(block => {
+   const on = !block.hidden && !!block.parentElement.querySelector('input[name$="-drinks"]:checked')?.parentElement.textContent.includes('Крепкий');
+   visibility(block, on);
+ });
  document.querySelector('#status').textContent = '';
 }
 function render() {
@@ -87,104 +92,104 @@ function render() {
 // Envelope opening screen. Shown on every visit — it's part of the ritual.
 const envelope = document.querySelector('#envelope');
 if (envelope) {
-  document.body.classList.add('env-locked');
-  const open = () => {
-    if (envelope.classList.contains('open')) return;
-    envelope.classList.add('open');
-    setTimeout(() => document.body.classList.remove('env-locked'), 1100);
-    setTimeout(() => envelope.remove(), 1700);
-  };
-  envelope.addEventListener('click', open);
-  envelope.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
-  });
+ document.body.classList.add('env-locked');
+ const open = () => {
+   if (envelope.classList.contains('open')) return;
+   envelope.classList.add('open');
+   setTimeout(() => document.body.classList.remove('env-locked'), 1100);
+   setTimeout(() => envelope.remove(), 1700);
+ };
+ envelope.addEventListener('click', open);
+ envelope.addEventListener('keydown', event => {
+   if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
+ });
 }
 document.querySelector('#response').addEventListener('change',sync);
 // Paste the Google Apps Script web app URL here to start saving responses.
 const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJxggv3SwYO9BNySjITeN1jpRghemR-Nsg4r2yFIR1emaxTdOcH_IvkpqwgipiEIfckg/exec';
 function collect(form) {
-  const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
-  const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.parentElement.textContent.trim());
-  const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food') });
-  const guests = [];
-  document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
-    const data = guestData('g'+i);
-    const legend = fs.querySelector('legend').textContent;
-    data.name = val('guest-name') || (legend === 'Ваш ответ' ? '' : legend);
-    guests.push(data);
-  });
-  let companion = null;
-  const plus = document.querySelector('[data-plus]');
-  if (plus && !plus.hidden) {
-    const will = val('companion');
-    if (will === 'yes' || will === 'maybe') {
-      companion = { ...guestData('plus'), will, name: val('companion-name') };
-      delete companion.attending;
-    }
-  }
-  return { token, guests, companion, comment: val('comment') };
+ const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
+ const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.parentElement.textContent.trim());
+ const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food'), strong: val(id+'-strong') });
+ const guests = [];
+ document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
+   const data = guestData('g'+i);
+   const legend = fs.querySelector('legend').textContent;
+   data.name = val('guest-name') || (legend === 'Ваш ответ' ? '' : legend);
+   guests.push(data);
+ });
+ let companion = null;
+ const plus = document.querySelector('[data-plus]');
+ if (plus && !plus.hidden) {
+   const will = val('companion');
+   if (will === 'yes' || will === 'maybe') {
+     companion = { ...guestData('plus'), will, name: val('companion-name') };
+     delete companion.attending;
+   }
+ }
+ return { token, guests, companion, comment: val('comment') };
 }
 document.querySelector('#response').addEventListener('submit', async event => {
-  event.preventDefault();
-  const form = event.target;
-  const status = document.querySelector('#status');
-  if (!RSVP_ENDPOINT) {
-    status.textContent = 'Анкета заполнена корректно. Это макет: ответ не отправлен. После подключения хранилища здесь появится подтверждение сохранения.';
-    return;
-  }
-  const button = form.querySelector('button[type="submit"]');
-  button.disabled = true;
-  status.textContent = 'Отправляем...';
-  try {
-    await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(collect(form)) });
-    form.reset();
-    render();
-    status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
-  } catch (e) {
-    status.textContent = 'Не получилось отправить. Попробуйте ещё раз или напишите нам.';
-  }
-  button.disabled = false;
+ event.preventDefault();
+ const form = event.target;
+ const status = document.querySelector('#status');
+ if (!RSVP_ENDPOINT) {
+   status.textContent = 'Анкета заполнена корректно. Это макет: ответ не отправлен. После подключения хранилища здесь появится подтверждение сохранения.';
+   return;
+ }
+ const button = form.querySelector('button[type="submit"]');
+ button.disabled = true;
+ status.textContent = 'Отправляем...';
+ try {
+   await fetch(RSVP_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(collect(form)) });
+   form.reset();
+   render();
+   status.textContent = 'Спасибо! Ваш ответ сохранён. Очень ждём встречи 🤍';
+ } catch (e) {
+   status.textContent = 'Не получилось отправить. Попробуйте ещё раз или напишите нам.';
+ }
+ button.disabled = false;
 });
 // Countdown to the wedding day.
 const countdown = document.querySelector('.countdown');
 if (countdown) {
-  const target = new Date('2027-06-26T12:00:00');
-  const pad = n => String(n).padStart(2, '0');
-  const tick = () => {
-    let diff = Math.max(0, target - Date.now());
-    const d = Math.floor(diff / 864e5); diff -= d * 864e5;
-    const h = Math.floor(diff / 36e5); diff -= h * 36e5;
-    const m = Math.floor(diff / 6e4); diff -= m * 6e4;
-    const s = Math.floor(diff / 1e3);
-    countdown.querySelector('[data-cd="d"]').textContent = d;
-    countdown.querySelector('[data-cd="h"]').textContent = pad(h);
-    countdown.querySelector('[data-cd="m"]').textContent = pad(m);
-    countdown.querySelector('[data-cd="s"]').textContent = pad(s);
-  };
-  tick();
-  setInterval(tick, 1000);
+ const target = new Date('2027-06-26T12:00:00');
+ const pad = n => String(n).padStart(2, '0');
+ const tick = () => {
+   let diff = Math.max(0, target - Date.now());
+   const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+   const h = Math.floor(diff / 36e5); diff -= h * 36e5;
+   const m = Math.floor(diff / 6e4); diff -= m * 6e4;
+   const s = Math.floor(diff / 1e3);
+   countdown.querySelector('[data-cd="d"]').textContent = d;
+   countdown.querySelector('[data-cd="h"]').textContent = pad(h);
+   countdown.querySelector('[data-cd="m"]').textContent = pad(m);
+   countdown.querySelector('[data-cd="s"]').textContent = pad(s);
+ };
+ tick();
+ setInterval(tick, 1000);
 }
 render();
 
 // Timeline heart rides the winding path with the page scroll (like the reference invite).
 (function () {
-  const tl = document.querySelector('.timeline');
-  const heart = tl && tl.querySelector('.tl-heart');
-  const svg = tl && tl.querySelector('.tl-path');
-  const path = svg && svg.querySelector('path');
-  if (!tl || !heart || !path) return;
-  const len = path.getTotalLength();
-  const vb = svg.viewBox.baseVal;
-  const move = () => {
-    const r = tl.getBoundingClientRect();
-    const vh = window.innerHeight;
-    let p = (vh * 0.9 - r.top) / (r.height + vh * 0.75);
-    p = Math.max(0, Math.min(1, p));
-    const pt = path.getPointAtLength(p * len);
-    heart.style.left = (pt.x * (r.width / vb.width)) + 'px';
-    heart.style.top = (pt.y * (r.height / vb.height)) + 'px';
-  };
-  addEventListener('scroll', move, { passive: true });
-  addEventListener('resize', move);
-  move();
+ const tl = document.querySelector('.timeline');
+ const heart = tl && tl.querySelector('.tl-heart');
+ const svg = tl && tl.querySelector('.tl-path');
+ const path = svg && svg.querySelector('path');
+ if (!tl || !heart || !path) return;
+ const len = path.getTotalLength();
+ const vb = svg.viewBox.baseVal;
+ const move = () => {
+   const r = tl.getBoundingClientRect();
+   const vh = window.innerHeight;
+   let p = (vh * 0.9 - r.top) / (r.height + vh * 0.75);
+   p = Math.max(0, Math.min(1, p));
+   const pt = path.getPointAtLength(p * len);
+   heart.style.left = (pt.x * (r.width / vb.width)) + 'px';
+   heart.style.top = (pt.y * (r.height / vb.height)) + 'px';
+ };
+ addEventListener('scroll', move, { passive: true });
+ addEventListener('resize', move);
+ move();
 })();
