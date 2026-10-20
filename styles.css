@@ -453,3 +453,7 @@ body.env-locked{overflow:hidden}
 .pg-dots button[aria-selected="true"]{background:var(--olive);width:26px}
 @media(max-width:900px){.pg-viewport{height:420px}}
 @media(max-width:700px){.pg-viewport{height:300px;border-radius:20px 14px 24px 16px}.pg-arrow{width:34px;height:34px;font-size:18px}.pg-prev{left:8px}.pg-next{right:8px}}
+
+/* Keep gallery slides in the horizontal track. */
+.pg-track img{position:relative;inset:auto;}
+
