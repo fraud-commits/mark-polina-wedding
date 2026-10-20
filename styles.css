@@ -569,6 +569,7 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .rsvp input:not([type=checkbox]),.rsvp select,.rsvp textarea{display:block;width:100%;margin-top:10px;min-height:50px;font-size:16px;padding:13px 12px}
 .rsvp fieldset{margin:0 0 32px;padding-top:24px}
 .rsvp .checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 28px}
+.rsvp .checks label:last-child:nth-child(odd){grid-column:1/-1}
 .rsvp .checks label{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #c7ccba;border-radius:3px;min-height:48px;margin:0;font-size:13px;cursor:pointer}
 .rsvp .checks label:has(input:checked){background:#dce3cf;border-color:#7a8966}
 .rsvp input[type=checkbox]{width:18px;height:18px;accent-color:var(--olive);flex-shrink:0}

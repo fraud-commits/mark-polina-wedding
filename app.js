@@ -58,8 +58,7 @@ function details(id, isChild) {
   ${select(id+'-travel','Как планируете добраться?', [['car','На своей машине'],['ride','Хочу присоединиться к кому-то'],['own','Доберусь самостоятельно'],['maybe','Пока не знаю']])}
   <div data-car hidden>${select(id+'-seats','Сможете взять попутчиков?', [['0','Нет свободных мест'],['1','1 место'],['2','2 места'],['3','3 места'],['4','4 места'],['maybe','Пока не знаю']])}</div>
   <div data-route hidden><label>Откуда поедете?<input name="${id}-from" maxlength="100" placeholder="Город или район"></label><p class="small">Пожелание о попутчиках обсудим в группе WhatsApp — поездка ещё не согласована.</p></div>
-  <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино красное','Вино белое','Игристое','Пиво','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>
-  <div data-strong hidden><label>Уточните крепкий алкоголь / коктейли<input name="${id}-strong" maxlength="300" placeholder="Виски, джин, ром, любимые коктейли — Апероль, Мохито и т.д."></label></div>`;
+  <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино красное','Вино белое','Игристое','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>`;
 }
 function guest(id, entry) {
  const name = getGuestName(entry);
@@ -88,11 +87,6 @@ function sync() {
    const seats = block.querySelector('select').value;
    const offersRide = travel.value === 'car' && ['1','2','3','4'].includes(seats);
    visibility(block.parentElement.querySelector('[data-route]'), active && (travel.value === 'ride' || offersRide));
- });
- document.querySelectorAll('[data-strong]').forEach(block => {
-   const box = block.closest('[data-attending], [data-companion]');
-    const on = box && !box.hidden && !!block.parentElement.querySelector('input[name$="-drinks"]:checked')?.parentElement.textContent.includes('Крепкий');
-   visibility(block, on);
  });
  document.querySelector('#status').textContent = '';
 }
@@ -124,7 +118,7 @@ const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJxggv3SwYO9BNyS
 function collect(form) {
  const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
  const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.parentElement.textContent.trim());
- const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food'), strong: val(id+'-strong') });
+ const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food') });
  const guests = [];
  document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
    const data = guestData('g'+i);
