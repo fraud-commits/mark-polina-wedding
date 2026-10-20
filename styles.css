@@ -279,7 +279,7 @@ body.env-locked{overflow:hidden}
 .timeline article.tl-item:nth-of-type(1){left:0;top:11%;width:75%;text-align:right}
 .timeline article.tl-item:nth-of-type(2){left:30%;top:34%;width:70%;text-align:left}
 .timeline article.tl-item:nth-of-type(3){left:0;top:55%;width:66%;text-align:right}
-.timeline article.tl-item:nth-of-type(4){left:35%;top:78%;width:65%;text-align:left}
+.timeline article.tl-item:nth-of-type(4){left:42%;top:79%;width:58%;text-align:left;padding-left:10px}
 .tl-card{max-width:none;padding:0}
 .tl-card h3{font-size:31px;font-style:italic;margin:0 0 4px}
 .tl-card p{font-size:12.5px}
@@ -288,6 +288,7 @@ body.env-locked{overflow:hidden}
 @media(max-width:700px){
   .timeline{height:1250px;max-width:none;margin:55px 3% 0}
   .tl-card h3{font-size:27px}
+  .timeline article.tl-item:nth-of-type(4){left:38%;top:79%;width:62%;padding-left:8px}
 }
 /* Asymmetric editorial invitation, June 2027. */
 .hero.editorial-hero{min-height:790px;max-width:1600px;margin:auto;padding:75px max(7%,calc((100% - 1160px)/2)) 65px;display:block;text-align:left;overflow:hidden;isolation:isolate}
