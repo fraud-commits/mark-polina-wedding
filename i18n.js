@@ -53,6 +53,7 @@ const I18N_EN = {
   'Юрмала — 97 км': 'Jurmala — 97 km',
   'Вильнюс — 400 км': 'Vilnius — 400 km',
   'Мажейкяй — 130 км': 'Mažeikiai — 130 km',
+  'Подгорица — ✈ 1800 км': 'Podgorica — ✈ 1800 km',
   'Лондон — ✈ 1700 км': 'London — ✈ 1700 km',
   'Фотографии площадки Dunduriņi': 'Photos of the Dunduriņi venue',
   'Предыдущее фото': 'Previous photo',
