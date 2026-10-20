@@ -492,6 +492,8 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .paper-hero .name-mark{display:block;margin:0}
 .paper-hero h1 em{display:block;font-size:.34em;margin:0 0 0 24%;line-height:1.1}
 .paper-hero .name-polina{display:block;margin-left:12%}
+/* Имена — в цвета бегущего сердца из таймлайна (шалфей #7a8a5c), амперсанд остаётся тёмным. */
+.paper-hero .name-mark,.paper-hero .name-polina{color:#7a8a5c}
 .paper-hero .hero-meta{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:0 0 26px;max-width:none}
 .paper-hero .hero-meta time{font:italic 32px 'Cormorant Garamond',Georgia,serif;letter-spacing:.08em}
 .paper-hero .hero-location{font-size:10px;letter-spacing:.23em}
