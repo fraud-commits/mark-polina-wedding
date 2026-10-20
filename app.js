@@ -63,7 +63,7 @@ function details(id, isChild) {
 function guest(id, entry) {
  const name = getGuestName(entry);
  const child = isChildGuest(entry);
- return `<fieldset><legend>${name || 'Ваш ответ'}</legend>${name ? '' : '<label>Имя и фамилия<input name="guest-name" required maxlength="120" autocomplete="name"></label>'}${select(id+'-attending','Сможете прийти?', [['yes','С радостью!'],['no','К сожалению, нет'],['maybe','Пока не знаю']])}<div data-attending hidden>${details(id, child)}</div></fieldset>`;
+ return `<fieldset><legend>${name || 'Анкета'}</legend>${name ? '' : '<label>Имя и фамилия<input name="guest-name" required maxlength="120" autocomplete="name"></label>'}${select(id+'-attending','Сможете прийти?', [['yes','С радостью!'],['no','К сожалению, нет'],['maybe','Пока не знаю']])}<div data-attending hidden>${details(id, child)}</div></fieldset>`;
 }
 function visibility(element, show) {
  element.hidden = !show;
@@ -123,7 +123,7 @@ function collect(form) {
  document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
    const data = guestData('g'+i);
    const legend = fs.querySelector('legend').textContent;
-   data.name = val('guest-name') || (legend === 'Ваш ответ' ? '' : legend);
+   data.name = val('guest-name') || (legend === 'Анкета' ? '' : legend);
    guests.push(data);
  });
  let companion = null;
