@@ -51,7 +51,7 @@ function details(id, isChild) {
   return `${select(id+'-night','Останетесь на ночь?', [['yes','Да, хочу остаться'],['no','Нет'],['maybe','Пока не знаю']])}
   ${select(id+'-travel','Как планируете добраться?', [['car','На своей машине'],['ride','Хочу присоединиться к кому-то'],['own','Доберусь самостоятельно'],['maybe','Пока не знаю']])}
   <div data-car hidden>${select(id+'-seats','Сможете взять попутчиков?', [['0','Нет свободных мест'],['1','1 место'],['2','2 места'],['3','3 места'],['4','4 места'],['maybe','Пока не знаю']])}</div>
-  <div data-route hidden><label>Откуда поедете?<input name="${id}-from" maxlength="100" placeholder="Город или район"></label><p class="small">Пожелание о попутчиках передадим организаторам; поездка ещё не согласована.</p></div>
+  <div data-route hidden><label>Откуда поедете?<input name="${id}-from" maxlength="100" placeholder="Город или район"></label><p class="small">Пожелание о попутчиках обсудим в группе WhatsApp — поездка ещё не согласована.</p></div>
   <p>Какие напитки предпочитаете?</p><div class="checks">${['Вино красное','Вино белое','Игристое','Пиво','Крепкий алкоголь','Безалкогольные'].map((drink,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}"> ${drink}</label>`).join('')}</div>
   <div data-strong hidden><label>Уточните крепкий алкоголь / коктейли<input name="${id}-strong" maxlength="300" placeholder="Виски, джин, ром, любимые коктейли — Апероль, Мохито и т.д."></label></div>`;
 }
