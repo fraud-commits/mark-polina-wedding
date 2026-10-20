@@ -343,19 +343,7 @@ body.env-locked{overflow:hidden}
 .timeline .tl-time{display:block;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;letter-spacing:.16em;color:#8b9278;margin-bottom:2px}
 .tl-time + h3{margin-top:4px}
 
-/* Dress-code palette beyond greens: cream, sand, dusty rose, terracotta, sage. */
-.swatches span:nth-child(1){background:#f4eee1}
-.swatches span:nth-child(2){background:#e3d0ae}
-.swatches span:nth-child(3){background:#d9b7ac}
-.swatches span:nth-child(4){background:#bd7a5e}
-.swatches span:nth-child(5){background:#a6b394}
-
-/* Garden-party expansion: ochre + deeper khaki; wrap on narrow screens. */
-.swatches{flex-wrap:wrap}
-.swatches span:nth-child(6){background:#9aa87e}
-.swatches span:nth-child(7){background:#6d7f5d}
-
-.swatches span:nth-child(5){background:#a17c5e}
+/* Dress-code palette: single ordered set lives at the end of the file. */
 
 /* Phone: hero hugs its content — no empty field before the letter. */
 @media(max-width:600px){
@@ -461,8 +449,18 @@ body.env-locked{overflow:hidden}
 .pg-arrow:hover{background:transparent;box-shadow:none;transform:translateY(-50%) scale(1.12)}
 
 
-/* Updated guest palette — 8 harmonious dusty tones */
-.swatches span:nth-child(1){background:#e3d0ae}.swatches span:nth-child(2){background:#d9b7ac}.swatches span:nth-child(3){background:#aebdce}.swatches span:nth-child(4){background:#9aafc2}.swatches span:nth-child(5){background:#a17c5e}.swatches span:nth-child(6){background:#9aa87e}.swatches span:nth-child(7){background:#6d7f5d}.swatches span:nth-child(8){background:#c9d6c3}
+/* Guest palette — 10 tones, ordered light → dark, 5 per row. */
+.swatches{display:grid;grid-template-columns:repeat(5,52px);gap:14px;justify-content:start}
+.swatches span:nth-child(1){background:#f1e7d4}
+.swatches span:nth-child(2){background:#e3d0ae}
+.swatches span:nth-child(3){background:#c9d6c3}
+.swatches span:nth-child(4){background:#d9b7ac}
+.swatches span:nth-child(5){background:#aebdce}
+.swatches span:nth-child(6){background:#9aafc2}
+.swatches span:nth-child(7){background:#9aa87e}
+.swatches span:nth-child(8){background:#a17c5e}
+.swatches span:nth-child(9){background:#6d7f5d}
+.swatches span:nth-child(10){background:#4e5b3c}
 .lookbook{margin-top:22px;border-top:1px solid var(--line);padding-top:14px}
 .lookbook summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.08em}
 .lookbook summary::-webkit-details-marker{display:none}
