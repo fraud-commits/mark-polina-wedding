@@ -480,3 +480,73 @@ body.env-locked{overflow:hidden}
 .lookbook-card p{font-size:12px;line-height:1.6;color:var(--muted);margin:0}
 @media(max-width:700px){.lookbook-grid{grid-template-columns:1fr}}
 
+/* Paper invitation cover — mobile first. */
+body:has(.paper-hero){background-image:none}
+body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
+.paper-hero{background:#f8f5ed}
+.hero.paper-hero{min-height:780px;padding:72px 9% 50px;max-width:none}
+.hero.paper-hero::before{display:block!important;content:'';position:absolute;inset:0;width:auto;height:auto;background:url('paper-texture.png') repeat;opacity:.16;z-index:-1;transform:none;pointer-events:none}
+.paper-hero .hero-copy{max-width:700px;width:72%;z-index:2}
+.paper-hero .eyebrow{margin-bottom:42px;letter-spacing:.34em}
+.paper-hero h1{font-size:clamp(100px,12vw,170px);line-height:.87;margin-bottom:48px;width:auto}
+.paper-hero .name-mark{display:block;margin:0}
+.paper-hero h1 em{display:block;font-size:.34em;margin:0 0 0 24%;line-height:1.1}
+.paper-hero .name-polina{display:block;margin-left:12%}
+.paper-hero .hero-meta{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin:0 0 26px;max-width:none}
+.paper-hero .hero-meta time{font:italic 32px 'Cormorant Garamond',Georgia,serif;letter-spacing:.08em}
+.paper-hero .hero-location{font-size:10px;letter-spacing:.23em}
+.paper-hero .intro{font-size:26px;max-width:none;margin:0 0 50px}
+.paper-hero .hero-details{border:0;font-size:10px;letter-spacing:.16em;gap:24px;min-height:44px}
+.paper-hero .hero-calla{position:absolute;top:0;right:-5%;width:47%;height:100%;object-fit:contain;opacity:1;transform:none;z-index:1;pointer-events:none}
+.paper-hero .hero-side-note{display:none}
+@media(max-width:700px){
+ body:has(.paper-hero) header{padding:18px 24px;min-height:68px}
+ body:has(.paper-hero) header nav{gap:14px;font-size:8px}
+ .hero.paper-hero{padding:66px 24px 28px;min-height:calc(100svh - 68px);overflow:hidden}
+ .paper-hero .hero-copy{width:100%;max-width:none}
+ .paper-hero .eyebrow{font-size:8px;margin-bottom:36px;letter-spacing:.25em}
+ .paper-hero h1{font-size:clamp(76px,22vw,105px);line-height:.9;margin-bottom:42px;width:90%}
+ .paper-hero h1 em{font-size:32px;margin-left:30%;line-height:1.05}
+ .paper-hero .name-polina{margin-left:12%}
+ .paper-hero .hero-calla{width:220px;height:620px;right:-90px;top:10px;max-width:none;object-fit:contain;opacity:1}
+ .paper-hero .hero-meta{gap:8px;margin-bottom:26px}
+ .paper-hero .hero-meta time{font-size:27px}
+ .paper-hero .hero-location{font-size:8px;letter-spacing:.2em}
+ .paper-hero .intro{font-size:22px;max-width:90%;margin-bottom:32px}
+ .paper-hero .hero-details{font-size:9px;letter-spacing:.1em}
+}
+@media(max-height:740px) and (max-width:700px){.hero.paper-hero{padding-top:30px}.paper-hero .eyebrow{margin-bottom:26px}.paper-hero h1{margin-bottom:28px}.paper-hero .intro{margin-bottom:22px}}
+@media(prefers-reduced-motion:no-preference){.paper-hero .hero-copy{animation:arrive .9s ease both}.paper-hero .hero-calla{animation:arrive 1.2s ease both}}
+@media(max-width:700px){.paper-hero .hero-calla{right:-52px;top:-70px;width:205px;height:650px}}
+/* Bring the full flower into view and let its leaf meet the name composition. */
+@media(max-width:700px){.paper-hero .hero-calla{right:-10px;top:-72px;width:205px;height:650px}}
+@media(max-width:700px){.paper-hero .hero-calla{top:-116px}}
+/* Mirror the calla without affecting its entrance animation. */
+.paper-hero .hero-calla{scale:-1 1}
+/* Match the paper-and-calla concept. */
+.hero.paper-hero{background-image:url('paper-cotton.png');background-size:620px auto}
+.hero.paper-hero::before{display:none!important}
+.paper-hero h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;font-size:.58em;line-height:.9;color:var(--olive);margin-left:38%}
+.paper-hero .hero-calla{scale:1;filter:drop-shadow(-5px 7px 9px rgba(87,75,40,.12))}
+@media(max-width:700px){.paper-hero h1 em{font-size:52px;line-height:.85;margin-left:39%}.paper-hero .hero-calla{width:174px;height:640px;right:-8px;top:-32px;object-fit:fill}}
+/* Plain beige cover; keep the complete calla inside the screen. */
+.hero.paper-hero{background:#f8f5ed}
+.paper-hero .hero-calla{object-fit:contain;top:20px;right:0;width:34%;height:85%}
+@media(max-width:700px){.paper-hero .hero-calla{top:18px;right:4px;width:140px;height:570px;object-fit:contain}.paper-hero .intro{max-width:100%}}
+/* Restore the tall, slender calla composition with the flower below the top edge. */
+@media(max-width:700px){.paper-hero .hero-calla{top:14px;right:4px;width:160px;height:620px;object-fit:fill}}
+/* Restore the exact tall calla placement selected in the reference screenshot. */
+@media(max-width:700px){.paper-hero .hero-calla{width:174px;height:640px;right:-8px;top:-32px;object-fit:fill}}
+/* Lower the selected tall flower enough to reveal its complete bloom. */
+@media(max-width:700px){.paper-hero .hero-calla{top:18px}}
+/* Center the invitation prompt and its downward arrow. */
+.paper-hero .hero-details{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center}
+@media(min-width:701px){.paper-hero .hero-details{width:calc(100vw - 18vw);max-width:none}}
+/* Tilt around the bloom so the lower leaf clears the invitation text. */
+@media(max-width:700px){.paper-hero .hero-calla{rotate:-7deg;transform-origin:70% 12%}}
+.flap-title span{display:block}
+.flap-title small{display:block;margin-top:16px;font-family:'Manrope',Arial,sans-serif;font-style:normal;font-weight:400;font-size:9px;line-height:1.6;letter-spacing:.25em;color:inherit}
+@media(max-width:700px){.flap-title{font-size:clamp(32px,8.5vw,44px)}.flap-title small{font-size:8px;letter-spacing:.18em;margin-top:12px}}
+/* Keep the tilted stem inside the viewport. */
+@media(max-width:700px){.paper-hero .hero-calla{right:28px;rotate:-3deg;transform-origin:70% 12%}}
+@media(max-width:700px){.paper-hero .intro{max-width:78%}}
