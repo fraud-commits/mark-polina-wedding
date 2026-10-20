@@ -462,3 +462,7 @@ body.env-locked{overflow:hidden}
 .pg-arrow{width:38px;height:38px;border:0;background:transparent;color:#fff;box-shadow:none;text-shadow:0 1px 5px rgba(0,0,0,.55);font-size:30px;font-weight:300}
 .pg-arrow:hover{background:transparent;box-shadow:none;transform:translateY(-50%) scale(1.12)}
 
+
+/* Updated guest palette */
+.swatches span:nth-child(1){background:#e3d0ae}.swatches span:nth-child(2){background:#d9b7ac}.swatches span:nth-child(3){background:#aebdce}.swatches span:nth-child(4){background:#b7ad9f}.swatches span:nth-child(5){background:#a17c5e}.swatches span:nth-child(6){background:#9aa87e}.swatches span:nth-child(7){background:#6d7f5d}
+
