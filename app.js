@@ -177,6 +177,9 @@ if (countdown) {
 }
 render();
 
+// Editorial reveal for place block
+(function(){const els=document.querySelectorAll('#place .reveal');if(!els.length)return;const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});els.forEach((el,i)=>{el.style.transitionDelay=(i*70)+'ms';io.observe(el)});if(matchMedia('(prefers-reduced-motion: reduce)').matches)els.forEach(el=>el.classList.add('in'))})();
+
 // Timeline heart rides the winding path with the page scroll (like the reference invite).
 (function () {
  const tl = document.querySelector('.timeline');
