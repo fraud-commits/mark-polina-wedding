@@ -52,7 +52,8 @@ const select = (name, label, options) => `<label>${label}<select name="${name}" 
 const getGuestName = g => typeof g === 'string' ? g : (g.name || '');
 const isChildGuest = g => typeof g === 'object' && !!g.child;
 function details(id, isChild) {
-  if (isChild) return select(id+'-night','Останетесь на ночь?', [['yes','Да, останемся'],['no','Нет'],['maybe','Пока не знаю']]);
+  // Детям вопросы не задаём — только «Сможете прийти?»
+  if (isChild) return '';
   return `${select(id+'-night','Останетесь на ночь?', [['yes','Да, хочу остаться'],['no','Нет'],['maybe','Пока не знаю']])}
   ${select(id+'-travel','Как планируете добраться?', [['car','На своей машине'],['ride','Хочу присоединиться к кому-то'],['own','Доберусь самостоятельно'],['maybe','Пока не знаю']])}
   <div data-car hidden>${select(id+'-seats','Сможете взять попутчиков?', [['0','Нет свободных мест'],['1','1 место'],['2','2 места'],['3','3 места'],['4','4 места'],['maybe','Пока не знаю']])}</div>
