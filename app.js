@@ -77,7 +77,8 @@ function sync() {
    visibility(block.parentElement.querySelector('[data-route]'), active && ['car','ride'].includes(travel.value));
  });
  document.querySelectorAll('[data-strong]').forEach(block => {
-   const on = !block.hidden && !!block.parentElement.querySelector('input[name$="-drinks"]:checked')?.parentElement.textContent.includes('Крепкий');
+   const box = block.closest('[data-attending], [data-companion]');
+    const on = box && !box.hidden && !!block.parentElement.querySelector('input[name$="-drinks"]:checked')?.parentElement.textContent.includes('Крепкий');
    visibility(block, on);
  });
  document.querySelector('#status').textContent = '';
