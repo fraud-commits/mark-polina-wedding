@@ -1,6 +1,6 @@
 const SHEET_NAME = 'Ответы';
 const DRINKS = ['Вино красное','Вино белое','Игристое','Пиво','Крепкий алкоголь','Безалкогольные'];
-const COLUMNS = ['Время','Гостей','Имена','Придут?','Ночёвка','Транспорт',...DRINKS,'Спутник/ца','Комментарий','raw'];
+const COLUMNS = ['Время','Гостей','Имена','Придут?','Ночёвка','Транспорт',...DRINKS,'Крепкий уточнение','Спутник/ца','Комментарий','raw'];
 
 function ensureHeader(sh){
   const row = sh.getRange(1,1,1,COLUMNS.length).getValues()[0];
@@ -32,6 +32,7 @@ function doPost(e){
       mapYN(person.attending), mapYN(person.night),
       transport(person),
       ...drinkFlags,
+      person.strong||'',
       plusCell,
       d.comment||'', JSON.stringify(d)
     ]);
@@ -39,10 +40,10 @@ function doPost(e){
   g.forEach(guest=> pushGuest(guest,false));
   if(d.companion){
     const c=d.companion;
-    pushGuest({name:c.name||'', attending:c.will==='yes'?'yes':c.will, night:c.night, travel:c.travel, seats:c.seats, from:c.from, drinks:c.drinks||[]}, true);
+    pushGuest({name:c.name||'', attending:c.will==='yes'?'yes':c.will, night:c.night, travel:c.travel, seats:c.seats, from:c.from, drinks:c.drinks||[], strong:c.strong||''}, true);
   }
   if(g.length===0 && !d.companion){
-    sh.appendRow([new Date(),0,'','','','','','','','','','','','',d.comment||'',JSON.stringify(d)]);
+    sh.appendRow([new Date(),0,'','','','','','','','','','','','','',d.comment||'',JSON.stringify(d)]);
   }
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }
