@@ -652,3 +652,24 @@ body.env-locked:has(.envelope-screen.open) header,body.env-locked:has(.envelope-
 .envelope-screen.open .wax{filter:drop-shadow(0 5px 12px rgba(20,26,16,.5))}
 /* No lighting overlay change on press. */
 .envelope-screen::after,.envelope-screen:not(.open)::after,.envelope-screen.open::after{display:none!important}
+/* Tactile olive paper: fine fibers over matte, softly shaded folds. */
+.envelope-screen .flap{background-image:url('paper-cotton.png'),linear-gradient(145deg,#737b58,#626b4b);background-size:480px 480px,100% 100%;background-repeat:repeat,no-repeat;background-blend-mode:multiply;}
+.envelope-screen .flap-top{background-image:url('paper-cotton.png'),linear-gradient(180deg,#818867 0%,#747d59 70%,#68724e 100%);filter:drop-shadow(0 3px 4px rgba(28,35,18,.18))}
+.envelope-screen .flap-left{background-image:url('paper-cotton.png'),linear-gradient(110deg,#737b56,#626c49);background-position:0 0,0 0}
+.envelope-screen .flap-right{background-image:url('paper-cotton.png'),linear-gradient(250deg,#737c57,#626c49);background-position:130px 90px,0 0}
+.envelope-screen .flap-bottom{background-image:url('paper-cotton.png'),linear-gradient(180deg,#707a54,#5c6745);background-position:70px 180px,0 0}
+/* Layered paper depth, illuminated from the upper left. */
+.envelope-screen .flap-top{filter:drop-shadow(3px 10px 7px rgba(24,32,15,.42))}
+.envelope-screen .flap-bottom{filter:drop-shadow(-2px -5px 5px rgba(24,32,15,.27))}
+.envelope-screen .flap-top::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,249,216,.14),transparent 42%,rgba(22,32,13,.13));clip-path:inherit}
+.envelope-screen .flap-left::after,.envelope-screen .flap-right::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,rgba(248,242,208,.1),transparent 40%,rgba(25,35,16,.14))}
+.envelope-screen .flap-bottom::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,rgba(20,30,12,.15),transparent 65%,rgba(246,240,208,.08))}
+/* Independent shadow layer avoids clipping the flap's cast shadow. */
+.flap-depth{position:absolute;inset:0;z-index:2;pointer-events:none;filter:blur(8px);transform:translate(3px,13px);background:rgba(23,31,13,.46);clip-path:polygon(0 0,100% 0,50% 55.5%)}
+.envelope-screen .flap-top{box-shadow:inset 0 1px 0 rgba(255,248,212,.28)}
+.envelope-screen.open .flap-depth{animation:fold-shadow-away .5s ease .65s both}
+@keyframes fold-shadow-away{from{opacity:1}to{opacity:0;transform:translate(0,0)}}
+@media(prefers-reduced-motion:reduce){.envelope-screen.open .flap-depth{display:none}}
+/* Close subpixel seams between folded paper panels. */
+.envelope-screen:not(.open) .flap-left,.envelope-screen:not(.open) .flap-right{transform:none}
+.envelope-screen .flap-bottom{-webkit-clip-path:polygon(-1% 101%,50% 49%,101% 101%);clip-path:polygon(-1% 101%,50% 49%,101% 101%)}
