@@ -465,6 +465,8 @@ body.env-locked{overflow:hidden}
 .lookbook summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.08em}
 .lookbook summary::-webkit-details-marker{display:none}
 .lookbook summary span{font-size:16px}
+.lk-group{grid-column:1/-1;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#8a8f78;margin:6px 0 0;padding-bottom:6px;border-bottom:1px solid #efeee5}
+.lk-group:first-of-type{margin-top:14px}
 .lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
 .lk-hero{margin:16px 0 0;border:1px solid #e8e6db;border-radius:12px;overflow:hidden;background:#fcfbf7}
 .lk-hero img{display:block;width:100%;height:auto;max-height:72vh;object-fit:cover;object-position:center top}
