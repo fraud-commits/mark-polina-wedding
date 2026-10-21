@@ -290,17 +290,18 @@
     setTimeout(() => t.classList.remove('on'), 2600);
   }
 
-  /* сжатие до 2048px, JPEG .85 */
+  /* сжатие до 2048px, JPEG .85; EXIF/метаданные удаляются автоматически (canvas не копирует EXIF) */
   function compress(blob){
-    return new Promise(res => {
+    return new Promise((res, rej) => {
       const img = new Image();
       img.onload = () => {
         const max = 2048, k = Math.min(1, max / Math.max(img.width, img.height));
         const c = document.createElement('canvas');
         c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        c.toBlob(b => { URL.revokeObjectURL(img.src); res(b); }, 'image/jpeg', .85);
+        c.toBlob(b => { URL.revokeObjectURL(img.src); b ? res(b) : rej(new Error('canvas empty')); }, 'image/jpeg', .85);
       };
+      img.onerror = () => { URL.revokeObjectURL(img.src); rej(new Error('cannot load image')); };
       img.src = URL.createObjectURL(blob);
     });
   }
@@ -310,7 +311,7 @@
       fr.onload = () => r(String(fr.result).split(',')[1]); fr.readAsDataURL(item.blob); });
     const res = await fetch(SCRIPT_URL, { method:'POST',
       headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({ token: token, name: $('#photographerName').value.trim(), data: base64 }) });
+      body: JSON.stringify({ token: token, name: $('#photographerName').value.trim() || 'инкогнито', data: base64 }) });
     const j = await res.json().catch(() => ({}));
     if (!j.ok) throw new Error(j.error || 'no ok');
   }
@@ -333,21 +334,25 @@
     } finally {
       sending = false;
       counters();
+      // если очередь опустела после отправки — скрыть блок
+      if (queue.length === 0) { /* counters() уже скрыл */ }
     }
   }
 
   function addFiles(files){
+    if (!files || !files.length) return;
     var added = 0;
-    var arr = Array.from(files || []);
+    var arr = Array.from(files);
     for (var i = 0; i < arr.length && added < 12; i++) {
       var f = arr[i];
       if (!f.type.startsWith('image/')) continue;
       added++;
       (function(file){
         compress(file).then(function(blob){
-          if (queue.some(function(q){ return q.blob.size === blob.size; })) return;
           queue.push({ blob: blob, url: URL.createObjectURL(blob) });
           counters();
+        }).catch(function(err){
+          console.warn('compress failed:', err);
         });
       })(f);
     }
@@ -382,12 +387,7 @@
     var files = e.target.files;
     e.target.value = '';
     addFiles(files);
-    if (files && files.length === 1 && queue.length < 12 &&
-        !/iPhone|iPad|Android/i.test(navigator.userAgent)) {
-      setTimeout(function(){
-        if (!sending && queue.length < 12) $('#file').click();
-      }, 400);
-    }
+    // Multiple shots: guest taps the button again (auto-reopen closes camera on mobile)
   };
   $('#sendBtn').onclick = drain;
   $('#clearBtn').onclick = clearQueue;
