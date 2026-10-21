@@ -75,7 +75,7 @@
 <script src="guests.js?v=1"></script>
 <script>
 (function(){
-  const SCRIPT_URL = 'POSLITE_SSILKU_APPS_SCRIPT'; // заполним после деплоя фотоскрипта
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyn64wnJ5r-0DEipCFbVmOcTYS6eJ29TVerSUhYf2t1YxZGR4Yh_HB397xxsBynWjB3/exec';
   const $ = s => document.querySelector(s);
   const token = new URLSearchParams(location.search).get('g') || 'default';
   const g = WEDDING_GUESTS[token] || WEDDING_GUESTS['default'];
