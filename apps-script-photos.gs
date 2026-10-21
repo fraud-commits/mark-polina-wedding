@@ -32,7 +32,8 @@ function doPost(e) {
     if (!data) return jsonOut({ ok: false, error: 'no data' });
 
     const token = String(body.token || 'default').replace(/[^a-z0-9-]/gi, '');
-    const who = String(body.name || token).slice(0, 120);
+    // если имя не указано — оставляем описание пустым (LED покажет «инкогнито»)
+    const who = String(body.name || '').trim().slice(0, 120);
 
     const blob = Utilities.newBlob(Utilities.base64Decode(data),
                                    'image/jpeg',

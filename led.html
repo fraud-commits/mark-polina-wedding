@@ -52,14 +52,15 @@
 
   function nameFor(it){
     // сначала персональное имя (комментарий файла), потом словарь по токену
-    if (it.who) return it.who;
+    // «default» в who означает, что гость не ввёл имя — считаем инкогнито
+    if (it.who && it.who !== 'default') return it.who;
     const g = WEDDING_GUESTS[it.g] || WEDDING_GUESTS['default'];
     return g.ru.join(' · ');
   }
 
   function labelFor(it){
     const name = nameFor(it);
-    return name === 'Дорогие гости' ? 'инкогнито' : name;
+    return (name === 'Дорогие гости' || name === 'default') ? 'инкогнито' : name;
   }
 
   function thumbURL(id){ return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + FETCH_COLS; }
