@@ -39,10 +39,6 @@
   h1{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
      font-size:clamp(38px,10vw,52px);line-height:1.05;letter-spacing:-.03em;
      text-align:center;margin:0 0 8px;position:relative;z-index:1}
-  .who{text-align:center;margin:0 auto 32px;font-family:'Cormorant Garamond',Georgia,serif;
-       font-style:italic;font-weight:300;font-size:20px;line-height:1.45;color:var(--sage);position:relative;z-index:1}
-  .who b{font-weight:400;color:var(--olive)}
-
   .shot{display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:2}
   .shutter{position:relative;width:min(100%,360px);min-height:58px;border:0;border-radius:2px;
            padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:12px;
@@ -92,35 +88,15 @@
          opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;z-index:9}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 
-  /* Экран имени: гость однократно представляется — дальше снимает */
-  .gate{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;
-        align-items:center;justify-content:center;text-align:center;
-        background:var(--paper);padding:20px 26px}
-  .gate::after{content:'';position:absolute;right:12px;bottom:12px;width:clamp(112px,24vw,142px);
-               height:clamp(230px,36vh,280px);background:url('hero-calla-reference.png') center / contain no-repeat;
-               opacity:.48;pointer-events:none}
-  .gate>*{position:relative;z-index:1}
-  .gate.hide{display:none}
-  .gate h2{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
-           font-size:clamp(28px,9vw,40px);margin:0 0 8px}
-  .gate p{color:var(--muted);font-size:13px;margin:0 0 22px;max-width:300px}
-  .gate label{display:grid;gap:7px;width:min(320px,80vw);text-align:left;color:var(--muted);font-size:12px;line-height:1.4}
-  .gate input{width:100%;min-height:52px;border:1px solid #c8cbb8;border-radius:2px;background:#fffdf8d9;
-              font:400 16px/1.4 Manrope,Arial,sans-serif;text-align:left;color:var(--olive);padding:12px 14px}
-  .gate input:focus-visible{outline:3px solid #a97947;outline-offset:2px;border-color:var(--olive)}
-  .gate .go{margin-top:16px;font-family:'Manrope',Arial,sans-serif;font-size:10px;letter-spacing:.2em;
-            text-transform:uppercase;color:var(--olive);background:none;cursor:pointer;
-            border:1px solid #9ba18d;border-radius:2px;min-height:48px;padding:13px 26px;
-            transition:background .25s,color .25s}
-  .gate .go:hover{background:var(--olive);color:var(--paper)}
-  .gate .go:disabled{opacity:.4;cursor:default}
-  .rename{z-index:3;font-size:11px;color:#727861;background:none;border:0;cursor:pointer;
-          text-decoration:underline;text-underline-offset:3px;min-height:44px;padding:10px 0}
-  .rename:hover{color:var(--olive)}
+  .photographer{display:grid;gap:6px;width:min(100%,360px);margin:22px auto 0;text-align:left;
+                color:var(--muted);font-size:12px;line-height:1.4;position:relative;z-index:2}
+  .photographer input{width:100%;min-height:48px;border:1px solid #c8cbb8;border-radius:2px;background:#fffdf8b8;
+                      font:400 15px/1.4 Manrope,Arial,sans-serif;color:var(--olive);padding:10px 13px}
+  .photographer input::placeholder{color:#747763;opacity:1}
+  .photographer input:focus-visible{outline:3px solid #a97947;outline-offset:2px;border-color:var(--olive)}
   @media(max-width:420px){
     body{padding-left:12px;padding-right:12px}
     .arch{margin-top:10px;padding-top:30px;min-height:calc(100svh - 72px)}
-    .who{font-size:18px;margin-bottom:26px}
     .latest-head{align-items:flex-start;flex-direction:column;gap:5px}
     .albumlink{font-size:12px}
   }
@@ -133,15 +109,16 @@
   <header>
     <div class="mono">M <i>&</i> P</div>
     <div class="header-actions">
-      <button class="rename" id="rename" type="button" data-t="rename" hidden>Это не я</button>
       <button class="lang" id="langBtn" type="button">EN</button>
     </div>
   </header>
 
   <p class="eyebrow" data-t="eyebrow">26 · 06 · 2027 · Dunduriņi</p>
   <h1 data-t="title">Наш общий альбом</h1>
-  <p class="who" id="who"></p>
-
+  <label class="photographer" for="photographerName">
+    <span data-t="nameLabel">Ваше имя (необязательно)</span>
+    <input id="photographerName" type="text" maxlength="60" autocomplete="name" data-t-placeholder="namePlaceholder">
+  </label>
 
   <div class="shot">
     <button class="shutter" id="shutter" type="button">
@@ -175,14 +152,6 @@
     <div class="thumbs" id="thumbs" aria-label="Последние фото"></div>
   </div>
 
-  <div class="gate" id="gate">
-    <h2 data-t="gateTitle">Как вас зовут?</h2>
-    <p data-t="gateHint">Имя подпишет ваши фото в общем альбоме. Одного раза достаточно — запомним.</p>
-    <label for="nameInput"><span data-t="nameLabel">Ваше имя</span>
-      <input id="nameInput" type="text" maxlength="60" autocomplete="name" aria-label="Ваше имя">
-    </label>
-    <button class="go" id="nameGo" type="button" data-t="gateGo">Продолжить к камере</button>
-  </div>
 </div>
 
 <footer hidden aria-hidden="true"></footer>
@@ -203,23 +172,15 @@
   const dictName = g[lang].join(' · ');
 
   const T = {
-    ru: { whoPrefix:'Делится с нами:', eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Наш общий альбом',
-          choose:'Сделать снимок или выбрать фото', nameLabel:'Ваше имя', namePlaceholder:'',
-          gateTitle:'Как вас зовут?',
-          gateHint:'Имя подпишет ваши фото в общем альбоме. Одного раза достаточно — мы его запомним.',
-          gateGo:'Продолжить к камере', rename:'Это не я',
-          emptyName:'Напишите, пожалуйста, своё имя — им подпишутся фото',
+    ru: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Наш общий альбом',
+          choose:'Сделать снимок или выбрать фото', nameLabel:'Ваше имя (необязательно)', namePlaceholder:'Например, Юлия и Андрей',
           tap:'На телефоне откроется камера или галерея. Можно добавить до 12 фото за раз.',
           note:'Добавьте свой взгляд на этот день — снимки появятся в общем альбоме.',
           sent:'Отправлено', pending:'в очереди', retry:'Повторить отправку', queueTitle:'Готовятся к отправке',
           latest:'Последние кадры', openalbum:'Открыть общий альбом ↗',
           toast:'Спасибо! Кадр уже в альбоме ♥' },
-    en: { whoPrefix:'Sharing with us:', eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Our shared album',
-          choose:'Take a photo or choose one', nameLabel:'Your name', namePlaceholder:'',
-          gateTitle:'What’s your name?',
-          gateHint:'Your name labels the photos in the shared album. Once is enough — we’ll remember.',
-          gateGo:'Continue to camera', rename:'Not me',
-          emptyName:'Please type your name — photos go signed',
+    en: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Our shared album',
+          choose:'Take a photo or choose one', nameLabel:'Your name (optional)', namePlaceholder:'For example, Julia and Andrew',
           tap:'On a phone, choose the camera or photo library. Add up to 12 photos at a time.',
           note:'Add your view of the day — your photos will join our shared album.',
           sent:'Uploaded', pending:'in queue', retry:'Try again', queueTitle:'Waiting to upload',
@@ -227,23 +188,15 @@
           toast:'Thank you! It’s in the album ♥' }
   };
 
-  /* Имя: ?g=токен → словарь; иначе — сохранённое; иначе — экран имени. */
-  let whoName = (AUTO_EN || qs.has('g')) ? dictName : '';
-  if (!whoName) {
-    try { whoName = localStorage.getItem('mp-photographer-name') || ''; } catch(e) {}
-    whoName = (whoName || '').trim();
-  }
-  const knownToken = AUTO_EN || qs.has('g');   // по именным ссылкам имя спрашивать не нужно
+  // Персональная ссылка подставляет имя в необязательное поле; гость может его изменить или очистить.
+  const whoName = (AUTO_EN || qs.has('g')) ? dictName : '';
 
   function applyLang(){
     document.documentElement.lang = lang;
     $('#langBtn').textContent = lang === 'en' ? 'RU' : 'EN';
     document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = T[lang][el.dataset.t]; });
-    renderWho();
-    $('#nameInput').placeholder = T[lang].namePlaceholder;
-    $('#nameInput').setAttribute('aria-label', T[lang].nameLabel);
-    $('#gate').classList.toggle('hide', !!whoName);
-    $('#rename').hidden = !whoName || knownToken;   // по токену имя словарное, менять нечего
+    $('#photographerName').placeholder = T[lang].namePlaceholder;
+    $('#photographerName').value = whoName;
     $('#album').href = ALBUM_URL;
     $('#langBtn').onclick = () => {
       const nextUrl = new URL(location.href);
@@ -251,38 +204,6 @@
       location.href = nextUrl.href;
     };
   }
-
-  function renderWho(){
-    const who = $('#who');
-    who.replaceChildren();
-    if (!whoName) return;
-    who.append(document.createTextNode(T[lang].whoPrefix + ' '));
-    const name = document.createElement('b');
-    name.textContent = whoName;
-    who.append(name);
-  }
-
-  function askName(){
-    const go = $('#nameGo'), inp = $('#nameInput');
-    go.onclick = () => {
-      const v = inp.value.trim();
-      if (!v) { inp.placeholder = T[lang].emptyName; inp.focus(); return; }
-      try { localStorage.setItem('mp-photographer-name', v); } catch(e) {}
-      whoName = v;
-      $('#gate').classList.add('hide');
-      $('#rename').hidden = false;
-      renderWho();
-    };
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') go.click(); });
-  }
-  $('#rename').onclick = () => {
-    try { localStorage.removeItem('mp-photographer-name'); } catch(e) {}
-    whoName = '';
-    $('#rename').hidden = true;
-    $('#who').textContent = '';
-    $('#gate').classList.remove('hide');
-    askName();
-  };
 
   let queue = [];   // {blob, url}
   let sent = 0;
@@ -324,7 +245,7 @@
       fr.onload = () => r(String(fr.result).split(',')[1]); fr.readAsDataURL(item.blob); });
     const res = await fetch(SCRIPT_URL, { method:'POST',
       headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({ token: token, name: whoName, data: base64 }) });
+      body: JSON.stringify({ token: token, name: $('#photographerName').value.trim(), data: base64 }) });
     const j = await res.json().catch(() => ({}));
     if (!j.ok) throw new Error(j.error || 'no ok');
   }
@@ -372,7 +293,6 @@
   $('#retry').onclick = drain;
 
   applyLang();
-  if (!whoName) askName();
   counters();
   loadLatest();
   setInterval(loadLatest, 20000);
