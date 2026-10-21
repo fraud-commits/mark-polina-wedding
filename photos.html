@@ -23,8 +23,8 @@
         padding:40px clamp(22px,7vw,42px) 30px;min-height:calc(100svh - 88px)}
   .arch:after{content:'';position:absolute;inset:9px;border:1px solid #c8cbb833;
         border-radius:inherit;border-bottom:0;pointer-events:none}
-  .calla{position:absolute;right:-42px;bottom:2px;width:clamp(100px,25vw,148px);
-         opacity:.24;pointer-events:none;transform:rotate(-4deg)}
+  .calla{position:absolute;right:8px;bottom:8px;width:clamp(126px,29vw,158px);
+         opacity:.48;pointer-events:none;transform:rotate(-4deg);z-index:0}
 
   header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
          margin:-6px 0 30px}
@@ -35,7 +35,7 @@
         text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
   .lang:hover{color:var(--sage)}
 
-  .eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;color:#727861;text-align:center;margin:6px 0 16px}
+  .eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;color:#727861;text-align:center;margin:6px 0 16px;position:relative;z-index:2}
   h1{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
      font-size:clamp(38px,10vw,52px);line-height:1.05;letter-spacing:-.03em;
      text-align:center;margin:0 0 8px;position:relative;z-index:1}
@@ -58,7 +58,7 @@
   .caption{text-align:center;color:var(--muted);font-size:13px;line-height:1.6;max-width:320px;margin:0}
 
   .note{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
-        text-align:center;color:var(--muted);font-size:18px;line-height:1.5;max-width:360px;margin:24px auto 0}
+        text-align:center;color:var(--muted);font-size:18px;line-height:1.5;max-width:360px;margin:24px auto 0;position:relative;z-index:2}
 
   .latest{margin:34px 0 0;text-align:left;position:relative;z-index:2}
   .latest-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
@@ -175,7 +175,7 @@
     <h2 data-t="gateTitle">Как вас зовут?</h2>
     <p data-t="gateHint">Имя подпишет ваши фото в общем альбоме. Одного раза достаточно — запомним.</p>
     <input id="nameInput" type="text" maxlength="60" autocomplete="name"
-           placeholder="Юлия и Андрей" aria-label="Ваше имя">
+           aria-label="Ваше имя">
     <button class="go" id="nameGo" type="button" data-t="gateGo">Продолжить к камере</button>
   </div>
 </div>
@@ -201,22 +201,22 @@
 
   const T = {
     ru: { whoPrefix:'Делится с нами:', eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Наш общий альбом',
-          choose:'Сделать снимок или выбрать фото', nameLabel:'Ваше имя', namePlaceholder:'Например, Юлия и Андрей',
+          choose:'Сделать снимок или выбрать фото', nameLabel:'Ваше имя', namePlaceholder:'',
           gateTitle:'Как вас зовут?',
           gateHint:'Имя подпишет ваши фото в общем альбоме. Одного раза достаточно — мы его запомним.',
           gateGo:'Продолжить к камере', rename:'Это не я',
-          emptyName:'Напишите, пожалуйста, имя — им подпишутся фото',
+          emptyName:'Напишите, пожалуйста, своё имя — им подпишутся фото',
           tap:'На телефоне откроется камера или галерея. Можно добавить до 12 фото за раз.',
           note:'Добавьте свой взгляд на этот день — снимки появятся в общем альбоме.',
           sent:'Отправлено', pending:'в очереди', retry:'Повторить отправку', queueTitle:'Готовятся к отправке',
           latest:'Последние кадры', openalbum:'Открыть общий альбом ↗', back:'← На сайт приглашения',
           toast:'Спасибо! Кадр уже в альбоме ♥' },
     en: { whoPrefix:'Sharing with us:', eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Our shared album',
-          choose:'Take a photo or choose one', nameLabel:'Your name', namePlaceholder:'For example, Julia and Andrew',
+          choose:'Take a photo or choose one', nameLabel:'Your name', namePlaceholder:'',
           gateTitle:'What’s your name?',
           gateHint:'Your name labels the photos in the shared album. Once is enough — we’ll remember.',
           gateGo:'Continue to camera', rename:'Not me',
-          emptyName:'Please type a name — photos go signed',
+          emptyName:'Please type your name — photos go signed',
           tap:'On a phone, choose the camera or photo library. Add up to 12 photos at a time.',
           note:'Add your view of the day — your photos will join our shared album.',
           sent:'Uploaded', pending:'in queue', retry:'Try again', queueTitle:'Waiting to upload',
