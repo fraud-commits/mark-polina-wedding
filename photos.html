@@ -62,7 +62,7 @@
   .latest .eyebrow{margin:0;text-align:left;font-size:10px;letter-spacing:.14em}
   .thumbs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
   .thumbs img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;
-              border:1px solid var(--line);background:#e9ebdf}
+              border:1px solid var(--line);background:#e9ebdf;cursor:pointer}
   .albumlink{display:inline-block;font-size:11px;color:var(--olive);text-underline-offset:4px;white-space:nowrap}
   .albumlink:hover{color:var(--olive)}
 
@@ -102,6 +102,28 @@
     .albumlink{font-size:12px}
   }
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+  /* Lightbox overlay */
+  .lightbox-overlay{position:fixed;inset:0;background:rgba(21,23,15,.92);z-index:9999;
+    display:flex;align-items:center;justify-content:center;padding:20px}
+  .lightbox-content{max-width:90vw;max-height:90vh;text-align:center;position:relative}
+  .lightbox-img{max-width:100%;max-height:85vh;box-shadow:0 18px 50px rgba(0,0,0,.6);
+    display:block;margin:0 auto;border-radius:2px}
+  .lightbox-caption{margin-top:12px;font-size:14px;color:#cdd5bb;font-style:italic}
+  .lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;background:rgba(255,255,255,.12);color:#f5f2e8;text-align:center;
+    line-height:44px;font-size:22px;cursor:pointer;border-radius:50%;user-select:none}
+  .lightbox-prev{left:-60px}
+  .lightbox-next{right:-60px}
+  .lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.25)}
+  .lightbox-close{position:absolute;top:-50px;right:0;width:36px;height:36px;
+    background:rgba(255,255,255,.12);color:#f5f2e8;text-align:center;line-height:36px;
+    font-size:20px;cursor:pointer;border-radius:50%;user-select:none}
+  .lightbox-close:hover{background:rgba(255,255,255,.25)}
+  @media(max-width:560px){
+    .lightbox-prev{left:8px}
+    .lightbox-next{right:8px}
+  }
 </style>
 </head>
 <body>
@@ -284,8 +306,9 @@
     try {
       const j = await (await fetch(SCRIPT_URL + '?action=list&limit=5')).json();
       if (!j.ok || !Array.isArray(j.items)) return;
-      $('#thumbs').innerHTML = j.items.map(it =>
-        '<img alt="" src="https://drive.google.com/thumbnail?id=' + it.id + '&sz=w400">').join('');
+      window.photoItems = j.items;
+      $('#thumbs').innerHTML = j.items.map((it, idx) =>
+        '<img alt="" src="https://drive.google.com/thumbnail?id=' + it.id + '&sz=w400" data-index="' + idx + '" style="cursor:pointer">').join('');
     } catch(e) { /* тихо: лента обновится на следующем тике */ }
   }
 
@@ -305,51 +328,56 @@
 window.photoItems = window.photoItems || [];
 
 function openLightbox(idx) {
-  const items = window.photoItems;
+  var items = window.photoItems;
   if (!items || idx < 0 || idx >= items.length) return;
-  const item = items[idx];
-  const overlay = document.createElement('div');
+  var item = items[idx];
+
+  var existing = document.querySelector('.lightbox-overlay');
+  if (existing) existing.remove();
+
+  var overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
-  overlay.innerHTML = \`
-    <div class="lightbox-content">
-      <img class="lightbox-img" src="https://drive.google.com/thumbnail?id=${item.id}&sz=w800" alt="${item.name || ''}">
-      <p class="lightbox-caption">${item.name || 'Фото'}</p>
-      <a class="lightbox-prev" aria-label="Предыдущее">&#10094;</a>
-      <a class="lightbox-next" aria-label="Следующее">&#10095;</a>
-      <a class="lightbox-close" aria-label="Закрыть">&#10005;</a>
-    \`;
+  var html = '<div class="lightbox-content">';
+  html += '<img class="lightbox-img" src="https://drive.google.com/thumbnail?id=' + item.id + '&sz=w800" alt="">';
+  html += '<p class="lightbox-caption">' + (item.name || '') + '</p>';
+  html += '<a class="lightbox-prev">&#10094;</a>';
+  html += '<a class="lightbox-next">&#10095;</a>';
+  html += '<a class="lightbox-close">&#10005;</a>';
+  html += '</div>';
+  overlay.innerHTML = html;
   document.body.appendChild(overlay);
-  let cur = idx;
-  const updateImg = () => {
-    const img = overlay.querySelector('.lightbox-img');
-    img.src = \`https://drive.google.com/thumbnail?id=\${window.photoItems[cur].id}&sz=w800\`;
-    overlay.querySelector('.lightbox-caption').textContent = window.photoItems[cur].name || 'Фото';
-  };
-  overlay.querySelector('.lightbox-prev').onclick = () => {
-    cur = (cur - 1 + items.length) % items.length;
-    updateImg();
-  };
-  overlay.querySelector('.lightbox-next').onclick = () => {
-    cur = (cur + 1) % items.length;
-    updateImg();
-  };
-  overlay.querySelector('.lightbox-close').onclick = () => document.body.removeChild(overlay);
-  // keyboard navigation
-  const kd = e => {
-    if (e.key === 'ArrowLeft') { cur = (cur - 1 + items.length) % items.length; updateImg(); }
-    if (e.key === 'ArrowRight') { cur = (cur + 1) % items.length; updateImg(); }
-    if (e.key === 'Escape') { document.body.removeChild(overlay); document.removeEventListener('keydown', kd); }
-  };
-  document.addEventListener('keydown', kd);
-  // close on overlay click outside image
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) document.body.removeChild(overlay);
+
+  var cur = idx;
+  var imgEl = overlay.querySelector('.lightbox-img');
+  var capEl = overlay.querySelector('.lightbox-caption');
+
+  function show(i) {
+    cur = (i + items.length) % items.length;
+    imgEl.src = 'https://drive.google.com/thumbnail?id=' + items[cur].id + '&sz=w800';
+    capEl.textContent = items[cur].name || '';
+  }
+
+  overlay.querySelector('.lightbox-prev').onclick = function() { show(cur - 1); };
+  overlay.querySelector('.lightbox-next').onclick = function() { show(cur + 1); };
+  overlay.querySelector('.lightbox-close').onclick = function() { overlay.remove(); };
+
+  function onKey(e) {
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+    if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', onKey); }
+  }
+  document.addEventListener('keydown', onKey);
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.remove();
   });
 }
 
-$(document).on('click', '#thumbs img', function() {
-  const idx = parseInt($(this).data('index'), 10);
-  openLightbox(idx);
+document.addEventListener('click', function(e) {
+  var img = e.target.closest('#thumbs img');
+  if (!img) return;
+  var idx = parseInt(img.getAttribute('data-index'), 10);
+  if (!isNaN(idx)) openLightbox(idx);
 });
 </script>
 
