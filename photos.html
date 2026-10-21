@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#faf8f1">
+<meta name="robots" content="noindex, nofollow">
 <title>Фотографии · Mark & Polina</title>
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400&display=swap");
@@ -88,7 +89,7 @@
          opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;z-index:9}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 
-  .photographer{display:grid;gap:6px;width:min(100%,360px);margin:22px auto 0;text-align:left;
+  .photographer{display:grid;gap:6px;width:min(100%,360px);margin:22px auto 20px;text-align:left;
                 color:var(--muted);font-size:12px;line-height:1.4;position:relative;z-index:2}
   .photographer input{width:100%;min-height:48px;border:1px solid #c8cbb8;border-radius:2px;background:#fffdf8b8;
                       font:400 15px/1.4 Manrope,Arial,sans-serif;color:var(--olive);padding:10px 13px}
@@ -299,5 +300,128 @@
   addEventListener('online', drain);
 })();
 </script>
-</body>
+
+<script>
+window.photoItems = window.photoItems || [];
+
+function openLightbox(idx) {
+  const items = window.photoItems;
+  if (!items || idx < 0 || idx >= items.length) return;
+  const item = items[idx];
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = \`
+    <div class="lightbox-content">
+      <img class="lightbox-img" src="https://drive.google.com/thumbnail?id=${item.id}&sz=w800" alt="${item.name || ''}">
+      <p class="lightbox-caption">${item.name || 'Фото'}</p>
+      <a class="lightbox-prev" aria-label="Предыдущее">&#10094;</a>
+      <a class="lightbox-next" aria-label="Следующее">&#10095;</a>
+      <a class="lightbox-close" aria-label="Закрыть">&#10005;</a>
+    \`;
+  document.body.appendChild(overlay);
+  let cur = idx;
+  const updateImg = () => {
+    const img = overlay.querySelector('.lightbox-img');
+    img.src = \`https://drive.google.com/thumbnail?id=\${window.photoItems[cur].id}&sz=w800\`;
+    overlay.querySelector('.lightbox-caption').textContent = window.photoItems[cur].name || 'Фото';
+  };
+  overlay.querySelector('.lightbox-prev').onclick = () => {
+    cur = (cur - 1 + items.length) % items.length;
+    updateImg();
+  };
+  overlay.querySelector('.lightbox-next').onclick = () => {
+    cur = (cur + 1) % items.length;
+    updateImg();
+  };
+  overlay.querySelector('.lightbox-close').onclick = () => document.body.removeChild(overlay);
+  // keyboard navigation
+  const kd = e => {
+    if (e.key === 'ArrowLeft') { cur = (cur - 1 + items.length) % items.length; updateImg(); }
+    if (e.key === 'ArrowRight') { cur = (cur + 1) % items.length; updateImg(); }
+    if (e.key === 'Escape') { document.body.removeChild(overlay); document.removeEventListener('keydown', kd); }
+  };
+  document.addEventListener('keydown', kd);
+  // close on overlay click outside image
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) document.body.removeChild(overlay);
+  });
+}
+
+$(document).on('click', '#thumbs img', function() {
+  const idx = parseInt($(this).data('index'), 10);
+  openLightbox(idx);
+});
+</script>
+
+
+/* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #fff;
+}
+.lightbox-overlay .lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  text-align: center;
+  position: relative;
+}
+.lightbox-overlay .lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  display: block;
+  margin: 0 auto;
+}
+.lightbox-overlay .lightbox-caption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+}
+.lightbox-overlay .lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10001;
+}
+.lightbox-overlay .lightbox-prev { left: 20px; }
+.lightbox-overlay .lightbox-next { right: 20px; }
+.lightbox-overlay .lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.lightbox-overlay .lightbox-close:hover { background: rgba(255,255,255,0.3); }
 </html>
+
+<script>
+$(document).ready(function() {
+  $('#thumbs img').on('click', function() {
+    const larger = $(this).attr('src').replace('&sz=w400', '&sz=w800');
+    window.open(larger, '_blank');
+  });
+});
+</script>
