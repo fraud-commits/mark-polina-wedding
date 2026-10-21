@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Живой экран · Mark & Polina</title>
 <style>
   body{margin:0;background:#15170f;color:#f5f2e8;font:16px/1.5 Georgia,serif;overflow:hidden;height:100vh}
@@ -70,25 +71,24 @@
     pos = (pos + 1) % items.length;
     const it = items[pos];
     preload(thumbURL(it.id)).then(img => {
-      if (!img) return;                 // битый кадр — пропускаем
+      if (!img) { next(); return; }    // битый кадр — пропускаем сразу, не ждём 0 мс
       Array.from(stage.querySelectorAll('img')).forEach(el => el.classList.remove('on'));
       img.classList.add('on');
       stage.appendChild(img);
+      while (stage.children.length > 3) stage.removeChild(stage.firstChild);
       whoEl.style.opacity = it.g ? .9 : 0;
       whoEl.textContent = it.g ? 'от ' + it.g : '';
-      while (stage.children.length > 3) stage.removeChild(stage.firstChild);
     });
   }
 
   refresh();
   setInterval(refresh, REFRESH_MS);
-  setInterval(next, SLIDE_MS);
 
   // Управление со laptop: стрелки — вручную, Space — стоп/пуск
   let hold = false, timer = setInterval(next, SLIDE_MS);
   addEventListener('keydown', e => {
-    if (e.code === 'ArrowRight') next();
-    if (e.code === 'ArrowLeft'){ pos = (pos - 2 + items.length * 2) % items.length; next(); }
+    if (e.code === 'ArrowRight'){ if (!items.length) return; pos = (pos + 1) % items.length; next(); }
+    if (e.code === 'ArrowLeft'){ if (!items.length) return; pos = (pos - 2 + items.length * 2) % items.length; next(); }
     if (e.code === 'Space'){ hold = !hold; (hold ? clearInterval(timer) : (timer = setInterval(next, SLIDE_MS))); e.preventDefault(); }
   });
 })();
