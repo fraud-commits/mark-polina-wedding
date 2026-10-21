@@ -10,7 +10,7 @@
  *   — вернёт JSON с folderId (вставить в константу ниже и обновить развёртывание)
  */
 
-const FOLDER_ID = ''; // ← вставить folderId после ?action=init
+const FOLDER_ID = '1l9eiDECOg6U0ZUPkKc43PajX7WNyej0_'; // папка «Фото гостей Mark&Polina»
 
 const MIME = { jpg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
 
