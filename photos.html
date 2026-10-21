@@ -18,14 +18,12 @@
   body:before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
        background-image:radial-gradient(#b3aa9018 .65px,transparent .65px);background-size:5px 5px}
 
-  /* стрельчатая арка, вписывающая всё содержимое */
-  .arch{max-width:560px;margin:20px auto 0;position:relative;overflow:hidden;
+  /* арка — чистая, без двойной рамки */
+  .arch{max-width:560px;margin:20px auto 0;position:relative;
         border:1px solid #c8cbb86b;border-radius:46% 46% 3px 3px;border-bottom:0;
         padding:40px clamp(22px,7vw,42px) 30px;min-height:calc(100svh - 88px)}
-  .arch:after{content:'';position:absolute;inset:9px;border:1px solid #c8cbb833;
-        border-radius:inherit;border-bottom:0;pointer-events:none}
-  .calla{position:absolute;right:8px;bottom:8px;width:clamp(126px,29vw,158px);
-         opacity:.48;pointer-events:none;transform:rotate(-4deg);z-index:0}
+  .calla{position:absolute;right:-14px;bottom:-24px;width:clamp(140px,32vw,180px);
+         opacity:.55;pointer-events:none;transform:rotate(-6deg);z-index:0}
 
   header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
          margin:-6px 0 30px}
