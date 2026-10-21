@@ -570,6 +570,21 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .lookbook[open] summary span::after{rotate:none;transform:translateY(2px) rotate(225deg)}
 /* Supporting sections: clear, touch-friendly wedding details. */
 .pg-counter{text-align:center;font-size:11px;letter-spacing:.2em;color:var(--muted);margin:14px 0 0;font-variant-numeric:tabular-nums}
+/* Круглые стрелки поверх фото убраны: свайп на телефоне, стрелки клавиш на десктопе. */
+.pg-counter{margin:14px 0 0}
+.pg-arrow{
+  display:flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border:0;border-radius:0;background:transparent;
+  color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5);
+  font-size:26px;line-height:1;opacity:.28;
+  transition:opacity .25s ease,transform .25s ease;
+  -webkit-tap-highlight-color:transparent;user-select:none;
+}
+.pg-arrow:hover,.pg-arrow:focus-visible{opacity:.9}
+.pg-prev:hover,.pg-prev:focus-visible{transform:translateY(-50%) translateX(-3px)}
+.pg-next:hover,.pg-next:focus-visible{transform:translateY(-50%) translateX(3px)}
+@media(hover:none){.pg-arrow{opacity:.5}}
+
 .next-day{background:#e8ecdf;padding:36px 30px;border-radius:4px}
 .rsvp form label{display:block;margin-bottom:26px;font-size:14px;line-height:1.6}
 .rsvp input:not([type=checkbox]),.rsvp select,.rsvp textarea{display:block;width:100%;margin-top:10px;min-height:50px;font-size:16px;padding:13px 12px}
@@ -723,3 +738,46 @@ body.env-locked:has(.envelope-screen.open) header,body.env-locked:has(.envelope-
 /* Close subpixel seams between folded paper panels. */
 .envelope-screen:not(.open) .flap-left,.envelope-screen:not(.open) .flap-right{transform:none}
 .envelope-screen .flap-bottom{-webkit-clip-path:polygon(-1% 101%,50% 49%,101% 101%);clip-path:polygon(-1% 101%,50% 49%,101% 101%)}
+/* Финальные переопределения стрелок галереи: тонкий глиф, без круга и подложки. */
+.pg-arrow{
+  width:34px !important;height:34px !important;min-width:0 !important;min-height:0 !important;
+  background:transparent !important;border:0 !important;border-radius:0 !important;
+  box-shadow:none !important;opacity:.3;color:#fff;
+  font-size:26px !important;display:flex !important;
+  align-items:center;justify-content:center;
+}
+.pg-arrow:hover,.pg-arrow:focus-visible{background:transparent !important;opacity:.85;box-shadow:none !important}
+@media(hover:none){.pg-arrow{opacity:.55}}
+/* Безопасные зоны iPhone с Dynamic Island: шапка ниже выреза,
+   футер и подпись конверта — выше домашней полоски. */
+:root{--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px)}
+body{padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
+@media(max-width:700px){
+  header{padding-top:calc(19px + var(--safe-t))}
+  .hero{padding-top:calc(100px + var(--safe-t))}
+}
+@media(min-width:701px){
+  header{padding-top:calc(26px + var(--safe-t))}
+}
+.envelope-screen .env-hint{bottom:calc(28px + var(--safe-b))}
+.wedding-finale{padding-bottom:calc(70px + var(--safe-b))}
+/* Линия таймлайна не должна проходить по тексту.
+   По геометрии SVG-пути (viewBox 0 0 400 1600) на уровне карточек:
+   1 -> линия 71..83%  2 -> 21..31%  3 -> 72..78%  4 -> 28..41%.
+   Карточки сдвинуты так, чтобы остаться по другую сторону линии. */
+@media(max-width:900px){
+  .timeline article.tl-item:nth-of-type(1){left:0;width:62%;text-align:right}
+  .timeline article.tl-item:nth-of-type(2){left:36%;width:64%;padding-left:10px}
+  .timeline article.tl-item:nth-of-type(3){left:0;width:64%;text-align:right}
+  .timeline article.tl-item:nth-of-type(4){left:44%;width:56%;padding-left:10px}
+}
+@media(min-width:901px){
+  .timeline article.tl-item:nth-of-type(1){left:0;width:62%;text-align:right}
+  .timeline article.tl-item:nth-of-type(2){left:36%;width:64%}
+  .timeline article.tl-item:nth-of-type(3){left:0;width:64%;text-align:right}
+  .timeline article.tl-item:nth-of-type(4){left:44%;width:56%}
+}
+/* botanical.svg и paper-texture.png удалены из проекта — гасим ссылки на них,
+   иначе браузер получает 404 при каждом визите. */
+.hero:before,.hero:after{background-image:none!important}
+.hero.paper-hero::before{background-image:none!important;display:none!important}

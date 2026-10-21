@@ -8,7 +8,7 @@ const invitations = {
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
   'yuriy-elena': { greeting: 'Дорогие папа и мама!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
   maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
-  'andrey-yuliya': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', 'Даня'], plusOne: false },
+  'andrey-yuliya': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', {name:'Даня', child:true}], plusOne: false },
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
   valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
   'toms-natasha': { greeting: 'Дорогие Томс и Натали!', note: noteTwo, guests: ['Томс', 'Натали'], plusOne: false },
@@ -294,7 +294,7 @@ render();
   track.appendChild(firstClone); track.insertBefore(lastClone,originals[0]);
   const slides=originals;
   const counter=document.createElement("p"); counter.className="pg-counter"; counter.setAttribute("aria-label", currentLang==='en' ? 'Photo number' : 'Номер фотографии'); g.appendChild(counter);
-  let idx=0, physicalIndex=1, timer=null, snapping=false;
+  let idx=0, physicalIndex=1, timer=null, snapping=false;  // timer больше не используется
   slides.forEach((_,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label',(currentLang==='en' ? 'Photo ' : 'Фото ')+(i+1)); b.addEventListener('click',()=>{go(i); restart();}); dots.appendChild(b);});
   const btns=[...dots.children];
   function go(n){
@@ -312,13 +312,20 @@ render();
       requestAnimationFrame(()=>{track.style.transition='';snapping=false;});
     }
   });
-  const isPhone = matchMedia('(max-width: 700px), (hover: none) and (pointer: coarse)');
-  function restart(){clearInterval(timer); timer=null; if(!isPhone.matches) timer=setInterval(()=>go(idx+1), 3800);}
+  function restart(){clearInterval(timer); timer=null;}
   g.querySelector('.pg-prev').addEventListener('click',()=>{go(idx-1); restart();});
   g.querySelector('.pg-next').addEventListener('click',()=>{go(idx+1); restart();});
   let sx=0, sy=0; track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true}); track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2) {go(idx+(dx<0?1:-1)); restart();}});
-  g.addEventListener('mouseenter',()=>clearInterval(timer)); g.addEventListener('mouseleave',restart);
-  isPhone.addEventListener('change',restart);
+  g.addEventListener('mouseenter',()=>clearInterval(timer));
+  // Круглых стрелок на фото больше нет — листаем стрелками клавиатуры и свайпом.
+  g.setAttribute('tabindex','0');
+  g.setAttribute('role','region');
+  g.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'){e.preventDefault();go(idx+1);restart();}
+    else if(e.key==='ArrowLeft'){e.preventDefault();go(idx-1);restart();}
+  });
+  // Клик по фотографии листает вперёд — привычное поведение для карусели.
+  track.addEventListener('click',()=>{go(idx+1);restart();});
   go(0); restart();
 })();
 
