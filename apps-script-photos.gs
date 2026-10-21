@@ -57,7 +57,6 @@ function doGet(e) {
 
   if (action === 'init') {
     const f = getFolder();
-    if (f.getSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW) === undefined) {}
     f.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
     return jsonOut({ ok: true, folderId: f.getId(), folderURL: f.getUrl() });
   }
