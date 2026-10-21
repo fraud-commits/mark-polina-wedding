@@ -22,7 +22,8 @@
   .arch{max-width:560px;margin:0 auto;position:relative;
         padding:30px clamp(18px,6vw,40px) 40px;min-height:calc(100svh - 40px)}
   /* калла как в invite: большая, справа, слегка повёрнута, на всю высоту */
-  .calla{position:fixed;right:-5%;top:0;width:47%;height:100vh;object-fit:contain;
+  .calla{position:fixed;right:0;top:0;width:38%;max-width:220px;height:100vh;
+         object-fit:contain;object-position:right center;
          opacity:.35;pointer-events:none;transform:rotate(6deg);z-index:0}
 
   header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
@@ -130,7 +131,7 @@
   @media(max-width:420px){
     body{padding-left:12px;padding-right:12px}
     .arch{padding-top:24px;min-height:calc(100svh - 32px)}
-    .calla{width:60%;right:-18%;opacity:.2}
+    .calla{width:52%;max-width:180px;right:-8%;opacity:.2}
     .latest-head{align-items:flex-start;flex-direction:column;gap:5px}
     .albumlink{font-size:12px}
   }
