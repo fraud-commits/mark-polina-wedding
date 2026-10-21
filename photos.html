@@ -155,9 +155,17 @@
     background:rgba(255,255,255,.12);color:#f5f2e8;text-align:center;line-height:36px;
     font-size:20px;cursor:pointer;border-radius:50%;user-select:none}
   .lightbox-close:hover{background:rgba(255,255,255,.25)}
+  .lightbox-dl{position:absolute;bottom:-50px;right:0;display:inline-flex;align-items:center;gap:6px;
+      padding:8px 14px;background:rgba(255,255,255,.12);color:#f5f2e8;border-radius:999px;
+      font-family:'Manrope',Arial,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+      text-decoration:none;cursor:pointer;user-select:none;transition:background .2s}
+  .lightbox-dl:hover{background:rgba(255,255,255,.25)}
+  .lightbox-dl svg{width:14px;height:14px}
   @media(max-width:560px){
     .lightbox-prev{left:8px}
     .lightbox-next{right:8px}
+    .lightbox-dl{bottom:-44px;right:50%;transform:translateX(50%)}
+    .lightbox-close{top:-44px}
   }
 </style>
 </head>
@@ -240,7 +248,7 @@
           note:'Добавьте свой взгляд на этот день — снимки появятся в общем альбоме.',
           sent:'Отправлено', pending:'в очереди', retry:'Повторить отправку',
           queueTitle:'Выбрано для отправки', sendBtn:'Отправить', clearBtn:'Очистить',
-          sendingNote:'Отправляем…', sendingProgress:'Отправляем…', removePhoto:'Убрать фото',
+          sendingNote:'Отправляем…', sendingProgress:'Отправляем…', removePhoto:'Убрать фото', download:'Скачать',
           latest:'Последние кадры', openalbum:'Открыть общий альбом ↗',
           toast:'Спасибо! Кадр уже в альбоме ♥' },
     en: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Our shared album',
@@ -249,7 +257,7 @@
           note:'Add your view of the day — your photos will join our shared album.',
           sent:'Uploaded', pending:'queued', retry:'Try again',
           queueTitle:'Ready to send', sendBtn:'Send', clearBtn:'Clear',
-          sendingNote:'Sending…', sendingProgress:'Sending…', removePhoto:'Remove photo',
+          sendingNote:'Sending…', sendingProgress:'Sending…', removePhoto:'Remove photo', download:'Download',
           latest:'Recent photos', openalbum:'Open shared album ↗',
           toast:'Thank you! It’s in the album ♥' }
   };
@@ -409,7 +417,7 @@
       if (!j.ok || !Array.isArray(j.items)) return;
       window.photoItems = j.items;
       $('#thumbs').innerHTML = j.items.map((it, idx) =>
-        '<img alt="" src="https://drive.google.com/thumbnail?id=' + it.id + '&sz=w400" data-index="' + idx + '" style="cursor:pointer">').join('');
+        '<img alt="" src="https://drive.google.com/thumbnail?id=' + it.id + '&sz=w200" data-index="' + idx + '" loading="lazy" decoding="async" style="cursor:pointer">').join('');
     } catch(e) { /* тихо: лента обновится на следующем тике */ }
   }
 
@@ -455,8 +463,11 @@ function openLightbox(idx) {
   var overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
   var html = '<div class="lightbox-content">';
-  html += '<img class="lightbox-img" src="https://drive.google.com/thumbnail?id=' + item.id + '&sz=w800" alt="">';
+  html += '<img class="lightbox-img" src="https://drive.google.com/thumbnail?id=' + item.id + '&sz=w1600" alt="">';
   html += '<p class="lightbox-caption">' + captionFor(item) + '</p>';
+  html += '<a class="lightbox-dl" id="lbDl" href="https://drive.google.com/uc?export=download&id=' + item.id + '" target="_blank" rel="noopener">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+    '<span data-t="download">Скачать</span></a>';
   html += '<a class="lightbox-prev">&#10094;</a>';
   html += '<a class="lightbox-next">&#10095;</a>';
   html += '<a class="lightbox-close">&#10005;</a>';
@@ -470,8 +481,10 @@ function openLightbox(idx) {
 
   function show(i) {
     cur = (i + items.length) % items.length;
-    imgEl.src = 'https://drive.google.com/thumbnail?id=' + items[cur].id + '&sz=w800';
+    imgEl.src = 'https://drive.google.com/thumbnail?id=' + items[cur].id + '&sz=w1600';
     capEl.textContent = captionFor(items[cur]);
+    var dl = overlay.querySelector('.lightbox-dl');
+    if (dl) dl.href = 'https://drive.google.com/uc?export=download&id=' + items[cur].id;
   }
 
   overlay.querySelector('.lightbox-prev').onclick = function() { show(cur - 1); };
