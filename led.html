@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Живой экран · Mark & Polina</title>
+<style>
+  body{margin:0;background:#15170f;color:#f5f2e8;font:16px/1.5 Georgia,serif;overflow:hidden;height:100vh}
+  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  #stage img{position:absolute;max-width:92vw;max-height:88vh;object-fit:contain;
+             opacity:0;transition:opacity .8s ease;filter:drop-shadow(0 18px 40px rgba(0,0,0,.55))}
+  #stage img.on{opacity:1}
+  #who{position:fixed;left:4vw;bottom:5vh;font-style:italic;color:#cdd5bb;font-size:min(2.4vw,20px);
+       opacity:.9;transition:opacity .8s ease}
+  #brand{position:fixed;right:4vw;bottom:5vh;letter-spacing:.18em;color:#8a9179;
+         font-size:min(1.6vw,14px);text-transform:uppercase}
+  #idle{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+        color:#8a9179;font-size:clamp(18px,3vw,30px);letter-spacing:.06em;text-align:center}
+  #idle.hide{display:none}
+</style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="who"></div>
+  <div id="brand">M &amp; P · 26 . 06 . 2027 · Dunduriņi</div>
+  <div id="idle">Ждём первые фотографии гостей…<br>Scan the QR on the tables.</div>
+
+<script src="guests.js?v=1"></script>
+<script>
+(function(){
+  const SCRIPT_URL = 'POSLITE_SSILKU_APPS_SCRIPT'; // как в photos.html — один и тот же адрес
+  const SLIDE_MS   = 8000;   // кадр на экране
+  const REFRESH_MS = 20000;  // подгрузка новых фото
+  const FETCH_COLS = 1600;   // ширина предпросмотра с Drive
+
+  const stage = document.getElementById('stage');
+  const whoEl = document.getElementById('who');
+  const idle  = document.getElementById('idle');
+  let items = [];   // {id, g, nameRU}
+  let pos = -1, lastId = null;
+
+  function nameFor(tok){
+    const g = WEDDING_GUESTS[tok] || WEDDING_GUESTS['default'];
+    return g.ru.join(' · ');
+  }
+
+  function thumbURL(id){ return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + FETCH_COLS; }
+
+  async function refresh(){
+    try {
+      const res = await fetch(SCRIPT_URL + '?action=list');
+      const j = await res.json();
+      if (!Array.isArray(j.items)) return;
+      const fresh = j.items;
+      if (fresh.length) idle.classList.add('hide');
+      // добавляем только новые (по id) — старые кадры не роняем из очереди
+      const known = new Set(items.map(i => i.id));
+      for (const it of fresh.reverse())
+        if (!known.has(it.id)) items.push({ id: it.id, g: nameFor(it.g) });
+      if (items.length > 400) items = items.slice(-400);
+    } catch(e) { /* сеть моргнула — показываем дальше буфер */ }
+  }
+
+  function preload(src){ return new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; }); }
+
+  function next(){
+    if (!items.length) return;
+    pos = (pos + 1) % items.length;
+    const it = items[pos];
+    preload(thumbURL(it.id)).then(img => {
+      if (!img) return;                 // битый кадр — пропускаем
+      Array.from(stage.querySelectorAll('img')).forEach(el => el.classList.remove('on'));
+      img.classList.add('on');
+      stage.appendChild(img);
+      whoEl.style.opacity = it.g ? .9 : 0;
+      whoEl.textContent = it.g ? 'от ' + it.g : '';
+      while (stage.children.length > 3) stage.removeChild(stage.firstChild);
+    });
+  }
+
+  refresh();
+  setInterval(refresh, REFRESH_MS);
+  setInterval(next, SLIDE_MS);
+
+  // Управление со laptop: стрелки — вручную, Space — стоп/пуск
+  let hold = false, timer = setInterval(next, SLIDE_MS);
+  addEventListener('keydown', e => {
+    if (e.code === 'ArrowRight') next();
+    if (e.code === 'ArrowLeft'){ pos = (pos - 2 + items.length * 2) % items.length; next(); }
+    if (e.code === 'Space'){ hold = !hold; (hold ? clearInterval(timer) : (timer = setInterval(next, SLIDE_MS))); e.preventDefault(); }
+  });
+})();
+</script>
+</body>
+</html>

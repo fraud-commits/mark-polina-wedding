@@ -502,7 +502,7 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .paper-hero .hero-meta time{font:italic 32px 'Cormorant Garamond',Georgia,serif;letter-spacing:.08em}
 .paper-hero .hero-location{font-size:10px;letter-spacing:.23em}
 .paper-hero .intro{font-size:26px;max-width:none;margin:0 0 50px}
-.paper-hero .hero-details{border:0;font-size:10px;letter-spacing:.16em;gap:24px;min-height:44px}
+.paper-hero .hero-details{border:0;border-bottom:1px solid #b8beaa;font-size:10px;letter-spacing:.16em;gap:24px;min-height:44px}
 .paper-hero .hero-calla{position:absolute;top:0;right:-5%;width:47%;height:100%;object-fit:contain;opacity:1;transform:none;z-index:1;pointer-events:none}
 .paper-hero .hero-side-note{display:none}
 @media(max-width:700px){
@@ -546,8 +546,8 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 /* Lower the selected tall flower enough to reveal its complete bloom. */
 @media(max-width:700px){.paper-hero .hero-calla{top:18px}}
 /* Center the invitation prompt and its downward arrow. */
-.paper-hero .hero-details{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;text-align:center}
-@media(min-width:701px){.paper-hero .hero-details{width:calc(100vw - 18vw);max-width:none}}
+
+@media(min-width:701px){}
 /* Tilt around the bloom so the lower leaf clears the invitation text. */
 @media(max-width:700px){.paper-hero .hero-calla{rotate:-7deg;transform-origin:70% 12%}}
 .flap-title span{display:block}
@@ -596,18 +596,20 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .rsvp input[type=checkbox]{width:18px;height:18px;accent-color:var(--olive);flex-shrink:0}
 .rsvp .button{min-height:54px;justify-content:space-between;font-size:13px}
 /* Переключатель языка в шапке */
-.lang-toggle{border:0;background:none;padding:0 0 2px;margin:0;font:inherit;font-size:10px;letter-spacing:.1em;color:inherit;cursor:pointer;border-bottom:1px solid currentColor;opacity:.55;transition:opacity .2s}
-.lang-toggle:hover{opacity:1}
+/* Переключатель языка выглядит как остальные пункты меню. */
+/* Переключатель языка: постоянная линия, прижатая к тексту
+   (text-decoration рисуется у букв, а не по низу 44px зоны нажатия). */
+.lang-toggle{border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 /* Responsive palette: let the swatches shrink instead of overflowing narrow screens. */
 .swatches span{max-width:100%;height:auto;aspect-ratio:1}
 @media(max-width:760px){
-  .swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+  .swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px 10px}
 }
 @media(max-width:420px){
-  .swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+  .swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px 8px}
 }
 @media(max-width:340px){
-  .swatches{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .swatches{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 8px}
 }
 /* Mobile ergonomics: readable tap targets and no overscroll pull. */
 @media(max-width:700px){
@@ -781,3 +783,44 @@ body{padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
    иначе браузер получает 404 при каждом визите. */
 .hero:before,.hero:after{background-image:none!important}
 .hero.paper-hero::before{background-image:none!important;display:none!important}
+/* Расстояния: дорога рядом, перелёт отдельно. Разделитель — узкий flex-элемент. */
+.distances{gap:2px 18px;align-items:center}
+@media(max-width:560px){
+  .distances{gap:2px 12px}
+  }
+/* Расстояния: дорога рядом, перелёт отдельно. Две группы в ряд, между ними тонкая линия. */
+.distances{display:flex;flex-wrap:wrap;align-items:center;gap:8px 26px;margin-top:12px;max-width:none;width:100%;justify-content:flex-start}
+@media(min-width:960px){.distances{flex-wrap:nowrap}.distances .dist-group{flex-wrap:nowrap}}
+.distances .dist-group{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px}
+.distances .dist-group + .dist-group{position:relative;padding-left:20px}
+.distances .dist-group + .dist-group::before{
+  content:'';position:absolute;left:0;top:50%;width:1px;height:11px;
+  background:var(--line);transform:translateY(-50%);
+}
+@media(max-width:560px){
+  .distances{gap:6px 14px}
+  .distances .dist-group{gap:4px 14px}
+  .distances .dist-group + .dist-group{padding-left:0}
+  .distances .dist-group + .dist-group::before{display:none}
+}
+/* Вертикальный ритм: таймлайн занимал фиксированные 1500px на 4 события —
+   отсюда длинные пустые паузы при прокрутке. Высота считается от числа точек. */
+.timeline{--tl-events:4;height:calc(var(--tl-events) * 250px + 60px)}
+@media(max-width:700px){.timeline{--tl-events:4;height:calc(var(--tl-events) * 230px + 40px)}}
+
+
+
+/* Мелкие подписи: +1px, чтобы не рассыпались на телефоне. */
+@media(max-width:700px){
+  nav a,.lang-toggle{font-size:12px}
+  .eyebrow{font-size:10px}
+  .calendar .small,.cal-note{font-size:11px}
+}
+/* Подписи навигации: перебиваем более поздние правила nav a{font-size} */
+@media(max-width:700px){nav a,.lang-toggle{font-size:12px !important}
+.eyebrow{font-size:10px !important}}
+/* Область нажатия шире самой надписи — вид не меняем. */
+.hero-details::before{content:'';position:absolute;inset:-12px -18px}
+.hero-details{position:relative}
+/* Тонкая линия под надписью — по ширине текста, не во всю колонку. */
+.paper-hero .hero-details:hover{border-color:var(--olive)}

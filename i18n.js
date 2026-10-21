@@ -48,12 +48,12 @@ const I18N_EN = {
     'A park, Lake Sasmakas and a light hall with glass walls — a place for long conversations and happy memories.',
   'Ārlavas pagasts, Talsu novads, Латвия — на берегу озера Сасмакас, в старом парке у трассы Талсы–Роя. От трассы до площадки — 1,5 км по земляной дороге.':
     'Ārlavas pagasts, Talsu novads, Latvia — on the shore of Lake Sasmakas, in the old park by the Talsi–Roja road. The last stretch to the venue is 1.5 km of dirt road.',
+  'Юрмала — 100 км': 'Jurmala — 100 km',
   'Рига — 135 км': 'Riga — 135 km',
-  'Юрмала — 97 км': 'Jurmala — 97 km',
-  'Вильнюс — 400 км': 'Vilnius — 400 km',
-  'Мажейкяй — 130 км': 'Mažeikiai — 130 km',
-  'Подгорица — ✈ 1800 км': 'Podgorica — ✈ 1800 km',
-  'Лондон — ✈ 1700 км': 'London — ✈ 1700 km',
+  'Мажейкяй — 140 км': 'Mažeikiai — 140 km',
+  'Вильнюс — 390 км': 'Vilnius — 390 km',
+  'Лондон — ✈ 1600 км': 'London — ✈ 1600 km',
+  'Подгорица — ✈ 1680 км': 'Podgorica — ✈ 1680 km',
   'Фотографии площадки Dunduriņi': 'Photos of the Dunduriņi venue',
   'Предыдущее фото': 'Previous photo',
   'Следующее фото': 'Next photo',
@@ -188,6 +188,8 @@ function resolveLang(){
 const origText = new WeakMap();
 const origAttrs = new WeakMap();
 
+
+
 function translateTree(root){
   const dict = I18N_EN;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -249,6 +251,15 @@ function applyLang(lang){
 
 function setLang(lang){
   try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+  // Ручной выбор сильнее параметра в адресе: убираем ?lang=,
+  // иначе после обновления страницы язык откатывался к адресному.
+  try{
+    const u = new URL(location.href);
+    if (u.searchParams.has("lang")) {
+      u.searchParams.delete("lang");
+      history.replaceState(null, "", u.pathname + (u.searchParams.toString() ? "?" + u.searchParams : "") + u.hash);
+    }
+  }catch(e){}
   applyLang(lang);
 }
 

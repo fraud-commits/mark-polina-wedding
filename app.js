@@ -90,6 +90,7 @@ const DRINKS = [
   { ru: 'Вино красное', en: 'Red wine' },
   { ru: 'Вино белое', en: 'White wine' },
   { ru: 'Игристое', en: 'Sparkling' },
+  { ru: 'Коктейли', en: 'Cocktails' },
   { ru: 'Крепкий алкоголь', en: 'Spirits' },
   { ru: 'Безалкогольные', en: 'Soft drinks' }
 ];
@@ -177,7 +178,22 @@ function render() {
   document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>${p.legend}</legend>${select('companion', p.q, [['no',p.alone],['yes',p.with],['maybe',t.maybe]])}<div data-companion hidden><label>${p.nameLabel}<input name="companion-name" maxlength="120" placeholder="${en ? 'You can add it later' : 'Можно указать позже'}"></label><p class="small">${p.note}</p>${details('plus')}</div></fieldset>` : '');
   sync();
 }
-window.addEventListener('langchange', () => { render(); applyLang(currentLang); });
+// Только перерисовка анкеты: applyLang заново шлёт langchange,
+// и вызов внутри обработчика приводил к переполнению стека.
+window.addEventListener('langchange', () => { render(); });
+// Подписи галереи для скринридера: создаются один раз, поэтому язык не подхватывается.
+window.addEventListener('langchange', () => {
+  const en = currentLang === 'en';
+  document.querySelectorAll('.place-gallery [role=tab]').forEach((b, i) => {
+    b.setAttribute('aria-label', (en ? 'Photo ' : 'Фото ') + (i + 1));
+  });
+  const c = document.querySelector('.pg-counter');
+  if (c) c.setAttribute('aria-label', en ? 'Photo number' : 'Номер фотографии');
+  document.querySelectorAll('.pg-arrow').forEach((b, i) => {
+    b.setAttribute('aria-label', en ? (i ? 'Next photo' : 'Previous photo')
+                                    : (i ? 'Следующее фото' : 'Предыдущее фото'));
+  });
+});
 // The invitation links carry #invitation so the scroll lands on the letter.
 // While the envelope covers the page we don't want that jump: the site should
 // always begin at the very top. Clearing the hash before layout is the only
