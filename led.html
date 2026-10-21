@@ -47,6 +47,11 @@
     return g.ru.join(' · ');
   }
 
+  function labelFor(it){
+    const name = nameFor(it);
+    return name === 'Дорогие гости' ? 'инкогнито' : name;
+  }
+
   function thumbURL(id){ return 'https://drive.google.com/thumbnail?id=' + id + '&sz=w' + FETCH_COLS; }
 
   async function refresh(){
@@ -59,7 +64,7 @@
       // добавляем только новые (по id) — старые кадры не роняем из очереди
       const known = new Set(items.map(i => i.id));
       for (const it of fresh.reverse())
-        if (!known.has(it.id)) items.push({ id: it.id, g: nameFor(it) });
+        if (!known.has(it.id)) items.push({ id: it.id, g: labelFor(it) });
       if (items.length > 400) items = items.slice(-400);
     } catch(e) { /* сеть моргнула — показываем дальше буфер */ }
   }
