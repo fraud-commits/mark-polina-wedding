@@ -3,107 +3,184 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f7f4ec">
+<meta name="theme-color" content="#faf8f1">
 <title>Фотографии · Mark & Polina</title>
 <style>
-  :root{--sienna:#8b937c;--bg:#f7f4ec;--ink:#2b2f26;--muted:#6d7360;--line:#d9d8ca}
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400&display=swap");
+  :root{--paper:#faf8f1;--olive:#46503c;--muted:#747763;--line:#dedccf;--sage:#8b9278}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-       font:16px/1.6 Georgia,serif;min-height:100vh;
-       padding:calc(18px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom))}
-  header{display:flex;align-items:center;justify-content:space-between;max-width:640px;margin:0 auto 26px;
-         padding-bottom:14px;border-bottom:1px solid var(--line)}
-  .mono{font-size:15px;letter-spacing:.06em}.mono i{font-style:oblique;color:var(--sienna)}
-  .lang{font:inherit;border:0;background:none;color:var(--ink);cursor:pointer;
-        text-decoration:underline;text-underline-offset:3px;letter-spacing:.06em}
-  main{max-width:640px;margin:0 auto}
-  .eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);
-           text-align:center;margin:0 0 10px}
-  h1{font-size:clamp(30px,8.5vw,44px);line-height:1.1;text-align:center;margin:0 0 8px;font-weight:400}
-  .who{text-align:center;color:var(--sienna);font-style:italic;min-height:24px;margin:0 0 26px}
-  .shot{display:flex;flex-direction:column;align-items:center;gap:14px;margin:0 0 22px}
-  .shutter{width:86px;height:86px;border-radius:50%;border:1.5px solid var(--ink);background:var(--bg);
-           cursor:pointer;display:flex;align-items:center;justify-content:center;
-           font-size:34px;color:var(--ink);transition:transform .15s ease}
-  .shutter:active{transform:scale(.94)}
-  .caption{font-size:13px;color:var(--muted);text-align:center}
-  input[type=file]{display:none}
-  .note{text-align:center;font-size:12.5px;color:var(--muted);margin:18px auto;max-width:430px}
-  .state{max-width:430px;margin:22px auto 0;border-top:1px solid var(--line);padding-top:16px}
-  .row{display:flex;justify-content:space-between;font-size:13.5px;margin:6px 0}
-  .row b{font-weight:400;color:var(--muted)}
-  button.retry{font:inherit;font-size:13px;border:1px solid var(--line);background:none;
-               border-radius:999px;padding:7px 16px;cursor:pointer;margin-top:8px}
-  button.retry:disabled{opacity:.4;cursor:default}
-  .ok{color:var(--sienna)}
-  .preview{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
-  .preview img{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
-  footer{text-align:center;font-size:11px;letter-spacing:.08em;color:var(--muted);
-         margin-top:34px;text-transform:uppercase}
-  footer a{color:inherit}
+  html,body{height:100%}
+  body{margin:0;background:var(--paper);color:var(--olive);
+       font:300 15.5px/1.85 Manrope,Arial,sans-serif;
+       padding:max(16px,env(safe-area-inset-top)) 18px max(28px,env(safe-area-inset-bottom))}
+  /* точечная текстура бумаги — как на сайте-приглашении */
+  body:before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+       background-image:radial-gradient(#b3aa9018 .65px,transparent .65px);background-size:5px 5px}
+
+  /* стрельчатая арка, вписывающая всё содержимое */
+  .arch{max-width:520px;margin:26px auto 0;position:relative;overflow:hidden;
+        border:1px solid #c8cbb87a;border-radius:48% 48% 0 0;border-bottom:0;
+        padding:44px 30px 34px;min-height:calc(100vh - 90px)}
+  .arch:after{content:'';position:absolute;inset:9px;border:1px solid #c8cbb83d;
+        border-radius:inherit;border-bottom:0;pointer-events:none}
+  .calla{position:absolute;right:-34px;bottom:0;width:clamp(96px,26vw,150px);
+         opacity:.85;pointer-events:none;transform:rotate(-4deg);filter:drop-shadow(-4px 6px 7px rgba(87,75,40,.10))}
+
+  header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
+         margin:-8px -6px 18px}
+  .mono{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px}
+  .mono i{font-style:oblique;color:var(--sage)}
+  .lang{font:inherit;border:0;background:none;color:var(--olive);cursor:pointer;
+        text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+  .lang:hover{color:var(--sage)}
+
+  .eyebrow{font-size:9px;font-weight:500;letter-spacing:.25em;color:#727861;text-align:center;margin:6px 0 14px}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
+     font-size:clamp(38px,10vw,52px);line-height:1.05;letter-spacing:-.03em;
+     text-align:center;margin:0 0 10px}
+  .who{text-align:center;margin:0 0 30px;font-family:'Cormorant Garamond',Georgia,serif;
+       font-style:italic;font-weight:300;font-size:21px;color:var(--sage)}
+  .who b{font-weight:400;color:var(--olive)}
+
+  .shot{display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:2}
+  .shutter{position:relative;width:104px;height:104px;border-radius:50%;border:0;background:none;
+           cursor:pointer;color:var(--olive);flex:none}
+  .shutter::before{content:'';position:absolute;inset:0;border-radius:50%;border:1px solid var(--olive)}
+  .shutter::after{content:'';position:absolute;inset:11px;border-radius:50%;
+           border:1px solid #c8cbb8;transition:transform .3s ease,border-color .25s ease}
+  .shutter svg{position:absolute;inset:0;margin:auto}
+  .shutter:hover::after{transform:scale(.94);border-color:var(--olive)}
+  .shutter:active::before{transform:scale(.97)}
+  @media(hover:hover) and (prefers-reduced-motion:no-preference){
+    .shutter::after{animation:hint 3.4s ease-in-out infinite}
+    @keyframes hint{0%,100%{transform:scale(1)}50%{transform:scale(.95)}}
+  }
+  .caption{text-align:center;color:var(--muted);font-size:13px;max-width:280px;margin:0}
+
+  .note{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;
+        text-align:center;color:var(--muted);font-size:17px;max-width:360px;margin:26px auto 0}
+
+  .latest{margin:38px 0 0;text-align:center}
+  .latest .eyebrow{margin-bottom:14px}
+  .thumbs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .thumbs img{width:86px;height:86px;object-fit:cover;border-radius:8px 8px 3px 3px;
+              border:1px solid var(--line);background:#e9ebdf}
+  .albumlink{display:inline-block;margin-top:16px;font-size:9.5px;letter-spacing:.22em;
+             text-transform:uppercase;color:var(--muted);text-decoration:none;
+             border-bottom:1px solid #c8cbb8;padding-bottom:3px}
+  .albumlink:hover{color:var(--olive)}
+
+  .state{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+         margin:30px auto 0;font-size:12.5px;color:var(--muted);position:relative;z-index:2}
+  .state .ok{color:var(--sage);font-family:'Cormorant Garamond',Georgia,serif;font-size:17px}
+  .retry{font:inherit;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:0;
+         background:none;color:var(--olive);cursor:pointer;text-decoration:underline;
+         text-decoration-thickness:1px;text-underline-offset:3px}
+  .retry:disabled{opacity:.35;cursor:default}
+  .preview{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+  .preview img{width:56px;height:56px;object-fit:cover;border-radius:5px;border:1px solid var(--line)}
+
+  footer{text-align:center;font-size:9px;letter-spacing:.25em;text-transform:uppercase;
+         color:#727861;margin-top:34px}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid #c8cbb8;padding-bottom:2px}
+
+  /* всплывающая благодарность */
+  .toast{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translate(-50%,16px);
+         background:var(--olive);color:var(--paper);font-family:'Cormorant Garamond',Georgia,serif;
+         font-style:italic;font-size:17px;letter-spacing:.02em;padding:12px 26px;border-radius:999px;
+         opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;z-index:9}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
-<header>
-  <div class="mono">M <i>&</i> P</div>
-  <button class="lang" id="langBtn" type="button">EN</button>
-</header>
-<main>
+<div class="arch">
+  <img class="calla" src="hero-calla-reference.png" alt="" aria-hidden="true">
+  <header>
+    <div class="mono">M <i>&</i> P</div>
+    <button class="lang" id="langBtn" type="button">EN</button>
+  </header>
+
   <p class="eyebrow" data-t="eyebrow">26 · 06 · 2027 · Dunduriņi</p>
-  <h1 data-t="title">Фотографии гостей</h1>
+  <h1 data-t="title">Фотографии</h1>
   <p class="who" id="who"></p>
 
   <div class="shot">
-    <button class="shutter" id="shutter" type="button" aria-label="Сфотографировать">📷</button>
+    <button class="shutter" id="shutter" type="button" aria-label="Сфотографировать">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <rect x="6" y="12" width="28" height="20" rx="3.5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M14 12l2-3.5h8L26 12" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="20" cy="22" r="5.4" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="30.6" cy="15.6" r="1" fill="currentColor"/>
+      </svg>
+    </button>
     <input type="file" id="file" accept="image/*" multiple>
     <p class="caption" data-t="tap">Нажмите — камера откроется прямо здесь.<br>Можно выбрать и уже снятые фото.</p>
   </div>
 
-  <p class="note" data-t="note">Снимки попадают в общий альбом молодожёнов и появляются в гостевой ленте сразу.</p>
+  <p class="note" data-t="note">Каждый ваш кадр попадает в наш общий альбом — вместе это будет целая лента воспоминаний.</p>
 
   <div class="state">
-    <div class="row"><b data-t="sent">Отправлено сегодня:</b><span class="ok" id="sent">0</span></div>
-    <div class="row"><b data-t="pending">В очереди:</b><span id="pend">0</span></div>
-    <button class="retry" id="retry" type="button" data-t="retry" disabled>Отпавить очередь</button>
-    <div class="preview" id="prev"></div>
+    <span data-t="sent">Отправлено:</span> <span class="ok" id="sent">0</span> ·
+    <span data-t="pending">в очереди</span> <span id="pend">0</span>
+    <button class="retry" id="retry" type="button" data-t="retry" disabled>Отправить очередь</button>
   </div>
-</main>
+  <div class="preview" id="prev"></div>
+
+  <div class="latest" id="latest">
+    <p class="eyebrow" data-t="latest">Уже в альбоме</p>
+    <div class="thumbs" id="thumbs"></div>
+    <a class="albumlink" id="album" href="#" target="_blank" rel="noopener" data-t="openalbum">Открыть альбом ↗</a>
+  </div>
+</div>
+
 <footer>
   <a href="index.html" data-t="back">← На сайт приглашения</a>
 </footer>
+<div class="toast" id="toast"></div>
 
-<script src="guests.js?v=1"></script>
+<script src="guests.js?v=2"></script>
 <script>
 (function(){
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyn64wnJ5r-0DEipCFbVmOcTYS6eJ29TVerSUhYf2t1YxZGR4Yh_HB397xxsBynWjB3/exec';
-  const $ = s => document.querySelector(s);
-  const token = new URLSearchParams(location.search).get('g') || 'default';
+  const ALBUM_URL  = 'https://drive.google.com/drive/folders/1l9eiDECOg6U0ZUPkKc43PajX7WNyej0_';
+  const $  = s => document.querySelector(s);
+  const qs = new URLSearchParams(location.search);
+  const token = qs.get('g') || 'default';
   const g = WEDDING_GUESTS[token] || WEDDING_GUESTS['default'];
-  const AUTO_EN = window.WEDDING_AUTO_EN || {};
-  const lang = (AUTO_EN[token] || new URLSearchParams(location.search).get('lang') === 'en') ? 'en' : 'ru';
-  const myName = g[lang].join(' · ');
+  const AUTO_EN = (WEDDING_AUTO_EN || {})[token];
+  const lang = (AUTO_EN || qs.get('lang') === 'en') ? 'en' : 'ru';
+  const whoName = g[lang].join(' · ');
 
   const T = {
-    ru: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Фотографии гостей', tap:'Нажмите — камера откроется прямо здесь.<br>Можно выбрать и уже снятые фото.',
-          note:'Снимки попадают в общий альбом молодожёнов и появляются в гостевой ленте сразу.',
-          sent:'Отправлено:', pending:'В очереди:', retry:'Отправить очередь', back:'← На сайт приглашения',
-          whoPrefix:'Делится с нами: ', hello:'Здравствуйте!' },
-    en: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Guest photo wall', tap:'Tap once — the camera opens here.<br>Already-shot photos work too.',
-          note:'Every shot goes straight into the couple’s shared album and the guest feed.',
-          sent:'Uploaded:', pending:'In queue:', retry:'Send the queue', back:'← Back to the invitation site',
-          whoPrefix:'Sharing with us: ', hello:'Hello!' }
+    ru: { whoPrefix:'Делится с нами:', title:'Фотографии',
+          tap:'Нажмите — камера откроется прямо здесь.<br>Можно выбрать и уже снятые фото.',
+          note:'Каждый ваш кадр попадает в наш общий альбом — вместе это будет целая лента воспоминаний.',
+          sent:'Отправлено:', pending:'в очереди', retry:'Отправить очередь',
+          latest:'Уже в альбоме', openalbum:'Открыть альбом ↗', back:'← На сайт приглашения',
+          toast:'Спасибо! Кадр уже в альбоме ♥' },
+    en: { whoPrefix:'Sharing with us:', title:'Guest photo wall',
+          tap:'Tap once — the camera opens here.<br>Already-shot photos work too.',
+          note:'Every shot joins our shared album — together we’ll build a whole film of memories.',
+          sent:'Uploaded:', pending:'in queue', retry:'Send the queue',
+          latest:'Already there', openalbum:'Open album ↗', back:'← Back to the invitation',
+          toast:'Thank you! It’s in the album ♥' }
   };
 
-  let queue = [];   // {blob, previewURL}
-  let sent = 0;
+  function hail(){
+    return lang === 'en'
+      ? T.en.whoPrefix + ' <b>' + whoName + '</b>'
+      : T.ru.whoPrefix + ' <b>' + whoName + '</b>';
+  }
 
-  function t(key){ return T[lang][key]; }
+  let queue = [];   // {blob, url}
+  let sent = 0;
 
   function applyLang(){
     document.documentElement.lang = lang;
     $('#langBtn').textContent = lang === 'en' ? 'RU' : 'EN';
-    document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = t(el.dataset.t); });
-    $('#who').textContent = t('whoPrefix') + myName;
+    document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = T[lang][el.dataset.t]; });
+    $('#who').innerHTML = hail();
+    $('#album').href = ALBUM_URL;
     $('#langBtn').onclick = () => { location.search = '?g=' + token + (lang === 'en' ? '' : '&lang=en'); };
   }
 
@@ -114,7 +191,14 @@
     $('#prev').innerHTML = queue.map(q => '<img alt="" src="' + q.url + '">').join('');
   }
 
-  // Сжимаем до 2048px по длинной стороне, JPEG 0.85 — снимок укладывается в ~1.5 МБ.
+  function toast(){
+    const t = $('#toast');
+    t.textContent = T[lang].toast;
+    t.classList.add('on');
+    setTimeout(() => t.classList.remove('on'), 2600);
+  }
+
+  /* сжатие до 2048px, JPEG .85 */
   function compress(blob){
     return new Promise(res => {
       const img = new Image();
@@ -123,32 +207,29 @@
         const c = document.createElement('canvas');
         c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        c.toBlob(b => res(b), 'image/jpeg', .85);
-        URL.revokeObjectURL(img.src);
+        c.toBlob(b => { URL.revokeObjectURL(img.src); res(b); }, 'image/jpeg', .85);
       };
       img.src = URL.createObjectURL(blob);
     });
   }
 
   async function sendOne(item){
-    const base64 = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(String(fr.result).split(',')[1]); fr.readAsDataURL(item.blob); });
+    const base64 = await new Promise(r => { const fr = new FileReader();
+      fr.onload = () => r(String(fr.result).split(',')[1]); fr.readAsDataURL(item.blob); });
     const res = await fetch(SCRIPT_URL, { method:'POST',
       headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body: JSON.stringify({ token: token, name: myName, data: base64 }) });
+      body: JSON.stringify({ token: token, name: whoName, data: base64 }) });
     const j = await res.json().catch(() => ({}));
     if (!j.ok) throw new Error(j.error || 'no ok');
   }
 
   async function drain(){
-    while (queue.length && SCRIPT_URL.indexOf('script.google.com') === 0) {
+    while (queue.length) {
       const item = queue[0];
-      try { await sendOne(item); queue.shift(); sent++;
-            localStorage.removeItem('ph-queue');
-      } catch(e) { localStorage.setItem('ph-queue', '1'); break; }
+      try { await sendOne(item); queue.shift(); sent++; toast(); loadLatest(); }
+      catch(e) { break; }
       counters();
     }
-    if (queue.length) localStorage.setItem('ph-queue', '1');
-    else if (sent) localStorage.removeItem('ph-queue');
   }
 
   function addFiles(files){
@@ -159,14 +240,24 @@
     }
   }
 
+  /* мини-лента последних фото */
+  async function loadLatest(){
+    try {
+      const j = await (await fetch(SCRIPT_URL + '?action=list&limit=5')).json();
+      if (!j.ok || !Array.isArray(j.items)) return;
+      $('#thumbs').innerHTML = j.items.map(it =>
+        '<img alt="" src="https://drive.google.com/thumbnail?id=' + it.id + '&sz=w400">').join('');
+    } catch(e) { /* тихо: лента обновится на следующем тике */ }
+  }
+
   $('#shutter').onclick = () => $('#file').click();
   $('#file').onchange = e => { addFiles(e.target.files); e.target.value = ''; };
   $('#retry').onclick = drain;
 
   applyLang();
   counters();
-  if (localStorage.getItem('ph-queue') === '1') drain();
-
+  loadLatest();
+  setInterval(loadLatest, 20000);
   addEventListener('online', drain);
 })();
 </script>
