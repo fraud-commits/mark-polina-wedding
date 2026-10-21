@@ -438,6 +438,12 @@
 <script>
 window.photoItems = window.photoItems || [];
 
+// Подпись: имя гостя (who) → иначе 'инкогнито' (как на LED), имя файла не показываем
+function captionFor(it) {
+  if (it.who && it.who !== 'default') return it.who;
+  return 'инкогнито';
+}
+
 function openLightbox(idx) {
   var items = window.photoItems;
   if (!items || idx < 0 || idx >= items.length) return;
@@ -450,7 +456,7 @@ function openLightbox(idx) {
   overlay.className = 'lightbox-overlay';
   var html = '<div class="lightbox-content">';
   html += '<img class="lightbox-img" src="https://drive.google.com/thumbnail?id=' + item.id + '&sz=w800" alt="">';
-  html += '<p class="lightbox-caption">' + (item.name || '') + '</p>';
+  html += '<p class="lightbox-caption">' + captionFor(item) + '</p>';
   html += '<a class="lightbox-prev">&#10094;</a>';
   html += '<a class="lightbox-next">&#10095;</a>';
   html += '<a class="lightbox-close">&#10005;</a>';
@@ -465,7 +471,7 @@ function openLightbox(idx) {
   function show(i) {
     cur = (i + items.length) % items.length;
     imgEl.src = 'https://drive.google.com/thumbnail?id=' + items[cur].id + '&sz=w800';
-    capEl.textContent = items[cur].name || '';
+    capEl.textContent = captionFor(items[cur]);
   }
 
   overlay.querySelector('.lightbox-prev').onclick = function() { show(cur - 1); };
