@@ -178,6 +178,26 @@ function render() {
   sync();
 }
 window.addEventListener('langchange', () => { render(); applyLang(currentLang); });
+// The invitation links carry #invitation so the scroll lands on the letter.
+// While the envelope covers the page we don't want that jump: the site should
+// always begin at the very top. Clearing the hash before layout is the only
+// reliable way — re-scrolling afterwards fights the browser's anchor handling.
+(function(){
+  if (location.hash === '#invitation' || location.hash === '#rsvp') {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+  document.addEventListener('DOMContentLoaded', () => window.scrollTo(0, 0));
+  window.addEventListener('load', () => {
+    const html = document.documentElement;
+    html.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    html.scrollTop = document.body.scrollTop = 0;
+    html.style.scrollBehavior = '';
+  });
+})();
+
 // Envelope opening screen. Shown on every visit — it's part of the ritual.
 const envelope = document.querySelector('#envelope');
 if (envelope) {
@@ -185,6 +205,7 @@ if (envelope) {
  const open = () => {
    if (envelope.classList.contains('open')) return;
    envelope.classList.add('open');
+   window.scrollTo(0, 0);
    setTimeout(() => document.body.classList.remove('env-locked'), matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 2200);
    setTimeout(() => envelope.remove(), matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 2350);
  };
@@ -266,17 +287,38 @@ render();
 // place gallery
 (function(){
   const g=document.querySelector('.place-gallery'); if(!g) return;
-  const track=g.querySelector('.pg-track'); const slides=[...track.children]; const dots=g.querySelector('.pg-dots');
+  const track=g.querySelector('.pg-track'); const dots=g.querySelector('.pg-dots');
+  const originals=[...track.children];
+  const firstClone=originals[0].cloneNode(true), lastClone=originals[originals.length-1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden','true'); lastClone.setAttribute('aria-hidden','true');
+  track.appendChild(firstClone); track.insertBefore(lastClone,originals[0]);
+  const slides=originals;
   const counter=document.createElement("p"); counter.className="pg-counter"; counter.setAttribute("aria-label", currentLang==='en' ? 'Photo number' : 'Номер фотографии'); g.appendChild(counter);
-  let idx=0; let timer=null;
+  let idx=0, physicalIndex=1, timer=null, snapping=false;
   slides.forEach((_,i)=>{const b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label',(currentLang==='en' ? 'Photo ' : 'Фото ')+(i+1)); b.addEventListener('click',()=>{go(i); restart();}); dots.appendChild(b);});
   const btns=[...dots.children];
-  function go(n){idx=(n+slides.length)%slides.length; counter.textContent=String(idx+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0"); track.style.transform='translateX('+(-idx*100)+'%)'; btns.forEach((b,i)=>b.setAttribute('aria-selected', i===idx?'true':'false')); }
-  function restart(){clearInterval(timer); timer=setInterval(()=>go(idx+1), 3800);}
+  function go(n){
+    const raw=n; idx=(n+slides.length)%slides.length;
+    physicalIndex=raw>=slides.length?slides.length+1:raw<0?0:idx+1;
+    counter.textContent=String(idx+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");
+    track.style.transform='translateX('+(-physicalIndex*100)+'%)';
+    btns.forEach((b,i)=>b.setAttribute('aria-selected', i===idx?'true':'false'));
+  }
+  track.addEventListener('transitionend',e=>{
+    if(e.target!==track||snapping)return;
+    if(physicalIndex===0||physicalIndex===slides.length+1){
+      snapping=true; track.style.transition='none'; physicalIndex=physicalIndex===0?slides.length:1;
+      track.style.transform='translateX('+(-physicalIndex*100)+'%)'; track.offsetWidth;
+      requestAnimationFrame(()=>{track.style.transition='';snapping=false;});
+    }
+  });
+  const isPhone = matchMedia('(max-width: 700px), (hover: none) and (pointer: coarse)');
+  function restart(){clearInterval(timer); timer=null; if(!isPhone.matches) timer=setInterval(()=>go(idx+1), 3800);}
   g.querySelector('.pg-prev').addEventListener('click',()=>{go(idx-1); restart();});
   g.querySelector('.pg-next').addEventListener('click',()=>{go(idx+1); restart();});
-  let sx=0; track.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true}); track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) {go(idx+(dx<0?1:-1)); restart();}});
+  let sx=0, sy=0; track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true}); track.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.2) {go(idx+(dx<0?1:-1)); restart();}});
   g.addEventListener('mouseenter',()=>clearInterval(timer)); g.addEventListener('mouseleave',restart);
+  isPhone.addEventListener('change',restart);
   go(0); restart();
 })();
 
@@ -290,16 +332,28 @@ render();
  if (!tl || !heart || !path) return;
  const len = path.getTotalLength();
  const vb = svg.viewBox.baseVal;
+ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+ let frame = 0;
  const move = () => {
    const r = tl.getBoundingClientRect();
    const vh = window.innerHeight;
    let p = (vh * 0.9 - r.top) / (r.height + vh * 0.75);
    p = Math.max(0, Math.min(1, p));
    const pt = path.getPointAtLength(p * len);
+   if (!reduceMotion.matches) {
+     const revealed = Math.max(0, Math.min(100, (pt.y / vb.height) * 100));
+     svg.style.clipPath = `inset(0 0 ${100 - revealed}% 0)`;
+   } else {
+     svg.style.clipPath = 'none';
+   }
    heart.style.left = (pt.x * (r.width / vb.width)) + 'px';
    heart.style.top = (pt.y * (r.height / vb.height)) + 'px';
  };
- addEventListener('scroll', move, { passive: true });
+ const scheduleMove = () => {
+   if (frame) return;
+   frame = requestAnimationFrame(() => { frame = 0; move(); });
+ };
+ addEventListener('scroll', scheduleMove, { passive: true });
  addEventListener('resize', move);
  move();
 })();

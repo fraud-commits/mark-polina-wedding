@@ -286,9 +286,12 @@ body.env-locked{overflow:hidden}
 .timeline .tl-heart{left:50%;top:0;transform:translate(-50%,-50%);animation:none}
 .tl-heart svg{width:30px;height:30px;animation:none}
 @media(max-width:700px){
-  .timeline{height:1250px;max-width:none;margin:55px 3% 0}
+  .timeline{height:980px;max-width:none;margin:46px 3% 0}
   .tl-card h3{font-size:27px}
-  .timeline article.tl-item:nth-of-type(4){left:38%;top:79%;width:62%;padding-left:8px}
+  .timeline article.tl-item:nth-of-type(1){top:10%}
+  .timeline article.tl-item:nth-of-type(2){top:32.5%}
+  .timeline article.tl-item:nth-of-type(3){top:55%}
+  .timeline article.tl-item:nth-of-type(4){left:38%;top:77.5%;width:62%;padding-left:8px}
 }
 /* Asymmetric editorial invitation, June 2027. */
 .hero.editorial-hero{min-height:790px;max-width:1600px;margin:auto;padding:75px max(7%,calc((100% - 1160px)/2)) 65px;display:block;text-align:left;overflow:hidden;isolation:isolate}
@@ -431,7 +434,7 @@ body.env-locked{overflow:hidden}
 /* Place gallery — swipeable */
 .place-gallery{position:relative}
 .pg-viewport{overflow:hidden;border-radius:28px 18px 36px 20px;height:560px}
-.pg-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.25,.8,.3,1);will-change:transform}
+.pg-track{display:flex;width:100%;height:100%;transition:transform .5s cubic-bezier(.25,.8,.3,1);will-change:transform}
 .pg-track img{flex:0 0 100%;height:100%;width:100%;object-fit:cover;object-position:60% 58%;filter:saturate(.97);display:block}
 .pg-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid #ffffffcc;background:#faf8f1ee;color:var(--olive);display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12);transition:background .2s, transform .2s}
 .pg-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
@@ -580,6 +583,25 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 /* Переключатель языка в шапке */
 .lang-toggle{border:0;background:none;padding:0 0 2px;margin:0;font:inherit;font-size:10px;letter-spacing:.1em;color:inherit;cursor:pointer;border-bottom:1px solid currentColor;opacity:.55;transition:opacity .2s}
 .lang-toggle:hover{opacity:1}
+/* Responsive palette: let the swatches shrink instead of overflowing narrow screens. */
+.swatches span{max-width:100%;height:auto;aspect-ratio:1}
+@media(max-width:760px){
+  .swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+}
+@media(max-width:420px){
+  .swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+}
+@media(max-width:340px){
+  .swatches{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+}
+/* Mobile ergonomics: readable tap targets and no overscroll pull. */
+@media(max-width:700px){
+  nav a,.lang-toggle{min-height:44px;display:inline-flex;align-items:center;font-size:11px}
+}
+
+body{overflow-x:clip}
+.pg-arrow{background:rgba(250,248,241,.82);color:#46503c;min-width:44px;min-height:44px}
+
 .wedding-finale{text-align:center;padding:90px 24px 70px}
 .wedding-finale .finale-title{font:italic 64px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.02em;color:var(--olive);margin:0 0 28px}
 .wedding-finale span{font-size:30px}
@@ -593,6 +615,23 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
  .rsvp .button{width:100%}
  .rsvp .checks{grid-template-columns:1fr}
  .wedding-finale .finale-title{font-size:58px}
+}
+/* Bring the welcome, calendar, next-day note and wishes into a smoother scroll rhythm. */
+@media(min-width:701px){
+  section.letter{padding-bottom:72px}
+  section.calendar{padding-top:80px}
+  section.details{padding-bottom:76px}
+  section.wishes{padding-top:76px}
+}
+@media(max-width:700px){
+  section.letter{padding-bottom:44px}
+  section.letter{padding-left:20px;padding-right:20px}
+  .letter p:not(.eyebrow){font-size:20px;line-height:1.42;margin-top:12px;margin-bottom:12px}
+  .letter h2{margin-bottom:14px}
+  .letter .signature{font-size:22px;margin-top:20px}
+  section.calendar{padding-top:56px}
+  section.details{padding-bottom:54px}
+  section.wishes{padding-top:56px}
 }
 /* Quiet stationery envelope, embossed champagne wax. */
 .envelope-screen{background:#646c4e}
