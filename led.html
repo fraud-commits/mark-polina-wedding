@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Живой экран · Mark & Polina</title>
 <style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400&display=swap");
   body{margin:0;background:#15170f;color:#f5f2e8;font:16px/1.5 Georgia,serif;overflow:hidden;height:100vh}
   #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
   #stage img{position:absolute;max-width:92vw;max-height:88vh;object-fit:contain;
@@ -19,11 +20,19 @@
         color:#8a9179;font-size:clamp(18px,3vw,30px);letter-spacing:.06em;text-align:center}
   #idle.hide{display:none}
 
-  #qr{position:fixed;left:3vw;top:3vh;width:min(11vw,120px);text-align:center;z-index:5}
-  #qr img{width:100%;display:block;border-radius:6px;box-shadow:0 4px 18px rgba(0,0,0,.4);
-          background:#f5f2e8;padding:6px}
-  #qr span{display:block;margin-top:6px;font-size:min(1.3vw,12px);letter-spacing:.12em;
-           text-transform:uppercase;color:#8a9179}
+  /* QR — в духе приглашения: арка, двойная рамка, оливковый на бумаге */
+  #qr{position:fixed;left:3vw;top:3vh;width:min(13vw,140px);text-align:center;z-index:5;
+      font-family:'Cormorant Garamond',Georgia,serif}
+  #qr .qr-frame{position:relative;padding:9px;background:#faf8f1;
+      border:1px solid #46503c66;border-radius:46% 46% 4px 4px;
+      box-shadow:0 6px 24px rgba(0,0,0,.5)}
+  #qr .qr-frame:after{content:'';position:absolute;inset:5px;
+      border:1px solid #46503c33;border-radius:inherit;pointer-events:none}
+  #qr img{width:100%;display:block;border-radius:2px}
+  #qr .qr-names{margin:7px 0 2px;font-style:italic;font-weight:300;
+      font-size:min(1.9vw,17px);color:#f5f2e8;letter-spacing:.02em}
+  #qr .qr-hint{font-family:'Manrope',Arial,sans-serif;font-size:min(1.1vw,10px);
+      letter-spacing:.18em;text-transform:uppercase;color:#8a9179}
 </style>
 </head>
 <body>
@@ -32,8 +41,11 @@
   <div id="brand">M &amp; P · 26 . 06 . 2027 · Dunduriņi</div>
   <div id="idle">Ждём первые фотографии гостей…<br>Scan the QR on the tables.</div>
   <div id="qr">
-    <img src="qr-photos.png" alt="QR-код: загрузить фото">
-    <span>Запечатли момент</span>
+    <div class="qr-frame">
+      <img src="qr-photos.png" alt="QR-код: загрузить фото">
+    </div>
+    <p class="qr-names">Mark &amp; Polina</p>
+    <p class="qr-hint">Запечатли момент</p>
   </div>
 
 <script src="guests.js?v=1"></script>
