@@ -98,6 +98,18 @@
   .send-btn:focus-visible,.rm:focus-visible,.clear-btn:focus-visible{outline:3px solid #a97947;outline-offset:2px}
   .sending-note{font-size:11px;color:var(--muted);margin:8px 0 0;font-style:italic}
   .sending-note[hidden]{display:none}
+  .sending-note .spinner{display:inline-block;width:12px;height:12px;border:2px solid #c8cbb8;
+      border-top-color:var(--olive);border-radius:50%;margin-right:6px;vertical-align:-2px;
+      animation:spin .8s linear infinite}
+  .sending-note .progress{color:var(--olive);font-weight:500;font-style:normal}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .send-btn.loading{position:relative;color:transparent!important}
+  .send-btn.loading:after{content:'';position:absolute;top:50%;left:50%;width:16px;height:16px;
+      margin:-8px 0 0 -8px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+      border-radius:50%;animation:spin .8s linear infinite}
+  .thumb-wrap.sending{opacity:.5;pointer-events:none}
+  .thumb-wrap.sending:after{content:'';position:absolute;inset:0;background:rgba(250,248,241,.6);
+      border-radius:2px}
 
   footer{text-align:center;font-size:12px;color:#727861;margin:24px auto 0;position:relative;z-index:2}
   footer a{color:inherit;text-underline-offset:4px}
@@ -192,7 +204,7 @@
       <button class="send-btn" id="sendBtn" type="button" data-t="sendBtn">Отправить</button>
       <button class="clear-btn" id="clearBtn" type="button" data-t="clearBtn">Очистить</button>
     </div>
-    <p class="sending-note" id="sendingNote" data-t="sendingNote" hidden>Отправляем…</p>
+    <p class="sending-note" id="sendingNote" hidden><span class="spinner"></span><span data-t="sendingProgress">Отправляем…</span> <span class="progress" id="progressText"></span></p>
   </div>
 
   <div class="latest" id="latest">
@@ -227,7 +239,7 @@
           note:'Добавьте свой взгляд на этот день — снимки появятся в общем альбоме.',
           sent:'Отправлено', pending:'в очереди', retry:'Повторить отправку',
           queueTitle:'Выбрано для отправки', sendBtn:'Отправить', clearBtn:'Очистить',
-          sendingNote:'Отправляем…', removePhoto:'Убрать фото',
+          sendingNote:'Отправляем…', sendingProgress:'Отправляем…', removePhoto:'Убрать фото',
           latest:'Последние кадры', openalbum:'Открыть общий альбом ↗',
           toast:'Спасибо! Кадр уже в альбоме ♥' },
     en: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Our shared album',
@@ -236,7 +248,7 @@
           note:'Add your view of the day — your photos will join our shared album.',
           sent:'Uploaded', pending:'queued', retry:'Try again',
           queueTitle:'Ready to send', sendBtn:'Send', clearBtn:'Clear',
-          sendingNote:'Sending…', removePhoto:'Remove photo',
+          sendingNote:'Sending…', sendingProgress:'Sending…', removePhoto:'Remove photo',
           latest:'Recent photos', openalbum:'Open shared album ↗',
           toast:'Thank you! It’s in the album ♥' }
   };
@@ -261,6 +273,7 @@
   let queue = [];   // {blob, url}
   let sent = 0;
   let sending = false;
+  let sendingTotal = 0;   // сколько было в очереди при старте отправки
 
   function counters(){
     $('#sent').textContent = sent;
@@ -280,6 +293,24 @@
     if (sb) sb.disabled = sending || queue.length === 0;
     if (cb) cb.disabled = sending || queue.length === 0;
     if (sn) sn.hidden = !sending;
+    // прогресс: «X из Y»
+    var pt = document.getElementById('progressText');
+    if (pt) {
+      if (sending && sendingTotal > 0) {
+        var done = sendingTotal - queue.length;
+        pt.textContent = done + ' / ' + sendingTotal;
+      } else {
+        pt.textContent = '';
+      }
+    }
+    // подсветка текущего отправляемого превью
+    var wraps = document.querySelectorAll('#prev .thumb-wrap');
+    wraps.forEach(function(w, idx){
+      w.classList.toggle('sending', sending && idx === 0);
+    });
+    // спиннер на кнопке отправки
+    var sb2 = document.getElementById('sendBtn');
+    if (sb2) sb2.classList.toggle('loading', sending);
   }
 
   function toast(){
@@ -318,6 +349,7 @@
   async function drain(){
     if (sending || !queue.length) return;
     sending = true;
+    sendingTotal = queue.length;
     counters();
     try {
       while (queue.length) {
@@ -332,9 +364,8 @@
       }
     } finally {
       sending = false;
+      sendingTotal = 0;
       counters();
-      // если очередь опустела после отправки — скрыть блок
-      if (queue.length === 0) { /* counters() уже скрыл */ }
     }
   }
 
