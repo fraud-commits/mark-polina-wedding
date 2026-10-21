@@ -39,8 +39,10 @@
   let items = [];   // {id, g, nameRU}
   let pos = -1, lastId = null;
 
-  function nameFor(tok){
-    const g = WEDDING_GUESTS[tok] || WEDDING_GUESTS['default'];
+  function nameFor(it){
+    // сначала персональное имя (комментарий файла), потом словарь по токену
+    if (it.who) return it.who;
+    const g = WEDDING_GUESTS[it.g] || WEDDING_GUESTS['default'];
     return g.ru.join(' · ');
   }
 
@@ -56,7 +58,7 @@
       // добавляем только новые (по id) — старые кадры не роняем из очереди
       const known = new Set(items.map(i => i.id));
       for (const it of fresh.reverse())
-        if (!known.has(it.id)) items.push({ id: it.id, g: nameFor(it.g) });
+        if (!known.has(it.id)) items.push({ id: it.id, g: nameFor(it) });
       if (items.length > 400) items = items.slice(-400);
     } catch(e) { /* сеть моргнула — показываем дальше буфер */ }
   }

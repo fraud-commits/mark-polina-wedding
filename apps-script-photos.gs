@@ -75,6 +75,7 @@ function doGet(e) {
       id: f.getId(),
       name: f.getName(),
       g: (f.getName().split('__')[1] || '').replace(/\.jpg$/, ''),
+      who: f.getDescription() || '',
       t: f.getDateCreated().getTime()
     });
   }
