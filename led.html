@@ -18,6 +18,12 @@
   #idle{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
         color:#8a9179;font-size:clamp(18px,3vw,30px);letter-spacing:.06em;text-align:center}
   #idle.hide{display:none}
+
+  #qr{position:fixed;left:3vw;top:3vh;width:min(11vw,120px);text-align:center;z-index:5}
+  #qr img{width:100%;display:block;border-radius:6px;box-shadow:0 4px 18px rgba(0,0,0,.4);
+          background:#f5f2e8;padding:6px}
+  #qr span{display:block;margin-top:6px;font-size:min(1.3vw,12px);letter-spacing:.12em;
+           text-transform:uppercase;color:#8a9179}
 </style>
 </head>
 <body>
@@ -25,6 +31,10 @@
   <div id="who"></div>
   <div id="brand">M &amp; P · 26 . 06 . 2027 · Dunduriņi</div>
   <div id="idle">Ждём первые фотографии гостей…<br>Scan the QR on the tables.</div>
+  <div id="qr">
+    <img src="qr-photos.png" alt="QR-код: загрузить фото">
+    <span>Сними своё</span>
+  </div>
 
 <script src="guests.js?v=1"></script>
 <script>
