@@ -410,15 +410,54 @@
     counters();
   }
 
-  /* мини-лента последних фото */
+  /* мини-лента последних фото — обновляем только новые, без мигания */
+  var knownThumbIds = new Set();
   async function loadLatest(){
     try {
       const j = await (await fetch(SCRIPT_URL + '?action=list&limit=5')).json();
       if (!j.ok || !Array.isArray(j.items)) return;
-      window.photoItems = j.items;
-      $('#thumbs').innerHTML = j.items.map((it, idx) =>
-        '<img alt="" src="https://drive.google.com/thumbnail?id=' + it.id + '&sz=w200" data-index="' + idx + '" loading="lazy" decoding="async" style="cursor:pointer">').join('');
-    } catch(e) { /* тихо: лента обновится на следующем тике */ }
+      // Обновляем photoItems для лайтбокса (по id, новые сверху)
+      var newItems = j.items;
+      var existing = (window.photoItems || []).filter(function(it){
+        return newItems.some(function(n){ return n.id === it.id; });
+      });
+      var added = newItems.filter(function(it){
+        return !existing.some(function(e){ return e.id === it.id; });
+      });
+      window.photoItems = added.concat(existing).slice(0, 5);
+      
+      // Перестраиваем DOM только если появились новые фото
+      var currentIds = new Set(newItems.map(function(it){ return it.id; }));
+      var hasNew = newItems.some(function(it){ return !knownThumbIds.has(it.id); });
+      if (!hasNew && knownThumbIds.size === currentIds.size) return; // ничего нового
+      
+      knownThumbIds = currentIds;
+      var thumbsEl = $('#thumbs');
+      // Удаляем старые, если их больше нет в списке (сдвиг ленты)
+      Array.from(thumbsEl.children).forEach(function(img){
+        var id = img.getAttribute('data-id');
+        if (id && !currentIds.has(id)) img.remove();
+      });
+      // Добавляем новые в начало (свежие сверху)
+      newItems.forEach(function(it, idx){
+        if (thumbsEl.querySelector('img[data-id="' + it.id + '"]')) return; // уже есть
+        var img = document.createElement('img');
+        img.alt = '';
+        img.src = 'https://drive.google.com/thumbnail?id=' + it.id + '&sz=w200';
+        img.setAttribute('data-id', it.id);
+        img.setAttribute('data-index', idx);
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.style.cursor = 'pointer';
+        thumbsEl.insertBefore(img, thumbsEl.firstChild);
+      });
+      // Обрезаем до 5
+      while (thumbsEl.children.length > 5) thumbsEl.removeChild(thumbsEl.lastChild);
+      // Обновляем data-index для лайтбокса
+      Array.from(thumbsEl.children).forEach(function(img, idx){
+        img.setAttribute('data-index', idx);
+      });
+    } catch(e) { /* тихо */ }
   }
 
   $('#shutter').onclick = function(){ $('#file').click(); };
@@ -438,7 +477,7 @@
   applyLang();
   counters();
   loadLatest();
-  setInterval(loadLatest, 20000);
+  setInterval(loadLatest, 10000);
   // Сеть восстановилась: очередь ждёт ручной отправки (или drain сам продолжит если шла)
 })();
 </script>
@@ -502,6 +541,23 @@ function openLightbox(idx) {
     if (e.target === overlay) overlay.remove();
   });
 }
+
+// Preload полной версии при наведении на миниатюру (ускоряет открытие лайтбокса)
+document.addEventListener('pointerenter', function(e) {
+  var img = e.target.closest && e.target.closest('#thumbs img');
+  if (!img) return;
+  var idx = parseInt(img.getAttribute('data-index'), 10);
+  if (isNaN(idx) || !window.photoItems || !window.photoItems[idx]) return;
+  var id = window.photoItems[idx].id;
+  if (!window.__preloaded) window.__preloaded = new Set();
+  if (window.__preloaded.has(id)) return;
+  window.__preloaded.add(id);
+  var link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'image';
+  link.href = 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1600';
+  document.head.appendChild(link);
+}, true);
 
 document.addEventListener('click', function(e) {
   var img = e.target.closest('#thumbs img');
