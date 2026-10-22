@@ -458,8 +458,9 @@
         var id = img.getAttribute('data-id');
         if (id && !currentIds.has(id)) img.remove();
       });
-      // Добавляем новые в начало (свежие сверху)
-      newItems.forEach(function(it, idx){
+      // Вставляем от старых к новым: каждый кадр добавляется в начало,
+      // поэтому итоговый порядок остаётся «самый свежий первым».
+      newItems.slice().reverse().forEach(function(it, idx){
         if (thumbsEl.querySelector('img[data-id="' + it.id + '"]')) return; // уже есть
         var img = document.createElement('img');
         img.alt = '';
