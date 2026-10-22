@@ -3,6 +3,8 @@
 const noteOne = 'Будем рады видеть вас в этот день.';
 const noteTwo = 'Приглашаем вас разделить с нами этот день.';
 const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей', nameLabel: 'Имя спутницы — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
+// Вариант для женщины-гостя: склонение в женском роде, спутник — мужчина.
+const plusShe = { legend: 'Ваш +1', q: 'Придёте одна или со спутником?', alone: 'Приду одна', with: 'Буду со спутником', nameLabel: 'Имя спутника — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
 const invitations = {
   default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
@@ -31,7 +33,9 @@ const invitations = {
   oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe },
   'janis-valeriya': { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
   'zbignev-marina': { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
-  andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe }
+  andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe },
+  // Александра — девушка-гость, идёт со спутником (+1 в мужском роде)
+  alexandra: { greeting: 'Дорогая Александра!', note: 'Будем рады видеть вас вместе со спутником.', guests: ['Александра'], plusOne: true, partner: plusShe }
 };
 // Old single-name and old couple-token links keep working after the rename.
 const legacy = {

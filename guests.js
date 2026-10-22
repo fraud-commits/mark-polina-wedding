@@ -28,5 +28,6 @@ window.WEDDING_GUESTS = {
   'oscars':          { ru: ['Оскарс'], en: ['Oskars'] },
   'janis-valeriya':  { ru: ['Янис и Валерия'], en: ['Janis and Valeriya'] },
   'zbignev-marina':  { ru: ['Збигнев и Марина'], en: ['Zbignev and Marina'] },
-  'andrey':          { ru: ['Андрей'], en: ['Andrey'] }
+  'andrey':          { ru: ['Андрей'], en: ['Andrey'] },
+  'alexandra':       { ru: ['Александра'], en: ['Alexandra'] }
 };
