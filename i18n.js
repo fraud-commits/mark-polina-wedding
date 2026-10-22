@@ -165,6 +165,9 @@ const I18N_EN = {
 const EN_GUESTS = ['milos-dasha', 'vitaliy-basha', 'toms-natasha'];
 
 const LANG_KEY = 'wedding-lang';
+// Флаг «язык выбран вручную переключателем» — тогда сохранённый выбор сильнее
+// авто-английского для EN_GUESTS.
+const LANG_MANUAL_KEY = 'wedding-lang-manual';
 let currentLang = 'ru';
 
 function langParam(){
@@ -176,11 +179,21 @@ function resolveLang(){
   const forced = langParam();
   if(forced) return forced;
   const token = new URLSearchParams(location.search).get('g') || '';
+  let saved = null;
+  let manual = false;
   try{
-    const saved = localStorage.getItem(LANG_KEY);
-    if(saved === 'en' || saved === 'ru') return saved;
+    saved = localStorage.getItem(LANG_KEY);
+    // Ручной выбор переключателем — осознанный, его уважаем всегда.
+    manual = localStorage.getItem(LANG_MANUAL_KEY) === '1';
   }catch(e){}
-  if(EN_GUESTS.includes(token)) return 'en';
+  // Английские пары: гость, который сам не переключал язык, всегда
+  // открывается на английском — даже если ранее сохранялся русский
+  // (например, с посещения без персональной ссылки).
+  if(EN_GUESTS.includes(token)){
+    if(manual && (saved === 'en' || saved === 'ru')) return saved;
+    return 'en';
+  }
+  if(saved === 'en' || saved === 'ru') return saved;
   return 'ru';
 }
 
@@ -250,7 +263,7 @@ function applyLang(lang){
 }
 
 function setLang(lang){
-  try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+  try{ localStorage.setItem(LANG_KEY, lang); localStorage.setItem(LANG_MANUAL_KEY, '1'); }catch(e){}
   // Ручной выбор сильнее параметра в адресе: убираем ?lang=,
   // иначе после обновления страницы язык откатывался к адресному.
   try{
