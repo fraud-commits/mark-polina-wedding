@@ -248,7 +248,7 @@
           queueTitle:'Выбрано для отправки', sendBtn:'Отправить', clearBtn:'Очистить',
           sendingNote:'Отправляем…', sendingProgress:'Отправляем…', removePhoto:'Убрать фото', download:'Скачать',
           latest:'Последние кадры', openalbum:'Открыть общий альбом ↗',
-          toast:'Спасибо! Кадр уже в альбоме ♥' },
+          toast:'Кадры загружены ♥' },
     en: { eyebrow:'26 · 06 · 2027 · Dunduriņi', title:'Our shared album',
           choose:'Take a photo or choose one', nameLabel:'Your name (optional)', namePlaceholder:'',
           tap:'On a phone, choose the camera or photo library. Add up to 12 photos at a time.',
@@ -257,7 +257,7 @@
           queueTitle:'Ready to send', sendBtn:'Send', clearBtn:'Clear',
           sendingNote:'Sending…', sendingProgress:'Sending…', removePhoto:'Remove photo', download:'Download',
           latest:'Recent photos', openalbum:'Open shared album ↗',
-          toast:'Thank you! It’s in the album ♥' }
+          toast:'Photos uploaded ♥' }
   };
 
   // Персональная ссылка подставляет имя в необязательное поле; гость может его изменить или очистить.
@@ -366,6 +366,7 @@
       // неуспешный кадр остаётся в очереди, чтобы гость мог повторить отправку.
       const batch = queue.slice();
       let next = 0;
+      let uploaded = 0;
       async function worker(){
         while (next < batch.length) {
           const item = batch[next++];
@@ -377,7 +378,7 @@
             if (index !== -1) queue.splice(index, 1);
             URL.revokeObjectURL(item.url);
             sent++;
-            toast();
+            uploaded++;
             loadLatest();
           } catch(e) {
             // Оставляем неотправленное фото в очереди для повтора.
@@ -388,6 +389,8 @@
         }
       }
       await Promise.all(Array.from({length: Math.min(UPLOAD_CONCURRENCY, batch.length)}, worker));
+      // Один pop-up только после успешной отправки всей выбранной пачки.
+      if (uploaded === batch.length) toast();
     } finally {
       sending = false;
       sendingTotal = 0;
