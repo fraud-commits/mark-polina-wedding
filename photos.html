@@ -283,6 +283,9 @@
   let sent = 0;
   let sending = false;
   let sendingTotal = 0;   // сколько было в очереди при старте отправки
+  // Не больше двух запросов: быстрее последовательной отправки, но не забивает мобильную сеть.
+  const UPLOAD_CONCURRENCY = 2;
+  let sendingItems = new Set();
 
   function counters(){
     $('#sent').textContent = sent;
@@ -312,10 +315,10 @@
         pt.textContent = '';
       }
     }
-    // подсветка текущего отправляемого превью
+    // подсветка фотографий, которые сейчас отправляются
     var wraps = document.querySelectorAll('#prev .thumb-wrap');
     wraps.forEach(function(w, idx){
-      w.classList.toggle('sending', sending && idx === 0);
+      w.classList.toggle('sending', sendingItems.has(queue[idx]));
     });
     // спиннер на кнопке отправки
     var sb2 = document.getElementById('sendBtn');
@@ -361,19 +364,36 @@
     sendingTotal = queue.length;
     counters();
     try {
-      while (queue.length) {
-        const item = queue[0];
-        try { await sendOne(item); }
-        catch(e) { break; }
-        queue.shift();
-        sent++;
-        toast();
-        counters();
-        loadLatest();
+      // Каждый кадр отправляем один раз. Два worker-а работают параллельно;
+      // неуспешный кадр остаётся в очереди, чтобы гость мог повторить отправку.
+      const batch = queue.slice();
+      let next = 0;
+      async function worker(){
+        while (next < batch.length) {
+          const item = batch[next++];
+          sendingItems.add(item);
+          counters();
+          try {
+            await sendOne(item);
+            const index = queue.indexOf(item);
+            if (index !== -1) queue.splice(index, 1);
+            URL.revokeObjectURL(item.url);
+            sent++;
+            toast();
+            loadLatest();
+          } catch(e) {
+            // Оставляем неотправленное фото в очереди для повтора.
+          } finally {
+            sendingItems.delete(item);
+            counters();
+          }
+        }
       }
+      await Promise.all(Array.from({length: Math.min(UPLOAD_CONCURRENCY, batch.length)}, worker));
     } finally {
       sending = false;
       sendingTotal = 0;
+      sendingItems.clear();
       counters();
     }
   }
