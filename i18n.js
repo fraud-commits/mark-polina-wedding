@@ -57,6 +57,7 @@ const I18N_EN = {
   'Турин — ✈ 1700 км': 'Turin — ✈ 1700 km',
   'Марсель — ✈ 2000 км': 'Marseille — ✈ 2000 km',
   'Лимасол — ✈ 2600 км': 'Limassol — ✈ 2600 km',
+  'Тенерифе — ✈ 4400 км': 'Tenerife — ✈ 4400 km',
   'Фотографии площадки Dunduriņi': 'Photos of the Dunduriņi venue',
   'Предыдущее фото': 'Previous photo',
   'Следующее фото': 'Next photo',
