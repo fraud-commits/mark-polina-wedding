@@ -525,7 +525,7 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 @media(prefers-reduced-motion:no-preference){.paper-hero .hero-copy{animation:arrive .9s ease both}.paper-hero .hero-calla{animation:arrive 1.2s ease both}}
 @media(max-width:700px){.paper-hero .hero-calla{right:-52px;top:-70px;width:205px;height:650px}}
 /* Bring the full flower into view and let its leaf meet the name composition. */
-@media(max-width:700px){.paper-hero .hero-calla{right:-10px;top:-72px;width:205px;height:650px}}
+@media(max-width:700px){.paper-hero .hero-calla{right:-28px;top:-72px;width:200px;height:650px}}
 @media(max-width:700px){.paper-hero .hero-calla{top:-116px}}
 /* Mirror the calla without affecting its entrance animation. */
 .paper-hero .hero-calla{scale:-1 1}
