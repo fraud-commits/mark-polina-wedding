@@ -5,37 +5,42 @@ const noteTwo = 'Приглашаем вас разделить с нами эт
 const plusHe = { legend: 'Ваш +1', q: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей', nameLabel: 'Имя спутницы — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
 // Вариант для женщины-гостя: склонение в женском роде, спутник — мужчина.
 const plusShe = { legend: 'Ваш +1', q: 'Придёте одна или со спутником?', alone: 'Приду одна', with: 'Буду со спутником', nameLabel: 'Имя спутника — если уже известно', note: 'Имя необязательно. Ниже — пожелания вашего +1.' };
+// «Ты»-варианты для гостей-одиночек: дружелюбнее, чем «вы».
+const noteOneTu = 'Будем рады видеть тебя в этот день.';
+const noteTwoTu = 'Приглашаем тебя разделить с нами этот день.';
+const plusHeTu = { legend: 'Твой +1', q: 'Придёшь сам или со спутницей?', alone: 'Приду сам', with: 'Буду со спутницей', nameLabel: 'Имя спутницы — если уже известно', note: 'Имя необязательно. Ниже — пожелания твоего +1.' };
+const plusSheTu = { legend: 'Твой +1', q: 'Придёшь одна или со спутником?', alone: 'Приду одна', with: 'Буду со спутником', nameLabel: 'Имя спутника — если уже известно', note: 'Имя необязательно. Ниже — пожелания твоего +1.' };
 const invitations = {
   default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
   'yuriy-elena': { greeting: 'Дорогие папа и мама!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
-  maksim: { greeting: 'Дорогой Максим!', note: noteOne, guests: ['Максим'], plusOne: false },
+  maksim: { greeting: 'Дорогой Максим!', note: noteOne, tuNote: noteOneTu, guests: ['Максим'], plusOne: false },
   'andrey-yuliya': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', {name:'Даня', child:true}], plusOne: false },
-  nikita: { greeting: 'Дорогой Никита!', note: noteOne, guests: ['Никита'], plusOne: false },
-  valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, guests: ['Бабушка Валя'], plusOne: false },
+  nikita: { greeting: 'Дорогой Никита!', note: noteOne, tuNote: noteOneTu, guests: ['Никита'], plusOne: false },
+  valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, tuNote: noteOneTu, guests: ['Бабушка Валя'], plusOne: false },
   'toms-natasha': { greeting: 'Дорогие Томс и Натали!', note: noteTwo, guests: ['Томс', 'Натали'], plusOne: false },
   'milos-dasha': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Милош', 'Даша'], plusOne: false },
   'yakov-elvira': { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
   'ernest-kseniya': { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
-  kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe },
+  kirill: { greeting: 'Дорогой Кирилл!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Кирилл'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   'rey-anastasiya': { greeting: 'Дорогие Рей и Анастасия!', note: noteTwo, guests: ['Рей', 'Анастасия'], plusOne: false },
-  cheslav: { greeting: 'Дорогой Чеслав!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Чеслав'], plusOne: true, partner: plusHe },
+  cheslav: { greeting: 'Дорогой Чеслав!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Чеслав'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   // Гости Марика
   'roy-kseniya': { greeting: 'Дорогие Рой и Ксения!', note: noteTwo, guests: ['Рой', 'Ксения'], plusOne: false },
   'kirill-alina': { greeting: 'Дорогие Кирилл и Алина!', note: noteTwo, guests: ['Кирилл', 'Алина'], plusOne: false },
-  svetlana: { greeting: 'Дорогая мама!', note: noteOne, guests: ['Светлана'], plusOne: false },
+  svetlana: { greeting: 'Дорогая мама!', note: noteOne, tuNote: noteOneTu, guests: ['Светлана'], plusOne: false },
   'nikolay-victoria': { greeting: 'Дорогая семья Коляко!', note: 'Приглашаем вас всех — вместе с детьми.', guests: ['Николай', 'Виктория', {name:'Аким', child:true}, {name:'Алиса', child:true}], plusOne: false },
   'vitaliy-santa': { greeting: 'Дорогие Виталий и Санта!', note: noteTwo, guests: ['Виталий', 'Санта'], plusOne: false },
   'denis-marina': { greeting: 'Дорогие Денис и Марина!', note: noteTwo, guests: ['Денис', 'Марина'], plusOne: false },
   'vitaliy-basha': { greeting: 'Дорогие Виталий и Баша!', note: noteTwo, guests: ['Виталий', 'Баша'], plusOne: false },
-  evgeniy: { greeting: 'Дорогой Евгений!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Евгений'], plusOne: true, partner: plusHe },
+  evgeniy: { greeting: 'Дорогой Евгений!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Евгений'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   'zhan-marina': { greeting: 'Дорогие Жан и Марина!', note: noteTwo, guests: ['Жан', 'Марина'], plusOne: false },
-  oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe },
+  oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   'janis-valeriya': { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
   'zbignev-marina': { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
-  andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe },
+  andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   // Александра — девушка-гость, идёт со спутником (+1 в мужском роде)
-  alexandra: { greeting: 'Дорогая Александра!', note: 'Будем рады видеть вас вместе со спутником.', guests: ['Александра'], plusOne: true, partner: plusShe }
+  alexandra: { greeting: 'Дорогая Александра!', note: 'Будем рады видеть вас вместе со спутником.', tuNote: 'Будем рады видеть тебя вместе со спутником.', guests: ['Александра'], plusOne: true, partner: plusShe, partnerTu: plusSheTu }
 };
 // Old single-name and old couple-token links keep working after the rename.
 const legacy = {
@@ -98,6 +103,18 @@ const DRINKS = [
   { ru: 'Крепкий алкоголь', en: 'Spirits' },
   { ru: 'Безалкогольные', en: 'Soft drinks' }
 ];
+// «Ты»-варианты текстов анкеты (только русский; английский не различает).
+const STR_TU = { ru: Object.assign({}, STR.ru, {
+  pick: 'Выбери ответ',
+  attending: 'Сможешь прийти?',
+  night: 'Останешься на ночь?',
+  travel: 'Как доберёшься?',
+  seats: 'Возьмёшь попутчиков?',
+  from: 'Откуда поедешь?',
+  drinks: 'Какие напитки тебе по душе?',
+  ok: 'Спасибо! Твой ответ сохранён. Очень ждём встречи 🤍',
+  fail: 'Не получилось отправить. Попробуй ещё раз или напиши нам.'
+}), en: STR.en };
 // Имена для английской версии: латиница для тех, кто по-русски не читает.
 const EN_NAMES = { 'Баша': 'Basia', 'Милош': 'Knjaz Miloš', 'Даша': 'Daria', 'Томс': 'Toms', 'Виталий': 'Vitaliy', 'Натали': 'Natalie' };
 const TR = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
@@ -108,12 +125,14 @@ const toLatin = s => s.split('').map(ch=>{
   return ch === low ? tr : tr.charAt(0).toUpperCase() + tr.slice(1);
 }).join('');
 const enName = name => EN_NAMES[name] || (/[a-zA-Z]/.test(name) ? name : toLatin(name));
-const T = () => STR[currentLang];
+const T = () => (SINGLE && currentLang === 'ru') ? STR_TU.ru : STR[currentLang];
 const token = new URLSearchParams(location.search).get('g') || '';
 const resolvedToken = legacy[token] || token;
 const invitation = invitations[resolvedToken] || invitations.default;
 const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">${T().pick}</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
 const getGuestName = g => typeof g === 'string' ? g : (g.name || '');
+// Одиночка в приглашении? Тогда вся анкета на «ты». Пары и семьи — на «вы».
+const SINGLE = resolvedToken !== 'default' && invitation.guests.length === 1 && !!getGuestName(invitation.guests[0]);
 const isChildGuest = g => typeof g === 'object' && !!g.child;
 function details(id, isChild) {
   // Детям вопросы не задаём — только «Сможете прийти?»
@@ -177,8 +196,16 @@ function render() {
   const t = T();
   const en = currentLang === 'en';
   document.querySelector('#greeting').textContent = en ? enGreeting() : invitation.greeting;
-  document.querySelector('#invitation-note').textContent = en ? enNote() : invitation.note;
-  const p = (currentLang === 'en') ? { legend: t.plusLegend, q: t.plusQ, alone: t.alone, with: t.with, nameLabel: t.plusName, note: t.plusNote } : (invitation.partner || { legend: t.plusLegend, q: t.plusQ, alone: t.alone, with: t.with, nameLabel: t.plusName, note: t.plusNote });
+  document.querySelector('#invitation-note').textContent = en ? enNote() : ((SINGLE && invitation.tuNote) ? invitation.tuNote : invitation.note);
+  // Статичные тексты письма: «ты» для одиночек, «вы» для пар и семей.
+  document.querySelectorAll('[data-vy]').forEach(el => {
+    if (currentLang === 'ru') {
+      const target = SINGLE ? el.getAttribute('data-tu') : el.getAttribute('data-vy');
+      if (target && el.innerHTML !== target) el.innerHTML = target;
+    }
+  });
+  const partnerDefaults = { legend: t.plusLegend, q: t.plusQ, alone: t.alone, with: t.with, nameLabel: t.plusName, note: t.plusNote };
+  const p = (currentLang === 'en') ? partnerDefaults : ((SINGLE && invitation.partnerTu) ? invitation.partnerTu : (invitation.partner || partnerDefaults));
   document.querySelector('#guests').innerHTML = invitation.guests.map((name,i)=>guest('g'+i,name)).join('') + (invitation.plusOne ? `<fieldset data-plus hidden><legend>${p.legend}</legend>${select('companion', p.q, [['no',p.alone],['yes',p.with],['maybe',t.maybe]])}<div data-companion hidden><label>${p.nameLabel}<input name="companion-name" maxlength="120" placeholder="${en ? 'You can add it later' : 'Можно указать позже'}"></label><p class="small">${p.note}</p>${details('plus')}</div></fieldset>` : '');
   sync();
 }

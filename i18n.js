@@ -27,8 +27,10 @@ const I18N_EN = {
   'НАЧАЛО НАШЕЙ ИСТОРИИ': 'THE BEGINNING OF OUR STORY',
 
   // письмо
-  'Есть дни, которые становятся частью нашей истории.': 'There are days that become part of our story.',
-  'Мы будем рады, если этот день вы проведете с нами.': 'We would love for you to spend this day with us.',
+  'Мы долго думали, что написать в приглашении, чтобы было красиво, оригинально и не как у всех.': 'We thought hard about what to write here — something beautiful, original and unlike every other invitation.',
+  'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с вами.': 'In the end we decided to just say it: an important day is coming up for us, and we would really love to share it with you.',
+  'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с тобой.': 'In the end we decided to just say it: an important day is coming up for us, and we would really love to share it with you.',
+
   'Приглашаем вас на нашу свадьбу.': 'We invite you to our wedding.',
   'С любовью, Марк и Полина': 'With love, Mark and Polina',
 
@@ -151,9 +153,9 @@ const I18N_EN = {
   'Вы с нами?': 'Will you join us?',
   'Несколько деталей помогут нам': 'A few details will help us',
   'позаботиться о каждом.': 'take care of everyone.',
-  'Ответьте, пожалуйста, до': 'Please reply by',
+  'Ответ очень ждём до': 'We really look forward to your reply by',
   '1 января 2027': '1 January 2027',
-  '— это поможет нам всё организовать.': 'so that we can organise everything.',
+  '— так мы всё успеем организовать.': 'so that we can organise everything in time.',
   'Пожелания или вопрос': 'Wishes or a question',
   'Здесь можно написать нам': 'You can write to us here',
   'Ответ увидим только мы — и обязательно всё учтём.': 'Only we will see your reply — and we will take every word into account.',
