@@ -131,8 +131,8 @@ const resolvedToken = legacy[token] || token;
 const invitation = invitations[resolvedToken] || invitations.default;
 const select = (name, label, options) => `<label>${label}<select name="${name}" required><option value="">${T().pick}</option>${options.map(([value,text]) => `<option value="${value}">${text}</option>`).join('')}</select></label>`;
 const getGuestName = g => typeof g === 'string' ? g : (g.name || '');
-// Одиночка в приглашении? Тогда вся анкета на «ты». Пары и семьи — на «вы».
-const SINGLE = resolvedToken !== 'default' && invitation.guests.length === 1 && !!getGuestName(invitation.guests[0]);
+// Обращаемся ко всем гостям на «вы» (решение Полины) — «ты»-варианты отключены.
+const SINGLE = false;
 const isChildGuest = g => typeof g === 'object' && !!g.child;
 function details(id, isChild) {
   // Детям вопросы не задаём — только «Сможете прийти?»
@@ -196,7 +196,7 @@ function render() {
   const t = T();
   const en = currentLang === 'en';
   document.querySelector('#greeting').textContent = en ? enGreeting() : invitation.greeting;
-  document.querySelector('#invitation-note').textContent = en ? enNote() : ((SINGLE && invitation.tuNote) ? invitation.tuNote : invitation.note);
+  document.querySelector('#invitation-note').textContent = en ? 'We invite you to our wedding!' : 'Приглашаем вас на нашу свадьбу!';
   // Статичные тексты письма: «ты» для одиночек, «вы» для пар и семей.
   document.querySelectorAll('[data-vy]').forEach(el => {
     if (currentLang === 'ru') {
