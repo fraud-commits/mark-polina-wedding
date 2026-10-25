@@ -42,6 +42,7 @@ body.env-locked{overflow:hidden}
 .details .swatches span{border-radius:50%;height:52px;width:52px}
 .wishes{text-align:center}
 .wishes p:not(.eyebrow):not(.small){font-family:'Cormorant Garamond',Georgia,serif;font-size:23px;font-weight:300;line-height:1.65}
+.wishes .wishes-lottery{margin-top:26px}
 .wishes .small{color:#81876f}
 
 /* Couple photo in arch frame. */

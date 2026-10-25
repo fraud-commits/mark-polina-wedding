@@ -141,7 +141,7 @@ const I18N_EN = {
   'Если хотите порадовать нас ещё больше, мы будем благодарны': 'If you would like to delight us even more, we will be grateful',
   'за вклад в наше общее будущее.': 'for a contribution to our shared future.',
   'А вместо цветов можно подарить нам лотерейный билет —': 'And instead of flowers you may give us a lottery ticket —',
-  'вдруг именно ваш билет окажется счастливым.': 'maybe yours will be the lucky one.',
+  'вдруг именно ваш окажется счастливым.': 'maybe yours will be the lucky one.',
 
   // анкета
   'ЖДЁМ ВАШЕЙ АНКЕТЫ': 'WE ARE LOOKING FORWARD TO YOUR REPLY',
