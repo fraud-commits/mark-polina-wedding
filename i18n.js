@@ -27,7 +27,6 @@ const I18N_EN = {
   'НАЧАЛО НАШЕЙ ИСТОРИИ': 'THE BEGINNING OF OUR STORY',
 
   // письмо
-  'САМОЕ ВАЖНОЕ — БЫТЬ РЯДОМ': 'THE MOST IMPORTANT THING IS TO BE THERE',
   'Есть дни, которые становятся частью нашей истории.': 'There are days that become part of our story.',
   'Мы будем счастливы, если в этот день вы будете рядом\u00a0—\u00a0обниматься, улыбаться и танцевать вместе с нами.': 'We would be so happy to have you with us that day — to hug, smile and dance together.',
   'Приглашаем вас на нашу свадьбу.': 'We invite you to our wedding.',
