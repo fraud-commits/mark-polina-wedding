@@ -11,7 +11,7 @@ const noteTwoTu = 'Приглашаем тебя разделить с нами 
 const plusHeTu = { legend: 'Твой +1', q: 'Придёшь сам или со спутницей?', alone: 'Приду сам', with: 'Буду со спутницей', nameLabel: 'Имя спутницы — если уже известно', note: 'Имя необязательно. Ниже — пожелания твоего +1.' };
 const plusSheTu = { legend: 'Твой +1', q: 'Придёшь одна или со спутником?', alone: 'Приду одна', with: 'Буду со спутником', nameLabel: 'Имя спутника — если уже известно', note: 'Имя необязательно. Ниже — пожелания твоего +1.' };
 const invitations = {
-  default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу.', guests: [''], plusOne: false },
+  default: { greeting: 'Дорогие наши!', note: 'Приглашаем вас на нашу свадьбу!', guests: [''], plusOne: false },
   // Гости Полины (у пар — оба имени, у +1 — только имя гостя)
   'yuriy-elena': { greeting: 'Дорогие папа и мама!', note: noteTwo, guests: ['Юрий', 'Елена'], plusOne: false },
   maksim: { greeting: 'Дорогой Максим!', note: noteOne, tuNote: noteOneTu, guests: ['Максим'], plusOne: false },

@@ -29,7 +29,7 @@ const I18N_EN = {
   'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с вами.': 'In the end we decided to just say it: an important day is coming up for us, and we would really love to share it with you.',
   'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с тобой.': 'In the end we decided to just say it: an important day is coming up for us, and we would really love to share it with you.',
 
-  'Приглашаем вас на нашу свадьбу.': 'We invite you to our wedding.',
+  'Приглашаем вас на нашу свадьбу!': 'We invite you to our wedding!',
   'С любовью, Марк и Полина': 'With love, Mark and Polina',
 
   // календарь
