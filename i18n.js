@@ -44,8 +44,8 @@ const I18N_EN = {
   'Там начинается': 'That is where',
   'праздник': 'the celebration begins',
   'Dunduriņi — встречаемся в 15:00': 'Dunduriņi — we meet at 3:00 pm',
-  'Ārlavas pagasts, Talsu novads, Латвия — на берегу озера Сасмакас, в старом парке у трассы Талсы–Роя. От трассы до площадки — 1,5 км по земляной дороге.':
-    'Ārlavas pagasts, Talsu novads, Latvia — on the shore of Lake Sasmakas, in the old park by the Talsi–Roja road. The last stretch to the venue is 1.5 km of dirt road.',
+  'Ārlavas pagasts, Talsu novads, Латвия — на берегу озера Сасмакас, в старом парке.':
+    'Ārlavas pagasts, Talsu novads, Latvia — on the shore of Lake Sasmakas, in the old park.',
   'Юрмала — 100 км': 'Jurmala — 100 km',
   'Рига — 135 км': 'Riga — 135 km',
   'Мажейкяй — 140 км': 'Mažeikiai — 140 km',
