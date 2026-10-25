@@ -70,8 +70,6 @@ const I18N_EN = {
   // программа
   'НАШ ДЕНЬ': 'OUR DAY',
   'Каждому моменту — своё время': 'Every moment has its own time',
-  'Время пока предварительное — окончательное расписание пришлём ближе к дате. Церемония — на природе, у озера: в случае дождя всё легко переносим в стеклянный зал.':
-    'The timings are tentative — we will send the final schedule closer to the date. The ceremony takes place outdoors, by the lake; in case of rain we can easily move it into the glass hall.',
   'Сбор гостей': 'Guests arrive',
   'Первые объятия': 'First hugs',
   'и приветственные бокалы': 'and a welcome toast',
