@@ -21,8 +21,6 @@ const I18N_EN = {
   'М': 'M',
   'П': 'P',
   'DUNDURIŅI · ЛАТВИЯ': 'DUNDURIŅI · LATVIA',
-  'Мы выбираем друг друга.': 'We chose each other.',
-  'И хотим разделить этот день с вами.': 'And we would love to share this day with you.',
   'Открыть приглашение': 'Open the invitation',
   'НАЧАЛО НАШЕЙ ИСТОРИИ': 'THE BEGINNING OF OUR STORY',
 
