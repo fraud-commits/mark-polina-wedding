@@ -507,7 +507,10 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .paper-hero .hero-side-note{display:none}
 @media(max-width:700px){
  body:has(.paper-hero) header{padding:18px 24px;min-height:68px}
- body:has(.paper-hero) header nav{gap:14px;font-size:8px}
+ /* На телефоне прячем быстрые ссылки: гость читает приглашение по порядку
+    и не перепрыгивает сразу к анкете. EN-переключатель оставляем. */
+ body:has(.paper-hero) header nav{gap:14px}
+ body:has(.paper-hero) header nav a{display:none}
  .hero.paper-hero{padding:66px 24px 28px;min-height:calc(100svh - 68px);overflow:hidden}
  .paper-hero .hero-copy{width:100%;max-width:none}
  .paper-hero .eyebrow{font-size:8px;margin-bottom:36px;letter-spacing:.25em}
