@@ -141,8 +141,7 @@ function details(id, isChild) {
   return `${select(id+'-night',t.night, [['yes',t.nightYes],['no',t.nightNo],['maybe',t.nightMaybe]])}
   ${select(id+'-travel',t.travel, [['car',t.car],['ride',t.ride],['own',t.own],['maybe',t.travelMaybe]])}
   <div data-car hidden>${select(id+'-seats',t.seats, [['0',t.noSeats],['1',t.seat1],['2',t.seat2],['3',t.seat3],['4',t.seat4],['maybe',t.maybe]])}</div>
-  <div data-route hidden><label>${t.from}<input name="${id}-from" maxlength="100" placeholder="${t.fromPh}"></label><p class="small">${t.rideNote}</p></div>
-  <p>${t.drinks}</p><div class="checks">${DRINKS.map((d,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}" data-drink="${d.ru}"> ${currentLang==='en'?d.en:d.ru}</label>`).join('')}</div>`;
+  <div data-route hidden><label>${t.from}<input name="${id}-from" maxlength="100" placeholder="${t.fromPh}"></label><p class="small">${t.rideNote}</p></div>`;
 }
 function guest(id, entry) {
   const rawName = getGuestName(entry);
