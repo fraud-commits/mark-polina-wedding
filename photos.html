@@ -267,6 +267,8 @@
     document.documentElement.lang = lang;
     $('#langBtn').textContent = lang === 'en' ? 'RU' : 'EN';
     document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = T[lang][el.dataset.t]; });
+    var thumbs = document.getElementById('thumbs');
+    if (thumbs) thumbs.setAttribute('aria-label', T[lang].latest);
     $('#photographerName').placeholder = T[lang].namePlaceholder;
     $('#photographerName').value = whoName;
     $('#album').href = ALBUM_URL;
