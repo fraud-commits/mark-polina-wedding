@@ -292,8 +292,8 @@ body.env-locked{overflow:hidden}
   .tl-card h3{font-size:27px}
   .timeline article.tl-item:nth-of-type(1){top:10%}
   .timeline article.tl-item:nth-of-type(2){top:30%}
-  .timeline article.tl-item:nth-of-type(3){top:49.5%}
-  .timeline article.tl-item:nth-of-type(4){top:63%}
+  .timeline article.tl-item:nth-of-type(3){top:47%}
+  .timeline article.tl-item:nth-of-type(4){top:64.5%}
   .timeline article.tl-item:nth-of-type(5){top:85%}
 }
 /* Asymmetric editorial invitation, June 2027. */
