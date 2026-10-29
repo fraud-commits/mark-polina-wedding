@@ -282,7 +282,7 @@ body.env-locked{overflow:hidden}
 .timeline article.tl-item:nth-of-type(3){left:0;top:49.5%;width:64%;text-align:right}
 .timeline article.tl-item:nth-of-type(4){left:44%;top:63%;width:56%;text-align:left;padding-left:10px}
 .timeline article.tl-item:nth-of-type(5){left:0;top:85%;width:64%;text-align:right}
-.tl-card{max-width:none;padding:0;position:relative;background:var(--paper);box-shadow:0 0 0 10px var(--paper);border-radius:2px}
+.tl-card{max-width:none;padding:0}
 .tl-card h3{font-size:31px;font-style:italic;margin:0 0 4px}
 .tl-card p{font-size:12.5px}
 .timeline .tl-heart{left:50%;top:0;transform:translate(-50%,-50%);animation:none}
