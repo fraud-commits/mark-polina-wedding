@@ -819,64 +819,6 @@ body{padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
 .timeline{--tl-events:5;height:calc(var(--tl-events) * 250px + 60px)}
 @media(max-width:700px){.timeline{--tl-events:5;height:calc(var(--tl-events) * 230px + 40px)}}
 
-/* На узком экране извилистой линии не хватает места между карточками.
-   Мобильная версия — спокойная вертикальная шкала слева от текста. */
-@media(max-width:700px){
-  .timeline{
-    display:flex;
-    flex-direction:column;
-    height:auto;
-    max-width:none;
-    margin:46px 0 0;
-    padding:0 0 0 58px;
-    gap:0;
-  }
-  .timeline .tl-path{display:none}
-  .timeline::before{
-    content:'';
-    display:block;
-    position:absolute;
-    left:24px;
-    top:14px;
-    bottom:30px;
-    border-left:2px solid #5f6326;
-  }
-  .timeline article.tl-item,
-  .timeline article.tl-item:nth-of-type(1),
-  .timeline article.tl-item:nth-of-type(2),
-  .timeline article.tl-item:nth-of-type(3),
-  .timeline article.tl-item:nth-of-type(4),
-  .timeline article.tl-item:nth-of-type(5){
-    position:relative;
-    left:auto;
-    top:auto;
-    width:100%;
-    min-height:175px;
-    padding:0 0 48px;
-    text-align:left;
-  }
-  .timeline article.tl-item::before{
-    content:'';
-    display:block;
-    position:absolute;
-    left:-38px;
-    top:14px;
-    width:8px;
-    height:8px;
-    border:2px solid #5f6326;
-    border-radius:50%;
-    background:var(--paper);
-    transform:translateX(-50%);
-  }
-  .timeline article.tl-item:last-of-type{min-height:0;padding-bottom:0}
-  .timeline .tl-card{max-width:100%;padding:0;box-shadow:none}
-  .timeline .tl-heart{
-    left:11px!important;
-    top:39%!important;
-    transform:none!important;
-  }
-}
-
 
 
 /* Мелкие подписи: +1px, чтобы не рассыпались на телефоне. */
