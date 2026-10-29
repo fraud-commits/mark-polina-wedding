@@ -265,6 +265,7 @@
 
   function applyLang(){
     document.documentElement.lang = lang;
+    document.title = lang === 'en' ? 'Photos · Mark & Polina' : 'Фотографии · Марк и Полина';
     $('#langBtn').textContent = lang === 'en' ? 'RU' : 'EN';
     document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = T[lang][el.dataset.t]; });
     var thumbs = document.getElementById('thumbs');

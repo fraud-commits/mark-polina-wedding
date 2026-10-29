@@ -25,9 +25,9 @@ const I18N_EN = {
   'НАЧАЛО НАШЕЙ ИСТОРИИ': 'THE BEGINNING OF OUR STORY',
 
   // письмо
-  'Мы долго думали, что написать в приглашении, чтобы было красиво, оригинально и не как у всех.': 'We thought hard about what to write here — something beautiful, original and unlike every other invitation.',
-  'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с вами.': 'In the end we decided to just say it: an important day is coming up for us, and we would really love to share it with you.',
-  'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с тобой.': 'In the end we decided to just say it: an important day is coming up for us, and we would really love to share it with you.',
+  'Мы долго думали, что написать в приглашении, чтобы было красиво, оригинально и не как у всех.': 'We spent a long time wondering what to write in this invitation: something beautiful, original and unlike all the others.',
+  'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с вами.': 'In the end, we decided to keep it simple. We have an important day coming up, and we would love to share it with you.',
+  'В итоге решили просто сказать: у нас намечается важный день, и нам очень хочется разделить его с тобой.': 'In the end, we decided to keep it simple. We have an important day coming up, and we would love to share it with you.',
 
   'Приглашаем вас на нашу свадьбу!': 'We invite you to our wedding!',
   'С любовью, Марк и Полина': 'With love, Mark and Polina',
@@ -70,8 +70,8 @@ const I18N_EN = {
   // программа
   'НАШ ДЕНЬ': 'OUR DAY',
   'Каждому моменту — своё время': 'Every moment has its own time',
-  'Заезд гостей': 'Guest arrival',
-  'Заселение в гостевой дом,': 'Check-in at guest house,',
+  'Заезд гостей': 'Guests arrive',
+  'Заселение в гостевой дом,': 'Check in at the guest house,',
   'знакомство и общение': 'introductions and time to catch up',
   'Сбор гостей': 'Guests gather',
   'Welcome и приветствие': 'Welcome and greeting',
@@ -90,7 +90,7 @@ const I18N_EN = {
   'Будет': 'Look',
   'красиво': 'beautiful',
   'Нам будет приятно, если вы поддержите палитру праздника. Но это всего лишь пожелание — выбирайте тот цвет и тот наряд, в котором вы будете чувствовать себя по-настоящему красиво и комфортно. И ещё одно маленькое пожелание: лучше обойтись без очень тёмных оттенков — стены зала тоже тёмные, и на фотографиях тёмные силуэты могут немного теряться на общем фоне.':
-    'We would love it if you supported the colour palette of the day. But it is only a wish — choose whatever colour and whatever outfit makes you feel truly beautiful and comfortable. And one small wish: do try to avoid very dark shades — the walls of the hall are dark too, and on photos dark silhouettes can fade into the interior a little.',
+    'We would love you to take inspiration from the wedding palette, but it is only a suggestion. Choose the colour and outfit that make you feel comfortable and look your best. One small request: please avoid very dark shades. The hall has dark walls, so dark outfits may blend into the background in photos.',
   'Церемония на природе: выбирайте удобную обувь и возьмите тёплый слой на вечер.':
     'The ceremony is outdoors: pick comfortable shoes and bring a warm layer for the evening.',
   'Посмотреть примеры образов': 'See outfit inspiration',
@@ -132,30 +132,30 @@ const I18N_EN = {
   'Ещё один день': 'One more day',
   'вместе': 'together',
   'Остаться после свадьбы могут все — ночёвка будет на территории Dunduriņi. Отметьте это в анкете, и мы всё организуем.':
-    'Anyone can stay after the wedding — the night stay will be on the grounds of Dunduriņi. Mark it in your RSVP and we will arrange everything.',
+    'Everyone is welcome to stay after the wedding. Overnight accommodation will be available at Dunduriņi. Let us know in your RSVP, and we will arrange everything.',
   'А на следующий день — купаться в озере, загорать и никуда не спешить: тут есть лодки, SUP-доски, катамаран, сауна и кубль у воды. Не забудьте купальники и полотенца!':
-    'And the next day — swimming in the lake, sunbathing and nowhere to rush: there are boats, SUP boards, a catamaran, a sauna and a tub by the water. Do not forget your swimwear and towels!',
+    'Spend the next day swimming in the lake, sunbathing and taking it easy. There are boats, SUP boards, a catamaran, a sauna and a hot tub by the water. Do not forget your swimwear and towels!',
 
   // пожелания
   'ПОЖЕЛАНИЯ': 'WISHES',
-  'Самое ценное — вы': 'The most precious thing is you',
+  'Самое ценное — вы': 'Having you with us matters most',
   'Ваше присутствие — самый большой подарок для нас.': 'Your presence is the greatest gift for us.',
-  'Если хотите порадовать нас ещё больше, мы будем благодарны': 'If you would like to delight us even more, we will be grateful',
-  'за вклад в наше общее будущее.': 'for a contribution to our shared future.',
-  'А вместо цветов можно подарить нам лотерейный билет —': 'And instead of flowers you may give us a lottery ticket —',
-  'вдруг именно ваш окажется счастливым.': 'maybe yours will be the lucky one.',
+  'Если хотите порадовать нас ещё больше, мы будем благодарны': 'If you would like to give us something more, we would be grateful',
+  'за вклад в наше общее будущее.': 'for a contribution towards our future together.',
+  'А вместо цветов можно подарить нам лотерейный билет —': 'Instead of flowers, you could give us a lottery ticket —',
+  'вдруг именно ваш окажется счастливым.': 'perhaps yours will be the lucky one.',
 
   // анкета
   'ЖДЁМ ВАШЕЙ АНКЕТЫ': 'WE ARE LOOKING FORWARD TO YOUR REPLY',
   'Вы с нами?': 'Will you join us?',
   'Несколько деталей помогут нам': 'A few details will help us',
   'позаботиться о каждом.': 'take care of everyone.',
-  'Ответ очень ждём до': 'We really look forward to your reply by',
+  'Ответ очень ждём до': 'We would love to hear from you by',
   '1 января 2027': '1 January 2027',
   '— так мы всё успеем организовать.': 'so that we can organise everything in time.',
   'Пожелания или вопрос': 'Wishes or a question',
   'Здесь можно написать нам': 'You can write to us here',
-  'Ответ увидим только мы — и обязательно всё учтём.': 'Only we will see your reply — and we will take every word into account.',
+  'Ответ увидим только мы — и обязательно всё учтём.': 'Only the two of us will see your reply, and we will make sure to take it into account.',
   'Отправить ответ': 'Send my reply',
 
   // финал

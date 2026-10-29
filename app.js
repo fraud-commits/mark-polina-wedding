@@ -78,7 +78,7 @@ const STR = {
   en: {
     pick: 'Choose an answer', name: 'Full name', attending: 'Will you be able to come?',
     yes: 'With pleasure!', no: 'Unfortunately, not', maybe: 'Not sure yet',
-    night: 'Will you stay overnight?', nightYes: 'Yes, we would like to stay', nightNo: 'No', nightMaybe: 'Not sure yet',
+    night: 'Will you stay overnight?', nightYes: 'Yes, I would like to stay', nightNo: 'No', nightMaybe: 'Not sure yet',
     travel: 'How will you get there?', car: 'By car', ride: 'I would like a ride',
     own: 'I will get there myself', travelMaybe: 'Not sure yet',
     seats: 'Could you take any passengers?', noSeats: 'No spare seats',
