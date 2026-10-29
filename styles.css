@@ -592,8 +592,9 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 @media(hover:none){.pg-arrow{opacity:.5}}
 
 .next-day{background:#e8ecdf;padding:36px 30px;border-radius:4px}
-.next-day-section{padding-top:72px!important;padding-bottom:72px!important}
+.next-day-section{padding-top:72px!important;padding-bottom:36px!important}
 .next-day-section .next-day{max-width:760px;margin:0 auto}
+.next-day-section + .details{padding-top:48px}
 .rsvp form label{display:block;margin-bottom:26px;font-size:14px;line-height:1.6}
 .rsvp input:not([type=checkbox]),.rsvp select,.rsvp textarea{display:block;width:100%;margin-top:10px;min-height:50px;font-size:16px;padding:13px 12px}
 .rsvp fieldset{margin:0 0 32px;padding-top:24px}
@@ -636,7 +637,8 @@ body{overflow-x:clip}
 .wedding-finale .cd-grid span{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#a0a58f}
 .wedding-finale .cd-grid b{font-weight:300}
 @media(max-width:700px){
- .next-day-section{padding-top:48px!important;padding-bottom:48px!important}
+ .next-day-section{padding-top:48px!important;padding-bottom:24px!important}
+ .next-day-section + .details{padding-top:36px}
  .next-day{padding:30px 24px}
  .rsvp .button{width:100%}
  .rsvp .checks{grid-template-columns:1fr}
