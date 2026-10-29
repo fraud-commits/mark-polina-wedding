@@ -284,6 +284,7 @@
   let sent = 0;
   let sending = false;
   let sendingTotal = 0;   // сколько было в очереди при старте отправки
+  let pendingAdds = 0;    // файлы, которые сейчас сжимаются перед добавлением в очередь
   // Не больше двух запросов: быстрее последовательной отправки, но не забивает мобильную сеть.
   const UPLOAD_CONCURRENCY = 2;
   let sendingItems = new Set();
@@ -406,16 +407,20 @@
     if (!files || !files.length) return;
     var added = 0;
     var arr = Array.from(files);
-    for (var i = 0; i < arr.length && added < 12; i++) {
+    var available = Math.max(0, 12 - queue.length - pendingAdds);
+    for (var i = 0; i < arr.length && added < available; i++) {
       var f = arr[i];
       if (!f.type.startsWith('image/')) continue;
       added++;
+      pendingAdds++;
       (function(file){
         compress(file).then(function(blob){
           queue.push({ blob: blob, url: URL.createObjectURL(blob) });
-          counters();
         }).catch(function(err){
           console.warn('compress failed:', err);
+        }).finally(function(){
+          pendingAdds--;
+          counters();
         });
       })(f);
     }
