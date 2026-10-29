@@ -778,14 +778,14 @@ body{padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
    Карточки сдвинуты так, чтобы остаться по другую сторону линии. */
 @media(max-width:900px){
   .timeline article.tl-item:nth-of-type(1){left:0;width:62%;text-align:right}
-  .timeline article.tl-item:nth-of-type(2){left:36%;width:64%;padding-left:10px}
+  .timeline article.tl-item:nth-of-type(2){left:40%;width:60%;padding-left:10px}
   .timeline article.tl-item:nth-of-type(3){left:0;width:64%;text-align:right}
   .timeline article.tl-item:nth-of-type(4){left:44%;width:56%;padding-left:10px}
   .timeline article.tl-item:nth-of-type(5){left:0;width:64%;text-align:right}
 }
 @media(min-width:901px){
   .timeline article.tl-item:nth-of-type(1){left:0;width:62%;text-align:right}
-  .timeline article.tl-item:nth-of-type(2){left:36%;width:64%}
+  .timeline article.tl-item:nth-of-type(2){left:40%;width:60%}
   .timeline article.tl-item:nth-of-type(3){left:0;width:64%;text-align:right}
   .timeline article.tl-item:nth-of-type(4){left:44%;width:56%}
   .timeline article.tl-item:nth-of-type(5){left:0;width:64%;text-align:right}
