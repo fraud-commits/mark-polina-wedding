@@ -72,7 +72,7 @@ const I18N_EN = {
   'Каждому моменту — своё время': 'Every moment has its own time',
   'Заезд гостей': 'Guest arrival',
   'Заселение в гостевой дом,': 'Check-in at guest house,',
-  'прихожание и общение': 'freshen up and catch up',
+  'время подготовиться и пообщаться': 'time to get ready and catch up',
   'Сбор гостей': 'Guests gather',
   'Welcome и приветствие': 'Welcome and greeting',
   'Церемония': 'The ceremony',
