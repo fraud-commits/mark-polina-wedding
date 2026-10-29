@@ -277,22 +277,24 @@ body.env-locked{overflow:hidden}
 .tl-path path{fill:none;stroke:#5f6326;stroke-width:2.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .timeline article.tl-item{position:absolute;display:block;padding:0;border:0;margin:0;z-index:2;text-align:left}
 .tl-item:before,.tl-item:after{display:none}
-.timeline article.tl-item:nth-of-type(1){left:0;top:11%;width:75%;text-align:right}
-.timeline article.tl-item:nth-of-type(2){left:30%;top:34%;width:70%;text-align:left}
-.timeline article.tl-item:nth-of-type(3){left:0;top:55%;width:66%;text-align:right}
-.timeline article.tl-item:nth-of-type(4){left:42%;top:79%;width:58%;text-align:left;padding-left:10px}
+.timeline article.tl-item:nth-of-type(1){left:0;top:11%;width:62%;text-align:right}
+.timeline article.tl-item:nth-of-type(2){left:36%;top:31%;width:64%;text-align:left}
+.timeline article.tl-item:nth-of-type(3){left:0;top:49.5%;width:64%;text-align:right}
+.timeline article.tl-item:nth-of-type(4){left:44%;top:67.5%;width:56%;text-align:left;padding-left:10px}
+.timeline article.tl-item:nth-of-type(5){left:0;top:85%;width:64%;text-align:right}
 .tl-card{max-width:none;padding:0}
 .tl-card h3{font-size:31px;font-style:italic;margin:0 0 4px}
 .tl-card p{font-size:12.5px}
 .timeline .tl-heart{left:50%;top:0;transform:translate(-50%,-50%);animation:none}
 .tl-heart svg{width:30px;height:30px;animation:none}
 @media(max-width:700px){
-  .timeline{height:980px;max-width:none;margin:46px 3% 0}
+  .timeline{max-width:none;margin:46px 3% 0}
   .tl-card h3{font-size:27px}
   .timeline article.tl-item:nth-of-type(1){top:10%}
-  .timeline article.tl-item:nth-of-type(2){top:32.5%}
-  .timeline article.tl-item:nth-of-type(3){top:55%}
-  .timeline article.tl-item:nth-of-type(4){left:38%;top:77.5%;width:62%;padding-left:8px}
+  .timeline article.tl-item:nth-of-type(2){top:30%}
+  .timeline article.tl-item:nth-of-type(3){top:49.5%}
+  .timeline article.tl-item:nth-of-type(4){top:67.5%}
+  .timeline article.tl-item:nth-of-type(5){top:85%}
 }
 /* Asymmetric editorial invitation, June 2027. */
 .hero.editorial-hero{min-height:790px;max-width:1600px;margin:auto;padding:75px max(7%,calc((100% - 1160px)/2)) 65px;display:block;text-align:left;overflow:hidden;isolation:isolate}
@@ -768,20 +770,22 @@ body{padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
 .envelope-screen .env-hint{bottom:calc(28px + var(--safe-b))}
 .wedding-finale{padding-bottom:calc(70px + var(--safe-b))}
 /* Линия таймлайна не должна проходить по тексту.
-   По геометрии SVG-пути (viewBox 0 0 400 1600) на уровне карточек:
-   1 -> линия 71..83%  2 -> 21..31%  3 -> 72..78%  4 -> 28..41%.
+   По геометрии SVG-пути (viewBox 0 0 400 1600, 5 точек):
+   1 -> линия 76..86%  2 -> 22..26%  3 -> 72..78%  4 -> 32..35%  5 -> 72..82%.
    Карточки сдвинуты так, чтобы остаться по другую сторону линии. */
 @media(max-width:900px){
   .timeline article.tl-item:nth-of-type(1){left:0;width:62%;text-align:right}
   .timeline article.tl-item:nth-of-type(2){left:36%;width:64%;padding-left:10px}
   .timeline article.tl-item:nth-of-type(3){left:0;width:64%;text-align:right}
   .timeline article.tl-item:nth-of-type(4){left:44%;width:56%;padding-left:10px}
+  .timeline article.tl-item:nth-of-type(5){left:0;width:64%;text-align:right}
 }
 @media(min-width:901px){
   .timeline article.tl-item:nth-of-type(1){left:0;width:62%;text-align:right}
   .timeline article.tl-item:nth-of-type(2){left:36%;width:64%}
   .timeline article.tl-item:nth-of-type(3){left:0;width:64%;text-align:right}
   .timeline article.tl-item:nth-of-type(4){left:44%;width:56%}
+  .timeline article.tl-item:nth-of-type(5){left:0;width:64%;text-align:right}
 }
 /* botanical.svg и paper-texture.png удалены из проекта — гасим ссылки на них,
    иначе браузер получает 404 при каждом визите. */
@@ -809,8 +813,8 @@ body{padding-top:var(--safe-t);padding-bottom:var(--safe-b)}
 }
 /* Вертикальный ритм: таймлайн занимал фиксированные 1500px на 4 события —
    отсюда длинные пустые паузы при прокрутке. Высота считается от числа точек. */
-.timeline{--tl-events:4;height:calc(var(--tl-events) * 250px + 60px)}
-@media(max-width:700px){.timeline{--tl-events:4;height:calc(var(--tl-events) * 230px + 40px)}}
+.timeline{--tl-events:5;height:calc(var(--tl-events) * 250px + 60px)}
+@media(max-width:700px){.timeline{--tl-events:5;height:calc(var(--tl-events) * 230px + 40px)}}
 
 
 
