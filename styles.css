@@ -285,7 +285,7 @@ body.env-locked{overflow:hidden}
 .tl-card{max-width:none;padding:0}
 .tl-card h3{font-size:31px;font-style:italic;margin:0 0 4px}
 .tl-card p{font-size:12.5px}
-.timeline .tl-heart{left:50%;top:0;transform:translate(-50%,-50%);animation:none}
+.timeline .tl-heart{left:0;top:0;transform:translate3d(0,0,0) translate(-50%,-50%);will-change:transform;animation:none}
 .tl-heart svg{width:30px;height:30px;animation:none}
 @media(max-width:700px){
   .timeline{max-width:none;margin:46px 3% 0}

@@ -400,8 +400,12 @@ render();
    } else {
      svg.style.clipPath = 'none';
    }
-   heart.style.left = (pt.x * (r.width / vb.width)) + 'px';
-   heart.style.top = (pt.y * (r.height / vb.height)) + 'px';
+    const x = pt.x * (r.width / vb.width);
+    const y = pt.y * (r.height / vb.height);
+    // Transform stays on the compositor. Updating left/top here forced Safari
+    // to recalculate layout on every scroll frame, which became visible near
+    // the lower half of the long timeline.
+    heart.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%)`;
  };
  const scheduleMove = () => {
    if (frame) return;
