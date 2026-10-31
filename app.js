@@ -63,10 +63,6 @@ const STR = {
     night: 'Останетесь на ночь?', nightYes: 'Да, хочу остаться', nightNo: 'Нет', nightMaybe: 'Пока не знаю',
     travel: 'Как планируете добраться?', car: 'На своей машине', ride: 'Хочу присоединиться к кому-то',
     own: 'Доберусь самостоятельно', travelMaybe: 'Пока не знаю',
-    seats: 'Сможете взять попутчиков?', noSeats: 'Нет свободных мест',
-    seat1: '1 место', seat2: '2 места', seat3: '3 места', seat4: '4 места',
-    from: 'Откуда поедете?', fromPh: 'Город или район',
-    rideNote: 'Пожелание о попутчиках обсудим в группе WhatsApp — поездка ещё не согласована.',
     drinks: 'Какие напитки предпочитаете?', legend: 'Анкета',
     plusLegend: 'Ваш +1', plusQ: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей',
     plusName: 'Имя спутницы — если уже известно', plusNote: 'Имя необязательно. Ниже — пожелания вашего +1.',
@@ -81,10 +77,6 @@ const STR = {
     night: 'Will you stay overnight?', nightYes: 'Yes, I would like to stay', nightNo: 'No', nightMaybe: 'Not sure yet',
     travel: 'How will you get there?', car: 'By car', ride: 'I would like a ride',
     own: 'I will get there myself', travelMaybe: 'Not sure yet',
-    seats: 'Could you take any passengers?', noSeats: 'No spare seats',
-    seat1: '1 seat', seat2: '2 seats', seat3: '3 seats', seat4: '4 seats',
-    from: 'Where will you travel from?', fromPh: 'Town or district',
-    rideNote: 'Rides will be sorted out in our WhatsApp group — the plan is not final yet.',
     drinks: 'What would you like to drink?', legend: 'RSVP',
     plusLegend: 'Your +1', plusQ: 'Will you come alone or with a partner?', alone: 'I will come alone', with: 'I will come with a partner',
     plusName: 'Your guest\u2019s name \u2014 if you know it yet', plusNote: 'The name is optional. Below are your guest\u2019s preferences.',
@@ -109,8 +101,6 @@ const STR_TU = { ru: Object.assign({}, STR.ru, {
   attending: 'Сможешь прийти?',
   night: 'Останешься на ночь?',
   travel: 'Как доберёшься?',
-  seats: 'Возьмёшь попутчиков?',
-  from: 'Откуда поедешь?',
   drinks: 'Какие напитки тебе по душе?',
   ok: 'Спасибо! Твой ответ сохранён. Очень ждём встречи 🤍',
   fail: 'Не получилось отправить. Попробуй ещё раз или напиши нам.'
@@ -140,8 +130,6 @@ function details(id, isChild) {
   const t = T();
   return `${select(id+'-night',t.night, [['yes',t.nightYes],['no',t.nightNo],['maybe',t.nightMaybe]])}
   ${select(id+'-travel',t.travel, [['car',t.car],['ride',t.ride],['own',t.own],['maybe',t.travelMaybe]])}
-  <div data-car hidden>${select(id+'-seats',t.seats, [['0',t.noSeats],['1',t.seat1],['2',t.seat2],['3',t.seat3],['4',t.seat4],['maybe',t.maybe]])}</div>
-  <div data-route hidden><label>${t.from}<input name="${id}-from" maxlength="100" placeholder="${t.fromPh}"></label><p class="small">${t.rideNote}</p></div>
   <p>${t.drinks}</p><div class="checks">${DRINKS.map((d,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}" data-drink="${d.ru}"> ${currentLang==='en'?d.en:d.ru}</label>`).join('')}</div>`;
 }
 function guest(id, entry) {
@@ -166,15 +154,7 @@ function sync() {
    visibility(plus, hostYes);
    visibility(document.querySelector('[data-companion]'), hostYes && document.querySelector('[name="companion"]').value === 'yes');
  }
- document.querySelectorAll('[data-car]').forEach(block => {
-   const travel = block.parentElement.querySelector('select[name$="-travel"]');
-   const active = !travel.disabled;
-   visibility(block, active && travel.value === 'car');
-   const seats = block.querySelector('select').value;
-   const offersRide = travel.value === 'car' && ['1','2','3','4'].includes(seats);
-   visibility(block.parentElement.querySelector('[data-route]'), active && (travel.value === 'ride' || offersRide));
- });
- document.querySelector('#status').textContent = '';
+  document.querySelector('#status').textContent = '';
 }
 function enGreeting(){
   if(resolvedToken === 'yuriy-elena') return 'Dear Mum and Dad!';
@@ -267,7 +247,7 @@ const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzJxggv3SwYO9BNyS
 function collect(form) {
  const val = name => { const el = form.querySelector(`[name="${name}"]`); return el && !el.disabled ? el.value.trim() : ''; };
  const drinksOf = id => [...form.querySelectorAll(`input[name="${id}-drinks"]:checked`)].filter(c => !c.disabled).map(c => c.dataset.drink || c.parentElement.textContent.trim());
- const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), seats: val(id+'-seats'), from: val(id+'-from'), drinks: drinksOf(id), food: val(id+'-food') });
+  const guestData = id => ({ name: '', attending: val(id+'-attending'), night: val(id+'-night'), travel: val(id+'-travel'), drinks: drinksOf(id), food: val(id+'-food') });
  const guests = [];
  document.querySelectorAll('#guests > fieldset:not([data-plus])').forEach((fs, i) => {
    const data = guestData('g'+i);
