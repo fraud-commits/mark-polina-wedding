@@ -62,7 +62,7 @@ const STR = {
     yes: 'С радостью!', no: 'К сожалению, нет', maybe: 'Пока не знаю',
     night: 'Останетесь на ночь?', nightYes: 'Да, хочу остаться', nightNo: 'Нет', nightMaybe: 'Пока не знаю',
     travel: 'Как планируете добраться?', car: 'На своей машине', ride: 'Хочу присоединиться к кому-то',
-    own: 'Доберусь самостоятельно', travelMaybe: 'Пока не знаю',
+    travelMaybe: 'Пока не знаю',
     drinks: 'Какие напитки предпочитаете?', legend: 'Анкета',
     plusLegend: 'Ваш +1', plusQ: 'Придёте один или со спутницей?', alone: 'Приду один', with: 'Буду со спутницей',
     plusName: 'Имя спутницы — если уже известно', plusNote: 'Имя необязательно. Ниже — пожелания вашего +1.',
@@ -76,7 +76,7 @@ const STR = {
     yes: 'With pleasure!', no: 'Unfortunately, not', maybe: 'Not sure yet',
     night: 'Will you stay overnight?', nightYes: 'Yes, I would like to stay', nightNo: 'No', nightMaybe: 'Not sure yet',
     travel: 'How will you get there?', car: 'By car', ride: 'I would like a ride',
-    own: 'I will get there myself', travelMaybe: 'Not sure yet',
+    travelMaybe: 'Not sure yet',
     drinks: 'What would you like to drink?', legend: 'RSVP',
     plusLegend: 'Your +1', plusQ: 'Will you come alone or with a partner?', alone: 'I will come alone', with: 'I will come with a partner',
     plusName: 'Your guest\u2019s name \u2014 if you know it yet', plusNote: 'The name is optional. Below are your guest\u2019s preferences.',
@@ -129,7 +129,7 @@ function details(id, isChild) {
   if (isChild) return '';
   const t = T();
   return `${select(id+'-night',t.night, [['yes',t.nightYes],['no',t.nightNo],['maybe',t.nightMaybe]])}
-  ${select(id+'-travel',t.travel, [['car',t.car],['ride',t.ride],['own',t.own],['maybe',t.travelMaybe]])}
+  ${select(id+'-travel',t.travel, [['car',t.car],['ride',t.ride],['maybe',t.travelMaybe]])}
   <p>${t.drinks}</p><div class="checks">${DRINKS.map((d,i)=>`<label><input type="checkbox" name="${id}-drinks" value="${i}" data-drink="${d.ru}"> ${currentLang==='en'?d.en:d.ru}</label>`).join('')}</div>`;
 }
 function guest(id, entry) {
