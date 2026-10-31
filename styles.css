@@ -595,6 +595,7 @@ body:has(.paper-hero) header{background:transparent;position:relative;z-index:3}
 .next-day-section{padding-top:72px!important;padding-bottom:36px!important}
 .next-day-section .next-day{max-width:760px;margin:0 auto}
 .next-day-section + .details{padding-top:48px}
+@media(min-width:901px){.details>div{max-width:760px;margin:0 auto}}
 .rsvp form label{display:block;margin-bottom:26px;font-size:14px;line-height:1.6}
 .rsvp input:not([type=checkbox]),.rsvp select,.rsvp textarea{display:block;width:100%;margin-top:10px;min-height:50px;font-size:16px;padding:13px 12px}
 .rsvp fieldset{margin:0 0 32px;padding-top:24px}
