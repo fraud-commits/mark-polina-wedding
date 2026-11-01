@@ -117,7 +117,7 @@
   // Управление со laptop: стрелки — вручную, Space — стоп/пуск
   let hold = false, timer = setInterval(next, SLIDE_MS);
   addEventListener('keydown', e => {
-    if (e.code === 'ArrowRight'){ if (!items.length) return; pos = (pos + 1) % items.length; next(); }
+    if (e.code === 'ArrowRight'){ if (!items.length) return; next(); }
     if (e.code === 'ArrowLeft'){ if (!items.length) return; pos = (pos - 2 + items.length * 2) % items.length; next(); }
     if (e.code === 'Space'){ hold = !hold; (hold ? clearInterval(timer) : (timer = setInterval(next, SLIDE_MS))); e.preventDefault(); }
   });
