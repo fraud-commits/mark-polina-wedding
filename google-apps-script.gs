@@ -1,5 +1,5 @@
 const SHEET_NAME = 'Ответы';
-const DRINKS = ['Вино красное','Вино белое','Игристое','Крепкий алкоголь','Безалкогольные'];
+const DRINKS = ['Вино красное','Вино белое','Игристое','Коктейли','Крепкий алкоголь','Безалкогольные'];
 const COLUMNS = ['Время','Гостей','Имена','Придут?','Ночёвка','Транспорт',...DRINKS,'Спутник/ца','Комментарий','raw'];
 // Колонки старой версии формы — удаляются, только если в них нет данных.
 const LEGACY_COLUMNS = ['Пиво','Крепкий уточнение'];
@@ -43,6 +43,26 @@ function cleanupColumns(sh){
   }
 }
 
+// Добавляем новые обязательные колонки и в уже существующую таблицу.
+// Колонку вставляем перед следующей известной, поэтому «Коктейли» окажутся
+// между «Игристое» и «Крепкий алкоголь», не затрагивая сохранённые ответы.
+function ensureColumns(sh){
+  let header = readHeader(sh);
+  COLUMNS.forEach((name, expectedIndex)=>{
+    if(header.indexOf(name) >= 0) return;
+    const nextName = COLUMNS.slice(expectedIndex + 1).find(n => header.indexOf(n) >= 0);
+    if(nextName){
+      const col = header.indexOf(nextName) + 1;
+      sh.insertColumnBefore(col);
+      sh.getRange(1, col).setValue(name);
+    }else{
+      sh.getRange(1, header.length + 1).setValue(name);
+    }
+    header = readHeader(sh);
+  });
+  sh.setFrozenRows(1);
+}
+
 function doGet(e){
   // Намеренно без данных ответа — по ссылке скрипта нельзя прочитать анкеты гостей.
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
@@ -52,6 +72,7 @@ function doPost(e){
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sh = getSheet(ss);
   cleanupColumns(sh);
+  ensureColumns(sh);
   const header = readHeader(sh);
   const d = JSON.parse(e.postData.contents);
   const g = d.guests || [];
@@ -94,7 +115,7 @@ function doPost(e){
   rows.forEach(r=>{ sh.appendRow(header.map(h=> r[h]===undefined || r[h]===null ? '' : r[h])); });
   // Дата и время в привычном виде: 20.10.2026 22:10 (в ячейке остаётся настоящая дата — сортировка работает)
   if(header.indexOf('Время') >= 0){
-    sh.getRange(2, header.indexOf('Время')+1, Math.max(sh.getLastRow()-1,1), 1).setNumberFormat('DD.MM.YYYY HH:MM');
+    sh.getRange(2, header.indexOf('Время')+1, Math.max(sh.getLastRow()-1,1), 1).setNumberFormat('dd.MM.yyyy HH:mm');
   }
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }
