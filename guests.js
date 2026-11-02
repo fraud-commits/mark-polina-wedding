@@ -1,7 +1,7 @@
 // Именной словарь для страниц фото (photos.html / led.html).
 // Токены совпадают с invitations в app.js. Три английские пары — с en:true.
 // Три пары открываются сразу на английском (как на сайте-приглашении).
-window.WEDDING_AUTO_EN = { 'toms-natasha': 1, 'milos-dasha': 1, 'vitaliy-basha': 1 };
+window.WEDDING_AUTO_EN = { 'toms-natasha': 1, 'milos-dasha': 1, 'vitaliy-basha': 1, 'sylwester-basia': 1 };
 window.WEDDING_GUESTS = {
   'default':         { ru: ['Дорогие гости'], en: ['Dear guests'] },
   'yuriy-elena':     { ru: ['Юрий и Елена'], en: ['Yuriy and Elena'] },
@@ -28,6 +28,7 @@ window.WEDDING_GUESTS = {
   'oscars':          { ru: ['Оскарс'], en: ['Oskars'] },
   'janis-valeriya':  { ru: ['Янис и Валерия'], en: ['Janis and Valeriya'] },
   'zbignev-marina':  { ru: ['Збигнев и Марина'], en: ['Zbignev and Marina'] },
+  'sylwester-basia': { ru: ['Сильвестр и Бася'], en: ['Sylwester and Basia'] },
   'andrey':          { ru: ['Андрей'], en: ['Andrey'] },
   'alexandra':       { ru: ['Александра'], en: ['Alexandra'] }
 };

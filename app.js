@@ -38,6 +38,7 @@ const invitations = {
   oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   'janis-valeriya': { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
   'zbignev-marina': { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
+  'sylwester-basia': { greeting: 'Дорогие Сильвестр и Бася!', note: noteTwo, guests: ['Сильвестр', 'Бася'], plusOne: false },
   andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   // Александра — девушка-гость, идёт со спутником (+1 в мужском роде)
   alexandra: { greeting: 'Дорогая Александра!', note: 'Будем рады видеть вас вместе со спутником.', tuNote: 'Будем рады видеть тебя вместе со спутником.', guests: ['Александра'], plusOne: true, partner: plusShe, partnerTu: plusSheTu }
@@ -106,7 +107,7 @@ const STR_TU = { ru: Object.assign({}, STR.ru, {
   fail: 'Не получилось отправить. Попробуй ещё раз или напиши нам.'
 }), en: STR.en };
 // Имена для английской версии: латиница для тех, кто по-русски не читает.
-const EN_NAMES = { 'Баша': 'Basia', 'Милош': 'Knjaz Miloš', 'Даша': 'Daria', 'Томс': 'Toms', 'Виталий': 'Vitaliy', 'Натали': 'Natalie' };
+const EN_NAMES = { 'Баша': 'Basia', 'Бася': 'Basia', 'Сильвестр': 'Sylwester', 'Милош': 'Knjaz Miloš', 'Даша': 'Daria', 'Томс': 'Toms', 'Виталий': 'Vitaliy', 'Натали': 'Natalie' };
 const TR = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
 const toLatin = s => s.split('').map(ch=>{
   const low = ch.toLowerCase();

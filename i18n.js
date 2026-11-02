@@ -164,7 +164,7 @@ const I18N_EN = {
 };
 
 // Гости, которым английский нужен по умолчанию.
-const EN_GUESTS = ['milos-dasha', 'vitaliy-basha', 'toms-natasha'];
+const EN_GUESTS = ['milos-dasha', 'vitaliy-basha', 'toms-natasha', 'sylwester-basia'];
 
 const LANG_KEY = 'wedding-lang';
 // Флаг «язык выбран вручную переключателем» — тогда сохранённый выбор сильнее
