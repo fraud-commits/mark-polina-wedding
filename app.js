@@ -38,7 +38,7 @@ const invitations = {
   oscars: { greeting: 'Дорогой Оскарс!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Оскарс'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   'janis-valeriya': { greeting: 'Дорогие Янис и Валерия!', note: noteTwo, guests: ['Янис', 'Валерия'], plusOne: false },
   'zbignev-marina': { greeting: 'Дорогие Збигнев и Марина!', note: noteTwo, guests: ['Збигнев', 'Марина'], plusOne: false },
-  'sylwester-basia': { greeting: 'Дорогие Сильвестр и Бася!', note: noteTwo, guests: ['Сильвестр', 'Бася'], plusOne: false },
+  'sylwester-basia': { greeting: 'Дорогие Сильвестр и Баша!', note: noteTwo, guests: ['Сильвестр', 'Баша'], plusOne: false },
   andrey: { greeting: 'Дорогой Андрей!', note: 'Будем рады видеть вас вместе со спутницей.', tuNote: 'Будем рады видеть тебя вместе со спутницей.', guests: ['Андрей'], plusOne: true, partner: plusHe, partnerTu: plusHeTu },
   // Александра — девушка-гость, идёт со спутником (+1 в мужском роде)
   alexandra: { greeting: 'Дорогая Александра!', note: 'Будем рады видеть вас вместе со спутником.', tuNote: 'Будем рады видеть тебя вместе со спутником.', guests: ['Александра'], plusOne: true, partner: plusShe, partnerTu: plusSheTu }
