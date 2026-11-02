@@ -18,7 +18,7 @@ const invitations = {
   'andrey-yuliya': { greeting: 'Дорогие Андрей, Юлия и Даня!', note: 'Приглашаем вас всех — вместе с Даней.', guests: ['Андрей', 'Юлия', {name:'Даня', child:true}], plusOne: false },
   nikita: { greeting: 'Дорогой Никита!', note: noteOne, tuNote: noteOneTu, guests: ['Никита'], plusOne: false },
   valya: { greeting: 'Дорогая бабушка Валя!', note: noteOne, tuNote: noteOneTu, guests: ['Бабушка Валя'], plusOne: false },
-  'toms-natasha': { greeting: 'Дорогие Томс и Натали!', note: noteTwo, guests: ['Томс', 'Натали'], plusOne: false },
+  'toms-natasha': { greeting: 'Дорогие Томс и Натали!', note: noteTwo, guests: ['Томс', 'Натали', {name:'Оливия', child:true, hidden:true}], plusOne: false },
   'milos-dasha': { greeting: 'Дорогие Князь Милош и Даша!', note: noteTwo, guests: ['Милош', 'Даша'], plusOne: false },
   'yakov-elvira': { greeting: 'Дорогие Яков и Эльвира!', note: noteTwo, guests: ['Яков', 'Эльвира'], plusOne: false },
   'ernest-kseniya': { greeting: 'Дорогие Эрнест и Ксения!', note: noteTwo, guests: ['Эрнест', 'Ксения'], plusOne: false },
@@ -107,7 +107,7 @@ const STR_TU = { ru: Object.assign({}, STR.ru, {
   fail: 'Не получилось отправить. Попробуй ещё раз или напиши нам.'
 }), en: STR.en };
 // Имена для английской версии: латиница для тех, кто по-русски не читает.
-const EN_NAMES = { 'Баша': 'Basia', 'Бася': 'Basia', 'Сильвестр': 'Sylwester', 'Милош': 'Knjaz Miloš', 'Даша': 'Daria', 'Томс': 'Toms', 'Виталий': 'Vitaliy', 'Натали': 'Natalie' };
+const EN_NAMES = { 'Баша': 'Basia', 'Бася': 'Basia', 'Сильвестр': 'Sylwester', 'Милош': 'Knjaz Miloš', 'Даша': 'Daria', 'Томс': 'Toms', 'Виталий': 'Vitaliy', 'Натали': 'Natalie', 'Оливия': 'Olivia' };
 const TR = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
 const toLatin = s => s.split('').map(ch=>{
   const low = ch.toLowerCase();
@@ -160,7 +160,8 @@ function sync() {
 function enGreeting(){
   if(resolvedToken === 'yuriy-elena') return 'Dear Mum and Dad!';
   if(resolvedToken === 'svetlana') return 'Dear Mum!';
-  const names = invitation.guests.map(g => enName(getGuestName(g)));
+  // Скрытые дети (hidden:true) появляются только в анкете — их нет в приветствии.
+  const names = invitation.guests.filter(g => !(g && g.hidden)).map(g => enName(getGuestName(g)));
   if(!names.length || !names[0]) return 'Dear friends!';
   if(names.length === 1) return `Dear ${names[0]}!`;
   if(names.length === 2) return `Dear ${names[0]} and ${names[1]}!`;
